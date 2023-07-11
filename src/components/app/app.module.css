@@ -5,3 +5,8 @@
   background-color: #131316;
   color: #f2f2f3;
 }
+
+button {
+  width: 100px;
+  height: 100px;
+}
