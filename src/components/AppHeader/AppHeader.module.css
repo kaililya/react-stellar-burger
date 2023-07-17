@@ -4,20 +4,36 @@
 }
 
 .navigation {
-
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .navigation__list {
   list-style: none;
   display: flex;
   margin: 0;
+  padding: 0;
 }
 
 .navigation__item {
-
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
+.navigation__item:last-child{
+  justify-content: flex-end;
+}
 
-.xoroc {
-  margin: 0 16px 0;
+.navigation__item:nth-child(1){
+  gap: 28px;
+}
+
+.navigation__item:nth-child(2){
+  justify-content: center;
+}
+
+.navigation__link {
+  display: flex;
+  gap: 8px;
 }

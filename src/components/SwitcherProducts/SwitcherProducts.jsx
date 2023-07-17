@@ -4,7 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 function SwitcherProducts() {
   const [current, setCurrent] = React.useState('one')
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap'}}>
       <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
       Булки
       </Tab>

@@ -1,0 +1,27 @@
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+}
+
+.ingredient {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: relative;
+  max-width: 272px;
+  height: 208px;
+  flex-grow: 1;
+}
+
+.ingredient__image {
+  width: 240px;
+}
+
+.ingredient_name {
+  text-align: center;
+}
+
+.price_container {
+  display: flex;
+}
