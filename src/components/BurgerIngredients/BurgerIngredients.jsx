@@ -4,13 +4,11 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import SwitcherProducts from '../SwitcherProducts/SwitcherProducts';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 
-import {data} from '../../utils/data.js';
 import IngredientMenu from '../IngredientMenu/IngredientMenu';
 
 function BurgerIngredients(props) {
  
   // проверить props на пустоту
-
 
   return (
     <section className={`mt-10 mr-10 ${styles.ingredients_main_container}`}>
@@ -19,9 +17,9 @@ function BurgerIngredients(props) {
         <SwitcherProducts />
       </div>
       <div className={`custom-scroll ${styles.ingredients_type}`}>
-        <IngredientMenu setCurrentIngredient={props.setCurrentIngredient} setPopupIngredientClosed={props.setPopupIngredientClosed} ingredients={data.filter((ing) => ing.type ==="bun")} title={'Булки'} />
-        <IngredientMenu setCurrentIngredient={props.setCurrentIngredient} setPopupIngredientClosed={props.setPopupIngredientClosed} ingredients={data.filter((ing) => ing.type ==="sauce")} title={'Соусы'} />
-        <IngredientMenu setCurrentIngredient={props.setCurrentIngredient} setPopupIngredientClosed={props.setPopupIngredientClosed} ingredients={data.filter((ing) => ing.type ==="main")} title={'Основное'} />
+        <IngredientMenu setCurrentIngredient={props.setCurrentIngredient} setPopupIngredientClosed={props.setPopupIngredientClosed} ingredients={props.ingredients.data.filter((ing) => ing.type ==="bun")} title={'Булки'} />
+        <IngredientMenu setCurrentIngredient={props.setCurrentIngredient} setPopupIngredientClosed={props.setPopupIngredientClosed} ingredients={props.ingredients.data.filter((ing) => ing.type ==="sauce")} title={'Соусы'} />
+        <IngredientMenu setCurrentIngredient={props.setCurrentIngredient} setPopupIngredientClosed={props.setPopupIngredientClosed} ingredients={props.ingredients.data.filter((ing) => ing.type ==="main")} title={'Основное'} />
       </div>
      
 

@@ -35,6 +35,8 @@ function App() {
     getIngredients();
   },[]);
 
+  if(ingredients.length < 1) return null;
+
   return (
     <div className={styles.app}>
       <AppHeader />
