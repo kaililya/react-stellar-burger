@@ -1,4 +1,4 @@
-import styles from "./App.module.css";
+import styles from "./app.module.css";
 import AppHeader from '../AppHeader/AppHeader'
 import React from "react";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
