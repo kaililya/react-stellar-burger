@@ -21,7 +21,12 @@ function App() {
   function getIngredients() {
     const url = urlIngredient;
     fetch(url)
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+          return res.json();
+      }
+      return Promise.reject(`Ошибка ${res.status}`);
+  })
     .then(data => {
       setIngredients(data);
     })
