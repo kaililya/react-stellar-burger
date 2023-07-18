@@ -11,7 +11,7 @@ function BurgerConstructor(props) {
   return (
     <>
       <div className='pl-4'>
-        <div className="custom-scroll" style={{paddingRight:'8px', display: 'flex', flexDirection: 'column', alignItems:'flex-end', gap: '16px', maxWidth: '600px',marginTop:'100px',  height:'400px', overflowY:'scroll' }}>
+        <div className="custom-scroll" style={{paddingRight:'8px', display: 'flex', flexDirection: 'column', alignItems:'flex-end', gap: '16px', maxWidth: '656px', marginTop:'100px', overflowY:'scroll' }}>
           <div className={`${styles.ingredient}`}>
             {/* <DragIcon type="primary" /> */}
             <ConstructorElement

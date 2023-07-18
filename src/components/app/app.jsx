@@ -1,16 +1,14 @@
-import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import styles from "./App.module.css";
 import AppHeader from '../AppHeader/AppHeader'
 import React from "react";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import OrderPopup from "../OrderPopup/OrderPopup";
-import IngredientPopup from "../IngredientPopup/IngredientPopup";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
+import PropTypes from 'prop-types';
 
-// прошу прощения у того, кто это будет проверять
-// не писал код 1.5 месяца, часть вещей забыл, часть вещей реализовал плохо, но уже почти 3 недели сижу над проектом
-// спасибо за терпение
+const urlIngredient = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
 
@@ -18,11 +16,10 @@ function App() {
 //  popuprderdetail
   const [popupClosed, setPopupClosed] = React.useState(false);
   const [popupIngredientClose, setPopupIngredientClosed] = React.useState(false);
-  const [currentIngredient, setCurrentIngredient] = React.useState(undefined);
-// 
+  const [currentIngredient, setCurrentIngredient] = React.useState(undefined); 
 
   function getIngredients() {
-    const url = 'https://norma.nomoreparties.space/api/ingredients';
+    const url = urlIngredient;
     fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -45,15 +42,22 @@ function App() {
         <BurgerConstructor setPopupClosed={setPopupClosed} />
       </main>
       <Modal popupClosed={popupClosed} setPopupClosed={setPopupClosed}>
-        <OrderPopup /> 
+        <OrderDetails /> 
       </Modal>
 
       <Modal popupClosed={popupIngredientClose} setPopupClosed={setPopupIngredientClosed}>
-        <IngredientPopup currentIngredient={currentIngredient} /> 
+        <IngredientDetails currentIngredient={currentIngredient} /> 
       </Modal>
       
     </div>
   );
+}
+
+App.propTypes  = {
+  popupClosed: PropTypes.bool,
+  popupIngredientClose: PropTypes.bool,
+  ingredients: PropTypes.arrayOf(PropTypes.object),
+  currentIngredient: PropTypes.object
 }
 
 export default App;

@@ -1,11 +1,11 @@
 import React from 'react'
-import styles from "./OrderPopup.module.css";
+import styles from "./OrderDetails.module.css";
 import { CheckMarkIcon, CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import illustration from '../../image/done.svg'
 
 
 
-function OrderPopup() {
+function OrderDetails() {
   return (
     <div className={`pt-30 pb-30 ${styles.popup_container}`}>
       <p className={`text text_type_digits-large mb-8 ${styles.number_order}`}>034536</p>
@@ -17,4 +17,4 @@ function OrderPopup() {
   )
 }
 
-export default OrderPopup
+export default OrderDetails

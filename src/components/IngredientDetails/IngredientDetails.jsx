@@ -1,11 +1,11 @@
 import React from 'react'
-import styles from "./IngredientPopup.module.css";
+import styles from "./IngredientDetails.module.css";
 
 
 
-function IngredientPopup(props) {
-  console.log(props.currentIngredient);
+function IngredientDetails(props) {
   
+  if (props.currentIngredient == undefined) return null;
   
   return (
     <>
@@ -38,4 +38,4 @@ function IngredientPopup(props) {
   )
 }
 
-export default IngredientPopup
+export default IngredientDetails
