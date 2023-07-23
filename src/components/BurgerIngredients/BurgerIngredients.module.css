@@ -1,0 +1,21 @@
+.ingredients_main_container {
+  /* outline: 1px solid red; */
+}
+
+.ingredients_type {
+  /* outline: 1px solid blue; */
+  height: 716px;
+  overflow-y: scroll;
+}
+
+.body::-webkit-scrollbar {
+	width: 12px;
+}
+.body::-webkit-scrollbar-track {
+	background: #2F2F37;
+}
+.body::-webkit-scrollbar-thumb {
+	background: #8585AD;
+	border: 3px solid #2F2F37;
+	border-radius: 6px;
+}

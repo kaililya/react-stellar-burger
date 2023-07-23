@@ -1,0 +1,6 @@
+.ingredient {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 536px; 
+}

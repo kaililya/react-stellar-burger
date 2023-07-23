@@ -1,0 +1,12 @@
+.price_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.price_currency_container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+}
