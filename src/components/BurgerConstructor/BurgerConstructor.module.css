@@ -1,6 +1,45 @@
-.ingredient {
+.ingredient_main_container {
+  padding-right:8px;
   display: flex;
+  width: 600px; 
+  margin-top:100px;
+  flex-flow: row wrap;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
-  max-width: 536px; 
+  height: 100%;
+  gap: 16px;
+ }
+
+ .ingredient_main_container__hovered {
+  outline: 1px solid rgb(255, 48, 231);
+ }
+
+ .main_section {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 600px;
+  height: calc(100vh - 188px);
+ }
+ 
+ .scroll_zone {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  list-style: none outside;
+  display: flex;
+  gap: 16px;
+  flex-flow: column nowrap;
+  height: calc(100vh - 188px - 156px - 192px);
+  width: 100%;
+ }
+
+ .bun_top {
+  align-self: flex-start;
 }
+
+ .bun_bottom {
+  align-self: flex-end;
+ }
+
+ 

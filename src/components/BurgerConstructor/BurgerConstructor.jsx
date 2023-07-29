@@ -1,87 +1,82 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './BurgerConstructor.module.css'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {data} from '../../utils/data.js';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPrice from '../TotalPrice/TotalPrice';
-// height:'656px'
-// overflowY:'scroll' 
-// className="custom-scrollbar"
+import { useDispatch, useSelector } from 'react-redux';
+import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
+import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
+import { useDrop } from 'react-dnd';
+import { addIngredient, setBun } from '../../services/actions/burger-constructor-action-creators';
 
-function BurgerConstructor(props) {
+
+function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const { bun, ingredients } = useSelector(burgerConstructorSelector);
+
+  const handleDropItem = (item) => {
+    switch (item.type) {
+      case "bun": {
+        dispatch(setBun(item));
+        break;
+      }
+      default: {
+        dispatch(addIngredient(item));
+        break;
+      }
+    }
+  }
+
+  const [{ isHover, droppeditem}, refDrop] = useDrop({
+    accept: 'ingredient',
+    drop: handleDropItem,
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+      droppeditem: monitor.getItem(),
+    })
+  })
+
+  const isEmpty = useMemo(() => !bun && ingredients.length === 0, [bun, ingredients]);
+  // const isNoIngredients = useMemo(() => ingredients.length === 0, [ingredients]);
+  const containerHoverClass = isHover ?  `${styles.ingredient_main_container} ${styles.ingredient_main_container__hovered}` : `${styles.ingredient_main_container}`
+
+  const totalPrice = useMemo(() => {
+    let acc = 0;
+    if (bun) {
+      acc = bun.price * 2;
+    }
+    return ingredients.reduce( (sum, ing) => sum + ing.price, acc);
+
+
+  }, [ingredients, bun]);
+
   return (
-    <>
-      <div className='pl-4'>
-        <div className="custom-scroll" style={{paddingRight:'8px', display: 'flex', flexDirection: 'column', alignItems:'flex-end', gap: '16px', maxWidth: '656px', marginTop:'100px', overflowY:'scroll' }}>
-          <div className={`${styles.ingredient}`}>
-            {/* <DragIcon type="primary" /> */}
-            <ConstructorElement
+      <section className={`${styles.main_section} mt-25 pb-10`}> 
+        <div ref={refDrop} className={containerHoverClass}>
+          <div className={`${styles.ingredient} ${styles.bun_top}`}>
+          {bun && (<ConstructorElement
               type="top"
               isLocked={true}
-              text={data[0].name}
-              price={data[0].price}
-              thumbnail={data[0].image}
-            />
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />)}
           </div>
-          <div className={`${styles.ingredient}`}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              isLocked={false}
-              text={data[5].name}
-              price={data[5].price}
-              thumbnail={data[5].image}
-            />
-          </div>
-          <div className={`${styles.ingredient}`}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              isLocked={false}
-              text={data[4].name}
-              price={data[4].price}
-              thumbnail={data[4].image}
-            />
-          </div>
-          <div className={`${styles.ingredient}`}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              isLocked={false}
-              text={data[7].name}
-              price={data[7].price}
-              thumbnail={data[7].image}
-            />
-          </div>
-          <div className={`${styles.ingredient}`}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              isLocked={false}
-              text={data[8].name}
-              price={data[8].price}
-              thumbnail={data[8].image}
-            />
-          </div>
-          <div className={`${styles.ingredient}`}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              isLocked={false}
-              text={data[8].name}
-              price={data[8].price}
-              thumbnail={data[8].image}
-            />
-          </div>
-          <div className={`${styles.ingredient}`}>
-            {/* <DragIcon type="primary" /> */}
-            <ConstructorElement
+         {isEmpty ? (<p>Добавьте любой ингредиент...</p>) : 
+         (<ul className={`custom-scroll ${styles.scroll_zone}`}>
+            {ingredients.map( (item, index) => (<BurgerConstructorItem item={item} index={index} key={item.unique_id}/>))}
+          </ul>)}
+          <div className={`${styles.ingredient} ${styles.bun_bottom}`}>
+          {bun && (<ConstructorElement
               type="bottom"
               isLocked={true}
-              text={data[0].name}
-              price={data[0].price}
-              thumbnail={data[0].image}
-            />
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />)}
           </div>
         </div>
-          <TotalPrice setPopupClosed={props.setPopupClosed} />
-      </div>
-    </>
-
+          <TotalPrice totalPrice={totalPrice} />
+      </section>
   )
 }
 
