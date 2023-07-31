@@ -1,0 +1,1 @@
+export const burgerConstructorSelector = (state) => state.burgerConstructor;

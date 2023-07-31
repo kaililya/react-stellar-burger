@@ -1,32 +1,34 @@
 import React from 'react'
 import styles from './IngredientMenu.module.css';
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
+import { ingredientsSelector } from '../../services/selectors/data-selectors';
+import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
+import IngredientItem from '../IngredientItem/IngredientItem';
+import PropTypes from 'prop-types';
 
 
-function IngredientMenu(props) {
+
+
+const IngredientMenu = React.forwardRef( ({ title,  typeOfIng }, ref) => {
+
+  const burger = useSelector(burgerConstructorSelector);
+  const indredientData = useSelector(ingredientsSelector);
   return (
     <>
-      <h2 className={`text text_type_main-medium mb-6`}>{props.title}</h2>
-      <div className={`pl-4 ${styles.ingredients}`}>
+      <h2 className={`text text_type_main-medium mb-6`} ref={ref} >{title}</h2>
+      <div className={`pl-4 ${styles.ingredients}`} >
 
-      {props.ingredients.map((ing) => (
-        <div className={`mb-8 ${styles.ingredient}`} key={ing["_id"]}>
-          <Counter count={1} size="default" extraClass="m-1" />
-          <img className={`mb-1 ${styles.ingredient__image}`} src={ing.image} 
-          onClick={() => {props.setPopupIngredientClosed(true);
-                          props.setCurrentIngredient(ing) }}/>
-          <div className={`${styles.price_container}`}>
-            <p className={`text text_type_digits-default mr-1`}>{ing.price}</p>
-            <CurrencyIcon type="primary" />
-          </div>
-          <h3 className={`mt-2 text text_type_main-default ${styles.ingredient_name}`}>{ing.name}</h3>
-        </div>
+      {indredientData.filter(ing => ing.type === typeOfIng).map((ing) => (
+        <IngredientItem igredient={ing} key={ing._id} />
       ))}
     </div>
-
-
     </>
   )
+})
+
+IngredientMenu.propTypes = {
+  title: PropTypes.string.isRequired,
+  typeOfIng: PropTypes.string.isRequired,
 }
 
 export default IngredientMenu

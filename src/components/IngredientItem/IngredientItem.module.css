@@ -1,0 +1,37 @@
+.ingredient {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: relative;
+  max-width: 272px;
+  height: 208px;
+  flex-grow: 1;
+}
+
+
+.ingredient:last-child {
+  margin-right: 0;
+}
+
+.ingredient__image {
+  width: 240px;
+}
+
+.ingredient_name {
+  text-align: center;
+}
+
+.price_container {
+  display: flex;
+}
+
+.button_wrapper {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: none;
+  background-color: transparent;
+  color: white;
+  
+}
