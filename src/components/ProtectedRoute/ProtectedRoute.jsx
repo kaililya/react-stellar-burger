@@ -9,7 +9,7 @@ function ProtectedRoute({ onlyUnAuth = false, component}) {
   const user = useSelector((store) => store.userData.userData);
   const location = useLocation();
 
-  // useEffect(() => {
+  // React.useEffect(() => {
   //   dispatch(setAuthChecked(false));
   //   dispatch(checkUserAuth());
   // }, [dispatch]);

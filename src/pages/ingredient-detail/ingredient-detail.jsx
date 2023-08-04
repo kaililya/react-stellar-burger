@@ -7,10 +7,9 @@ import Modal from '../../components/Modal/Modal';
 function IngredientDetailPage({ ingredients }) {
   const { id } = useParams();
   const ingredient = ingredients.find((ing) => ing._id === id);
-  console.log(ingredient)
-
   return (
-      <IngredientDetails selectedIngredient={ingredient}/>
+    <p>dsfdsfdsfcdsfdsdsf</p>
+      // <IngredientDetails selectedIngredient={ingredient}/>
   )
 }
 
