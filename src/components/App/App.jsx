@@ -17,7 +17,7 @@ import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import RegisterPage from "../../pages/register/register";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import MainPage from "../../pages/main/main";
 import NotFoundPage from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
@@ -29,6 +29,7 @@ import IngredientDetailPage from "../../pages/ingredient-detail/ingredient-detai
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const background = location.state && location.state.background;
 
   const { indgredientsRequestPending, indgredientsRequestRejected, error } = useSelector(apiStateSelector);
@@ -44,7 +45,7 @@ function App() {
   });
 
   const closeIngredientDetailsPopup = React.useCallback(() => {
-    dispatch(clearSelectedIngredient()); 
+    dispatch(clearSelectedIngredient());
   });
 
 
@@ -75,17 +76,32 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/" element={<MainPage />} />
         {/* <Route path="*" element={<NotFoundPage />} /> */}
+        
+        {background && (
+     
+        <Route path="/ingredient-detail/:id" element={
+         <IngredientDetailPage ingredients={allIngredients} />}
+        />
+      )}
+
+      </Routes>
+      <Routes>
+        <Route path="/" element={<MainPage />}></Route>
+        <Route path="/ingredient-detail/:id" element={
+             <Modal closeModalHandler={closeIngredientDetailsPopup}>
+               <IngredientDetails selectedIngredient={selectedIngredient} closeModalHandler={closeIngredientDetailsPopup}/> 
+             </Modal>}> 
+           </Route>
       </Routes>
 
          
-      <Routes location={background || location}>
+      {/* <Routes location={background || location}>
          <Route path="/" element={<MainPage />}></Route>
          <Route path="/ingredient-detail/:id" element={
            <Modal closeModalHandler={closeIngredientDetailsPopup}>
              <IngredientDetails selectedIngredient={selectedIngredient} closeModalHandler={closeIngredientDetailsPopup}/> 
            </Modal>}> 
          </Route>
-
       </Routes>
       
       {background && (
@@ -93,8 +109,8 @@ function App() {
         <Route path="/ingredient-detail/:id" element={
          <IngredientDetailPage ingredients={allIngredients} />}
         />
-      </Routes>)}
-      
+      </Routes>)} */}
+
       {!!acceptedOrder && (
         <Modal closeModalHandler={closeOrderDetailsPopup}>
           <OrderDetails acceptedOrder={acceptedOrder} closeModalHandler={closeOrderDetailsPopup}/> 

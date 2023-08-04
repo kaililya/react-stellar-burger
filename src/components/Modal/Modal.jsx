@@ -4,15 +4,19 @@ import styles from "./Modal.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router';
+
 
 
 // TODO
 // 1) Доверстать модалку чтобы добавлять title
 
 function Modal( { children, closeModalHandler } ) {
+  const navigate = useNavigate();
   React.useEffect(()=> {
     function handleKeyPressEsc(e) {
       if (e.key === "Escape") {
+        navigate('/');
         closeModalHandler();
       }
     }
@@ -29,7 +33,8 @@ function Modal( { children, closeModalHandler } ) {
         <ModalOverlay closeModalHandler={closeModalHandler} />
         <section className={styles.modal}>
           <CloseIcon type="primary"
-             onClick={closeModalHandler}
+             onClick={() => {closeModalHandler();
+               navigate('/')}}
            />
           {children}
         </section>
