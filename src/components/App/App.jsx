@@ -48,7 +48,6 @@ function App() {
     dispatch(clearSelectedIngredient());
   });
 
-
   React.useEffect(() => {
     dispatch(getIngredientsThunk())
   }, [dispatch]);
@@ -68,14 +67,23 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      {/* <Routes location={background || location}>
+        <Route path="/" element={<MainPage />}></Route>
+        <Route path="/ingredient-detail/:id" element={
+          <IngredientDetailPage ingredients={allIngredients}/>}> 
+        </Route>
+      </Routes> */}
+      <Routes location={background || location}>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/profile" element={<OnlyAuth component={<ProfilePage />}/>} />
         <Route path="/login" element={<OnlyUnAuth component={<LoginPage />}/>} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/" element={<MainPage />} />
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="/ingredient-detail/:id" element={
+          <IngredientDetailPage ingredients={allIngredients}/>}> 
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
         
         {background && (
         <Route path="/ingredient-detail/:id" element={
@@ -86,12 +94,7 @@ function App() {
          )}
 
       </Routes>
-      <Routes location={background || location}>
-        <Route path="/" element={<MainPage />}></Route>
-        <Route path="/ingredient-detail/:id" element={
-          <IngredientDetailPage ingredients={allIngredients}/>}> 
-         </Route>
-      </Routes>
+
 
          
       {/* <Routes location={background || location}>
