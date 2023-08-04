@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   selectedIngredient: null,
+  // doesExistSelectedIngredient: false,
   acceptedOrder: null,
 } 
 // Дописать 
@@ -15,6 +16,7 @@ const currentValuesReducer = (state = initialState, action) => {
     case SET_SELECTED_INGREDIENT: {
       return {
         ...state,
+        // doesExistSelectedIngredient: true,
         selectedIngredient: action.payload,
       }
     }
@@ -22,6 +24,7 @@ const currentValuesReducer = (state = initialState, action) => {
     case CLEAR_SELECTED_INGREDIENT: {
       return {
         ...state,
+        doesExistSelectedIngredient: false,
         selectedIngredient: null,
       }
     }

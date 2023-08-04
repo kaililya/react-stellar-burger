@@ -1,19 +1,18 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router';
 
 
 function ProtectedRoute({ onlyUnAuth = false, component}) {
+  const dispatch = useDispatch();
   const isAuthChecked = useSelector((store) => store.userData.isUserAuth);
   const user = useSelector((store) => store.userData.userData);
   const location = useLocation();
-  // console.log('авторизирован:');
-  // console.log(isAuthChecked);
-  // console.log('есть логин и пароль:');
-  // console.log(user);
-  // console.log('текущая локация');
 
-
+  // useEffect(() => {
+  //   dispatch(setAuthChecked(false));
+  //   dispatch(checkUserAuth());
+  // }, [dispatch]);
 
   if (isAuthChecked) {
     return null;

@@ -34,6 +34,7 @@ function IngredientItem({ igredient } ) {
     }
   },[igredient, bun, ingredients]);
 
+  // const isSomeIngredientInStore = useSelector(store => store.curent.doesExistSelectedIngredient);
 
   const handleSetIngredient = () => {
     dispatch(setSelectedIngredient(igredient));
