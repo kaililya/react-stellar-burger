@@ -78,15 +78,13 @@ function App() {
         {/* <Route path="*" element={<NotFoundPage />} /> */}
         
         {background && (
-     
         <Route path="/ingredient-detail/:id" element={
          <IngredientDetailPage ingredients={allIngredients} />}
         />
       )}
 
       </Routes>
-      <Routes>
-        <Route path="/" element={<MainPage />}></Route>
+      <Routes location={background || location}>
         <Route path="/ingredient-detail/:id" element={
              <Modal closeModalHandler={closeIngredientDetailsPopup}>
                <IngredientDetails selectedIngredient={selectedIngredient} closeModalHandler={closeIngredientDetailsPopup}/> 
