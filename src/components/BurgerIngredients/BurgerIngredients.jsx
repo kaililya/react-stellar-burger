@@ -54,7 +54,6 @@ function BurgerIngredients() {
   }, []);
 
   const handleMainsClick = React.useCallback(() => {
-    console.dir(mainsRef);
     mainsRef.current.scrollIntoView({behavior: 'smooth'});
   }, []);
 

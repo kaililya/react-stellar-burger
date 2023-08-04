@@ -9,6 +9,8 @@ import "./index.css";
 import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
 
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -20,11 +22,13 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-     <App />
-   </Provider>
-  </React.StrictMode>,
+  <Router>
+    <React.StrictMode>
+        <Provider store={store}>
+         <App />
+       </Provider>
+    </React.StrictMode>
+  </Router>,
   document.getElementById("root")
 );
 

@@ -6,11 +6,14 @@ import { useDrag } from 'react-dnd';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import { setSelectedIngredient } from '../../services/actions/current-action-creators';
 import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
+
 
 // const addIng = item.type === "bun" ? setBun : addIngredient;
 
 function IngredientItem({ igredient } ) {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const[{ isDrag }, dragRef] = useDrag({
     type: 'ingredient',
@@ -32,17 +35,20 @@ function IngredientItem({ igredient } ) {
   },[igredient, bun, ingredients]);
 
 
-  const hadleSetIngredient = (ing) => {
-    dispatch(setSelectedIngredient(ing));
+  const handleSetIngredient = () => {
+    dispatch(setSelectedIngredient(igredient));
   };
-
  
   return (
     <div className={`mb-8 ${styles.ingredient}`} key={igredient["_id"]} ref={dragRef}>
       {!!count && <Counter count={count} size="default" extraClass="m-1" />}
-      <img className={`mb-1 ${styles.ingredient__image}`} src={igredient.image} alt={igredient.name}
-      onClick={() => hadleSetIngredient(igredient)}
-      />
+      <Link 
+        to={`/ingredient-detail/${igredient._id}`}
+        state={{ background: location }}
+        >
+        <img className={`mb-1 ${styles.ingredient__image}`} src={igredient.image} alt={igredient.name}
+        onClick={handleSetIngredient}/>
+      </Link>
       <div className={`${styles.price_container}`}>
         <p className={`text text_type_digits-default mr-1`}>{igredient.price}</p>
         <CurrencyIcon type="primary" />

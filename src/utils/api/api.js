@@ -1,6 +1,12 @@
-export const mainUrl = 'https://norma.nomoreparties.space/api/';
-export const endPointOrder = 'orders';
-export const endPointIngredients = 'ingredients';
+const mainUrl = 'https://norma.nomoreparties.space/api/';
+const endPointOrder = 'orders';
+const endPointIngredients = 'ingredients';
+const endPointLogin = 'auth/login';
+const endPointRegistration = 'auth/register';
+const endPointForgotPassword = 'password-reset';
+const endPointResetPassword = 'password-reset/reset';
+
+
 
 const defaultHeaders = {
   'Content-Type': 'application/json'
@@ -40,3 +46,44 @@ export const postOrder = (ids) => {
   return fetch(mainUrl + endPointOrder, options)
   .then(checkResponse);
 }
+
+export const loginUser = (email, password) => {
+  const body = {
+    "email": email, 
+    "password": password 
+  };
+  const options = makeFetchOptions('POST', defaultHeaders, body);
+  return fetch(mainUrl + endPointLogin, options)
+  .then(checkResponse);
+};
+
+export const registerUser = (name, email, password) => {
+  const body = {
+    "email": email, 
+    "password": password ,
+    "name": name
+  };
+  const options = makeFetchOptions('POST', defaultHeaders, body);
+  return fetch(mainUrl + endPointRegistration, options)
+  .then(checkResponse);
+};
+
+export const forgotPasswordPost = (email) => {
+  const body = {
+    "email": email
+  };
+  const options = makeFetchOptions('POST', defaultHeaders, body);
+  return fetch(mainUrl + endPointForgotPassword, options)
+  .then(checkResponse);
+};
+
+export const resetPasswordPost = (password, token) => {
+  const body = {
+    "password": password,
+    "token": token
+  };
+  const options = makeFetchOptions('POST', defaultHeaders, body);
+  return fetch(mainUrl + endPointResetPassword, options)
+  .then(checkResponse);
+};
+

@@ -1,5 +1,5 @@
 import { moveIngredient } from '../../utils/move-ingredient';
-import {SET_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT} from '../actions/actions';
+import {SET_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT, RESET_BURGER} from '../actions/actions';
 
 
 const initialState = {
@@ -35,6 +35,10 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ...state, 
         ingredients: state.ingredients.filter(ing => ing.unique_id !== unique_id)
       }
+    }
+
+    case RESET_BURGER: {
+      return initialState;
     }
 
     default:

@@ -25,4 +25,3 @@ export const ingredientDetailsReducer = (state = initialState, action) => {
       return state
   }
 }
- 
