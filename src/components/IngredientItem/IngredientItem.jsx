@@ -43,7 +43,7 @@ function IngredientItem({ igredient } ) {
   return (
     <div className={`mb-8 ${styles.ingredient}`} key={igredient["_id"]} ref={dragRef}>
       {!!count && <Counter count={count} size="default" extraClass="m-1" />}
-      <Link 
+      <Link
         to={`/ingredient-detail/${igredient._id}`}
         state={{ background: location }}
         >

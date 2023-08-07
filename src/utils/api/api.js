@@ -2,14 +2,45 @@ const mainUrl = 'https://norma.nomoreparties.space/api/';
 const endPointOrder = 'orders';
 const endPointIngredients = 'ingredients';
 const endPointLogin = 'auth/login';
+const endPointLogouting = 'auth/logout';
 const endPointRegistration = 'auth/register';
 const endPointForgotPassword = 'password-reset';
 const endPointResetPassword = 'password-reset/reset';
+const endPointRefreshToken = 'auth/token';
+const endPointGetUserData = 'auth/user';
+const endPointUpdateUserData = 'auth/user';
 
 
+const fetchWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    return await checkResponse(res);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshTokenPost();
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      localStorage.setItem("accessToken", refreshData.accessToken);
+      localStorage.setItem("refreshToken", refreshData.refreshToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkResponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
 
 const defaultHeaders = {
   'Content-Type': 'application/json'
+};
+
+const authorizationHeader = (token) => {
+  return {
+  'Content-Type': 'application/json',
+  "authorization": token
+  };
 };
 
 const makeFetchOptions = (method, headers, body) => {
@@ -87,3 +118,45 @@ export const resetPasswordPost = (password, token) => {
   .then(checkResponse);
 };
 
+export const logoutUser = (refreshToken) => {
+  const body = {
+    "token": refreshToken
+  };
+  const options = makeFetchOptions('POST', defaultHeaders, body);
+  return fetch(mainUrl + endPointLogouting, options)
+  .then(checkResponse);
+};
+
+export const refreshTokenPost = (refreshToken) => {
+  const body = {
+    "token": refreshToken
+  };
+  const options = makeFetchOptions('POST', defaultHeaders, body);
+  return fetch(mainUrl + endPointRefreshToken, options)
+  .then(checkResponse);
+};
+
+export const getUserData = (token) => {
+  const properties = authorizationHeader(token);
+  const options = makeFetchOptions('GET', properties, false);
+  return fetchWithRefresh(mainUrl + endPointGetUserData, options)
+  .then(checkResponse);
+  
+};
+
+export const patchUserData = (name, email, password, token) => {
+  const properties = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "authorization": token
+    },
+    body: JSON.stringify({
+      "email": email,
+      "name": name,
+      "password": password
+    })
+  };
+  return fetch(mainUrl + endPointUpdateUserData, properties)
+  .then(checkResponse);
+};

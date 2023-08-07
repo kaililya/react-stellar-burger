@@ -11,6 +11,20 @@ import { LOGIN_REQUEST,
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_SUCCESS,
     RESET_PASSWORD_REQUEST_FAILED,
+    LOGOUT_REQUEST,
+    LOGOUT_REQUEST_SUCCESS,
+    LOGOUT_REQUEST_FAILED,
+    REFRESH_TOKEN_REQUEST,
+    REFRESH_TOKEN_REQUEST_FAILED,
+    REFRESH_TOKEN_REQUEST_SUCCESS,
+    GET_USER_DATA_REQUEST,
+    GET_USER_DATA_REQUEST_SUCCESS,
+    GET_USER_DATA_REQUEST_FAILED,
+    UPDATE_USER_DATA_REQUEST,
+    UPDATE_USER_DATA_REQUEST_FAILED,
+    UPDATE_USER_DATA_REQUEST_SUCCESS,
+    AUTHORIZATION_STATE,
+    SET_USER_DATA
    } from "../actions/actions";
 
 const initialState = {
@@ -18,6 +32,9 @@ const initialState = {
   loginingRequest: false,
   loginingRequestSuccess: false,
   loginingRequestFailed: false,
+  loginoutingRequest: false,
+  loginoutingRequestSuccess: false,
+  loginoutingRequestFailed: false,
   registrationRequest: false,
   registrationRequestSuccess: false,
   registrationRequestFailed: false,
@@ -27,6 +44,15 @@ const initialState = {
   resetPasswordRequest: false,
   resetPasswordRequestSuccess: false,
   resetPasswordRequestFailed: false,
+  refreshTokenRequest: false,
+  refreshTokenRequestSuccess: false,
+  refreshTokenRequestFailed: false,
+  updateUserDataRequest: false,
+  updateUserDataRequestSuccess: false,
+  updateUserDataRequestFailed: false,
+  getUserDataRequest: false,
+  getUserDataRequestSuccess: false,
+  getUserDataRequestFailed: false,
   refreshToken: null,
   accessToken: null,
   error: null,
@@ -36,6 +62,96 @@ const initialState = {
 
 export const userApiReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case UPDATE_USER_DATA_REQUEST: {
+      return {
+        updateUserDataRequest: true,
+        updateUserDataRequestSuccess: false,
+        updateUserDataRequestFailed: false,
+        error: null,
+      }
+    };
+
+    case UPDATE_USER_DATA_REQUEST_SUCCESS: {
+      return {
+        updateUserDataRequest: false,
+        updateUserDataRequestSuccess: true,
+        updateUserDataRequestFailed: false,
+        userData: action.payload,
+      }
+    };
+
+    case UPDATE_USER_DATA_REQUEST_FAILED: {
+      return {
+        updateUserDataRequest: false,
+        updateUserDataRequestSuccess: false,
+        updateUserDataRequestFailed: true,
+        error: action.payload,
+      }
+    };
+
+    case GET_USER_DATA_REQUEST: {
+      return {
+        ...state,
+        getUserDataRequest: true,
+        getUserDataRequestSuccess: false,
+        getUserDataRequestFailed: false,
+        error: null,
+      }
+    };
+
+    case GET_USER_DATA_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        getUserDataRequest: false,
+        getUserDataRequestSuccess: true,
+        getUserDataRequestFailed: false,
+        error: null,
+        userData: action.payload,
+      }
+    };
+
+    case GET_USER_DATA_REQUEST_FAILED: {
+      return {
+        ...state,
+        getUserDataRequest: false,
+        getUserDataRequestSuccess: false,
+        getUserDataRequestFailed: true,
+        error: action.payload,
+      }
+    };
+
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenRequest: true,
+        refreshTokenRequestSuccess: false,
+        refreshTokenRequestFailed: false,
+        error: null,
+      }
+    };
+
+    case REFRESH_TOKEN_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenRequestSuccess: true,
+        refreshTokenRequestFailed: false,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
+      }
+    };
+
+    case REFRESH_TOKEN_REQUEST_FAILED: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenRequestSuccess: false,
+        refreshTokenRequestFailed: true,
+        error: action.payload,
+      }
+    };
+
     case LOGIN_REQUEST: {
       return {
         ...state,
@@ -67,6 +183,38 @@ export const userApiReducer = (state = initialState, action) => {
         loginingRequestFailed: false,
         isUserAuth: true,
         error: null,
+      }
+    };
+
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        loginoutingRequest: true,
+        loginoutingRequestSuccess: false,
+        loginoutingRequestFailed: false,
+      }
+    };
+
+    case LOGOUT_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        loginoutingRequest: false,
+        loginoutingRequestSuccess: true,
+        loginoutingRequestFailed: false,
+        userData: null,
+        isUserAuth: false,
+        refreshToken: null,
+        accessToken: null,
+      }
+    };
+
+    case LOGOUT_REQUEST_FAILED: {
+      return {
+        ...state,
+        loginoutingRequest: false,
+        loginoutingRequestSuccess: false,
+        loginoutingRequestFailed: true,
+        error: action.payload,
       }
     };
 
@@ -164,6 +312,20 @@ export const userApiReducer = (state = initialState, action) => {
         resetPasswordRequestSuccess: false,
         resetPasswordRequestFailed: true,
         error: action.payload,
+      }
+    };
+
+    case AUTHORIZATION_STATE: {
+      return {
+        ...state,
+        isUserAuth: action.payload,
+      }
+    };
+
+    case SET_USER_DATA: {
+      return {
+        ...state,
+        userData: action.payload,
       }
     };
       

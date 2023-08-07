@@ -23,17 +23,19 @@ import NotFoundPage from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 import { ingredientsSelector } from "../../services/selectors/data-selectors";
 import IngredientDetailPage from "../../pages/ingredient-detail/ingredient-detail";
+import { checkUserAuth } from "../../services/thunks/user-api-thunk";
 
+// TODO
+// 1) Проверить работоспособность танка по обновление токена
 
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
   const background = location.state && location.state.background;
 
   const { indgredientsRequestPending, indgredientsRequestRejected, error } = useSelector(apiStateSelector);
-  const selectedIngredient = useSelector(selectedIngredientSelector);  
+  // const selectedIngredient = useSelector(selectedIngredientSelector);  
   const acceptedOrder = useSelector(acceptedOrderSelector);
   const allIngredients = useSelector(ingredientsSelector);
 
@@ -49,7 +51,10 @@ function App() {
   });
 
   React.useEffect(() => {
-    dispatch(getIngredientsThunk())
+    dispatch(getIngredientsThunk());
+    if (localStorage.getItem("accessToken")) {
+      dispatch(checkUserAuth())
+    };
   }, [dispatch]);
 
   if (indgredientsRequestPending) {
@@ -66,19 +71,15 @@ function App() {
 
   return (
     <div className={styles.app}>
+      {/* ForgotPasswordPage */}
       <AppHeader />
-      {/* <Routes location={background || location}>
-        <Route path="/" element={<MainPage />}></Route>
-        <Route path="/ingredient-detail/:id" element={
-          <IngredientDetailPage ingredients={allIngredients}/>}> 
-        </Route>
-      </Routes> */}
       <Routes location={background || location}>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/profile" element={<OnlyAuth component={<ProfilePage />}/>} />
-        <Route path="/login" element={<OnlyUnAuth component={<LoginPage />}/>} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/register" element= {<OnlyUnAuth component={<RegisterPage />}/>}/>
+        <Route path="/reset-password" element= {<OnlyUnAuth component={<ResetPasswordPage />}/>} />
+        <Route path="/profile/*" element= {<OnlyAuth component={<ProfilePage />}/>} />
+        {/* <Route path="/profile/*" element= {<ProfilePage />} /> */}
+        <Route path="/login" element= {<OnlyUnAuth component={<LoginPage />}/>} />
+        <Route path="/forgot-password" element= {<OnlyUnAuth component={<ForgotPasswordPage />}/>} />
         <Route path="/" element={<MainPage />} />
         <Route path="/ingredient-detail/:id" element={
           <IngredientDetailPage ingredients={allIngredients}/>}> 
@@ -89,42 +90,18 @@ function App() {
         <Routes> 
         <Route path="/ingredient-detail/:id" element={
          <Modal closeModalHandler={closeIngredientDetailsPopup}>
-            <IngredientDetails selectedIngredient={selectedIngredient} closeModalHandler={closeIngredientDetailsPopup}/> 
+            <IngredientDetailPage ingredients={allIngredients}/> 
          </Modal>}/>
          </Routes>
          )}
-         
-      {/* <Routes location={background || location}>
-         <Route path="/" element={<MainPage />}></Route>
-         <Route path="/ingredient-detail/:id" element={
-           <Modal closeModalHandler={closeIngredientDetailsPopup}>
-             <IngredientDetails selectedIngredient={selectedIngredient} closeModalHandler={closeIngredientDetailsPopup}/> 
-           </Modal>}> 
-         </Route>
-      </Routes>
-      
-      {background && (
-      <Routes>
-        <Route path="/ingredient-detail/:id" element={
-         <IngredientDetailPage ingredients={allIngredients} />}
-        />
-      </Routes>)} */}
-
       {!!acceptedOrder && (
         <Modal closeModalHandler={closeOrderDetailsPopup}>
           <OrderDetails acceptedOrder={acceptedOrder} closeModalHandler={closeOrderDetailsPopup}/> 
         </Modal>
       )}
-      
-    
     </div>
   );
 }
 
-// {!!selectedIngredient && (
-//   <Modal closeModalHandler={closeIngredientDetailsPopup}>
-//     <IngredientDetails selectedIngredient={selectedIngredient} closeModalHandler={closeIngredientDetailsPopup}/> 
-//   </Modal>
-//   )}
 
 export default App;
