@@ -17,19 +17,17 @@ function ProtectedRoute({ onlyUnAuth = false, component}) {
     dispatch(checkUserAuth());
   },[dispatch])
 
-  if (!isAuthChecked) {
-    console.log('словился в 1 if')
-    return null;
-  }
+  // if (!isAuthChecked) {
+  //   console.log('словился в 1 if')
+  //   return null;
+  // }
 
   if (onlyUnAuth && user) {
-    console.log('словился в 2 if')
     const { from } = location.state || { from: { pathname: "/" } };
     return <Navigate to={from} />;
   }
 
   if (!onlyUnAuth && !user) {
-    console.log('словился в 3 if')
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

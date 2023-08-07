@@ -3,7 +3,7 @@ import styles from './ProfileForm.module.css'
 import useForm from '../../hooks/useForm'
 import { useSelector, useDispatch } from 'react-redux';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUserData } from '../../utils/api/api';
+import { getUserData, updateUserDataThunk2, } from '../../utils/api/api';
 import { RefreshTokenThunk, getUserDataThunk, updateUserDataThunk } from '../../services/thunks/user-api-thunk';
 
 function ProfileForm() {
@@ -33,7 +33,8 @@ function ProfileForm() {
 
   const hadleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserDataThunk(userData.name, userData.email, userData.password, accessToken));
+    console.log(userData.name, userData.email, userData.password)
+    dispatch(updateUserDataThunk2(userData.name, userData.email, userData.password));
   }
   // const handleGetUserData = (e) => {
   //   e.preventDefault();

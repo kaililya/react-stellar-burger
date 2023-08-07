@@ -148,23 +148,23 @@ export function logoutUserThunk(refresToken) {
 //   }
 // };
 
-export function updateUserDataThunk(name, email, password, token) {
-  return function(dispatch) {
-    dispatch(updateUserDataRequest());
-    patchUserData(name, email, password, token)
-    .then(({ success, user }) => {
-      if (success) {
-        batch(() => {
-          dispatch(updateUserDataRequestSuccess(user));
-        });
-      } else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
-      }  
-    })
-    .catch(({ httpCode, message }) => {
-      const msg = httpCode ? message : 'Не удалось связаться с сервером';
-      dispatch(updateUserDataRequestFailed(msg));
-    })
-  }
-};
+// export function updateUserDataThunk(name, email, password, token) {
+//   return function(dispatch) {
+//     dispatch(updateUserDataRequest());
+//     patchUserData(name, email, password, token)
+//     .then(({ success, user }) => {
+//       if (success) {
+//         batch(() => {
+//           dispatch(updateUserDataRequestSuccess(user));
+//         });
+//       } else {
+//         throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+//       }  
+//     })
+//     .catch(({ httpCode, message }) => {
+//       const msg = httpCode ? message : 'Не удалось связаться с сервером';
+//       dispatch(updateUserDataRequestFailed(msg));
+//     })
+//   }
+// };
 

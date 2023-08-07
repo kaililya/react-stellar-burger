@@ -1,4 +1,4 @@
-import { getUserDataRequestSuccess, setAuthorizationState, setUserData } from "../../services/actions/user-api-action-creators";
+import { getUserDataRequestSuccess, setAuthorizationState, setUserData, updateUserDataRequest, updateUserDataRequestFailed, updateUserDataRequestSuccess } from "../../services/actions/user-api-action-creators";
 
 const mainUrl = 'https://norma.nomoreparties.space/api/';
 const endPointOrder = 'orders';
@@ -67,12 +67,8 @@ const fetchWithRefresh = async (url, options) => {
 export const checkUserAuth = () => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
-      console.log('я попал в if');
-      console.log(localStorage.getItem("accessToken"));
-
       dispatch(getUser())
       .catch((err) => {
-        console.log('я попал в катч')
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         dispatch(setUserData(null));
@@ -85,6 +81,53 @@ export const checkUserAuth = () => {
   };
 };
 
+
+// export function updateUserDataThunk(name, email, password, token) {
+  //   return function(dispatch) {
+  //     dispatch(updateUserDataRequest());
+  //     patchUserData(name, email, password, token)
+  //     .then(({ success, user }) => {
+  //       if (success) {
+  //         batch(() => {
+  //           dispatch(updateUserDataRequestSuccess(user));
+  //         });
+  //       } else {
+  //         throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+  //       }  
+  //     })
+  //     .catch(({ httpCode, message }) => {
+  //       const msg = httpCode ? message : 'Не удалось связаться с сервером';
+  //       dispatch(updateUserDataRequestFailed(msg));
+  //     })
+  //   }
+  // };
+
+export const updateUserDataThunk2 = (name, email, password) => {
+
+  return function (dispatch) {
+    dispatch(updateUserDataRequest);
+
+    fetchWithRefresh(mainUrl + endPointUpdateUserData, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Authorization": localStorage.getItem("accessToken")
+      },
+      body: JSON.stringify({ name: name, email: email, password: password })
+    })
+      .then((responseData) => {
+        console.log(responseData)
+        if (responseData.success) {
+
+          dispatch(updateUserDataRequestSuccess(responseData.user));
+        }
+      })
+      .catch(error => {
+        dispatch(updateUserDataRequestFailed(error));
+        alert('Ошибка обновления пользователя: ' + error);
+      });
+  };
+};
 
 const defaultHeaders = {
   'Content-Type': 'application/json'
@@ -200,19 +243,19 @@ export const refreshTokenPost = (refreshToken) => {
 // };
 
 
-export const patchUserData = (name, email, password, token) => {
-  const properties = {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      "authorization": token
-    },
-    body: JSON.stringify({
-      "email": email,
-      "name": name,
-      "password": password
-    })
-  };
-  return fetch(mainUrl + endPointUpdateUserData, properties)
-  .then(checkResponse);
-};
+// export const patchUserData = (name, email, password, token) => {
+//   const properties = {
+//     method: "PATCH",
+//     headers: {
+//       "Content-Type": "application/json;charset=utf-8",
+//       "authorization": token
+//     },
+//     body: JSON.stringify({
+//       "email": email,
+//       "name": name,
+//       "password": password
+//     })
+//   };
+//   return fetch(mainUrl + endPointUpdateUserData, properties)
+//   .then(checkResponse);
+// };
