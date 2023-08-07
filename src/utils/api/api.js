@@ -14,13 +14,19 @@ const endPointUpdateUserData = 'auth/user';
 const fetchWithRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
+    console.log('1111')
     return await checkResponse(res);
   } catch (err) {
-    if (err.message === "jwt expired") {
-      const refreshData = await refreshTokenPost();
+    console.log('22222')
+    if (err.message === "jwt expired" || err.status === '401') {
+      console.log('333')
+
+      const refreshData = await refreshTokenPost(localStorage.getItem("refreshToken"));
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
+      console.log('4444')
+
       localStorage.setItem("accessToken", refreshData.accessToken);
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       options.headers.authorization = refreshData.accessToken;
@@ -140,9 +146,10 @@ export const getUserData = (token) => {
   const properties = authorizationHeader(token);
   const options = makeFetchOptions('GET', properties, false);
   return fetchWithRefresh(mainUrl + endPointGetUserData, options)
-  .then(checkResponse);
+  // .then(checkResponse);
   
 };
+
 
 export const patchUserData = (name, email, password, token) => {
   const properties = {

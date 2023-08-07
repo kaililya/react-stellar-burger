@@ -141,10 +141,10 @@ export function getUserDataThunk(token) {
         throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
       }  
     })
-    .catch(({ httpCode, message }) => {
-      const msg = httpCode ? message : 'Не удалось связаться с сервером';
-      dispatch(getUserDataRequestFailed(msg));
-    })
+    // .catch(({ httpCode, message }) => {
+    //   const msg = httpCode ? message : 'Не удалось связаться с сервером';
+    //   dispatch(getUserDataRequestFailed(msg));
+    // })
   }
 };
 
@@ -171,13 +171,17 @@ export function updateUserDataThunk(name, email, password, token) {
 export const checkUserAuth = () => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
+      console.log('я попал в if');
+      console.log(localStorage.getItem("accessToken"));
+
       dispatch(getUserDataThunk(localStorage.getItem("accessToken")))
-        .catch((error) => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          dispatch(setUserData(null));
-        })
-        .finally(() => dispatch(setAuthorizationState(true)));
+      .catch((err) => {
+        console.log('я попал в катч')
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch(setUserData(null));
+      })
+      .finally(() => dispatch(setAuthorizationState(true)));
     } else {
       dispatch(setAuthorizationState(true));
       dispatch(setUserData(null));

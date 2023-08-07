@@ -15,13 +15,12 @@ function ProtectedRoute({ onlyUnAuth = false, component}) {
   React.useEffect(() => {
     dispatch(setAuthorizationState(false));
     dispatch(checkUserAuth());
-
   },[dispatch])
 
-  // if (!isAuthChecked) {
-  //   console.log('словился в 1 if')
-  //   return null;
-  // }
+  if (!isAuthChecked) {
+    console.log('словился в 1 if')
+    return null;
+  }
 
   if (onlyUnAuth && user) {
     console.log('словился в 2 if')
