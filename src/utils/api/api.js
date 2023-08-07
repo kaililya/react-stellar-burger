@@ -105,7 +105,7 @@ export const checkUserAuth = () => {
 export const updateUserDataThunk2 = (name, email, password) => {
 
   return function (dispatch) {
-    dispatch(updateUserDataRequest);
+    dispatch(updateUserDataRequest());
 
     fetchWithRefresh(mainUrl + endPointUpdateUserData, {
       method: 'PATCH',
@@ -124,7 +124,7 @@ export const updateUserDataThunk2 = (name, email, password) => {
       })
       .catch(error => {
         dispatch(updateUserDataRequestFailed(error));
-        alert('Ошибка обновления пользователя: ' + error);
+        alert('Ошибка при обновление данных: ' + error);
       });
   };
 };

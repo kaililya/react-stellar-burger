@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { logoutUserThunk } from '../../services/thunks/user-api-thunk';
 
 // TODO 
+// 1) пофиксить выбор класса для NavLink
 // 2) сделать еще 1 Route для показа попа заказа (/profile/orders/:id)
 
 function ProfilePage() {
@@ -18,21 +19,26 @@ function ProfilePage() {
     dispatch(logoutUserThunk(refreshToken));
   };
 
+  const switchClassName = ({isActive}) => (isActive ? `${styles.link_active}` : `${styles.link}`);
+
   return (
     <section className={`${styles.profile_container}`}>
       <nav className={`${styles.navigation_section}`}>
         <ul className={`${styles.link_container}`}>
           <li className={``}>
             <NavLink
-              className={`${styles.link} text text_type_main-medium text_color_inactive`}
+              className={({ isActive }) => isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`}
               to='/profile'
             >
+            {/* <span className={`text text_type_main-medium text_color_inactive`}> */}
               Профиль
+              {/* </span> */}
+              
             </NavLink>
           </li>
           <li>
             <NavLink
-              className={`${styles.link} text text_type_main-medium text_color_inactive`}
+              className={({ isActive }) => isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`}
               to='/profile/orders'
             >
               История заказов
@@ -40,7 +46,7 @@ function ProfilePage() {
           </li>
           <li>
             <NavLink
-              className={`${styles.link} text text_type_main-medium text_color_inactive`}
+              className={({ isActive }) => isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`}
               to="/login"
               onClick={handleLogoutUser}
             >
