@@ -35,10 +35,10 @@ function ProfileForm() {
     e.preventDefault();
     dispatch(updateUserDataThunk(userData.name, userData.email, userData.password, accessToken));
   }
-  const handleGetUserData = (e) => {
-    e.preventDefault();
-    dispatch(getUserDataThunk(accessToken))
-  };
+  // const handleGetUserData = (e) => {
+  //   e.preventDefault();
+  //   dispatch(getUserDataThunk(accessToken))
+  // };
 
   const handleCancelChanges = (e) => {
     e.preventDefault();
@@ -70,13 +70,13 @@ function ProfileForm() {
           </Button>
         </div>
       )}
-ниже кнопки для проверки запросов
+{/* ниже кнопки для проверки запросов
       <Button htmlType="buttom" type="primary" size="default" onClick={handleGetUserData}>
             получить данные пользователя
       </Button>
       <Button htmlType="buttom" type="primary" size="default" >
             обновить токен
-      </Button>
+      </Button> */}
     </form>
 
   )

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router';
 import { setAuthorizationState,  } from '../../services/actions/user-api-action-creators';
-import { checkUserAuth } from '../../services/thunks/user-api-thunk';
+import { checkUserAuth } from '../../utils/api/api';
 
 
 function ProtectedRoute({ onlyUnAuth = false, component}) {

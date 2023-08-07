@@ -23,7 +23,7 @@ import NotFoundPage from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 import { ingredientsSelector } from "../../services/selectors/data-selectors";
 import IngredientDetailPage from "../../pages/ingredient-detail/ingredient-detail";
-import { checkUserAuth } from "../../services/thunks/user-api-thunk";
+import { checkUserAuth } from "../../utils/api/api";
 
 // TODO
 // 1) Проверить работоспособность танка по обновление токена

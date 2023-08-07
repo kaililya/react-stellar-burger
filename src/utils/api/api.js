@@ -1,3 +1,5 @@
+import { getUserDataRequestSuccess, setAuthorizationState, setUserData } from "../../services/actions/user-api-action-creators";
+
 const mainUrl = 'https://norma.nomoreparties.space/api/';
 const endPointOrder = 'orders';
 const endPointIngredients = 'ingredients';
@@ -10,23 +12,47 @@ const endPointRefreshToken = 'auth/token';
 const endPointGetUserData = 'auth/user';
 const endPointUpdateUserData = 'auth/user';
 
+const refreshToken = () => {
+  return fetch("https://norma.nomoreparties.space/api/auth/token", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken")
+    })
+  }).then(checkResponse);
+};
+
+export const getUser = () => {
+  return (dispatch) => {
+    return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("accessToken")
+      }
+    }).then((res) => {
+      if (res.success) {
+        dispatch(getUserDataRequestSuccess(res.user));
+      } else {
+        return Promise.reject("Ошибка данных с сервера");
+      }
+    });
+  };
+};
 
 const fetchWithRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
-    console.log('1111')
     return await checkResponse(res);
   } catch (err) {
-    console.log('22222')
-    if (err.message === "jwt expired" || err.status === '401') {
-      console.log('333')
-
-      const refreshData = await refreshTokenPost(localStorage.getItem("refreshToken"));
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
-      console.log('4444')
-
       localStorage.setItem("accessToken", refreshData.accessToken);
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       options.headers.authorization = refreshData.accessToken;
@@ -37,6 +63,28 @@ const fetchWithRefresh = async (url, options) => {
     }
   }
 };
+
+export const checkUserAuth = () => {
+  return (dispatch) => {
+    if (localStorage.getItem("accessToken")) {
+      console.log('я попал в if');
+      console.log(localStorage.getItem("accessToken"));
+
+      dispatch(getUser())
+      .catch((err) => {
+        console.log('я попал в катч')
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch(setUserData(null));
+      })
+      .finally(() => dispatch(setAuthorizationState(true)));
+    } else {
+      dispatch(setAuthorizationState(true));
+      dispatch(setUserData(null));
+    }
+  };
+};
+
 
 const defaultHeaders = {
   'Content-Type': 'application/json'
@@ -128,6 +176,7 @@ export const logoutUser = (refreshToken) => {
   const body = {
     "token": refreshToken
   };
+  console.log(body)
   const options = makeFetchOptions('POST', defaultHeaders, body);
   return fetch(mainUrl + endPointLogouting, options)
   .then(checkResponse);
@@ -142,13 +191,13 @@ export const refreshTokenPost = (refreshToken) => {
   .then(checkResponse);
 };
 
-export const getUserData = (token) => {
-  const properties = authorizationHeader(token);
-  const options = makeFetchOptions('GET', properties, false);
-  return fetchWithRefresh(mainUrl + endPointGetUserData, options)
-  // .then(checkResponse);
+// export const getUserData = (token) => {
+//   const properties = authorizationHeader(token);
+//   const options = makeFetchOptions('GET', properties, false);
+//   return fetchWithRefresh(mainUrl + endPointGetUserData, options)
+//   .then(checkResponse);
   
-};
+// };
 
 
 export const patchUserData = (name, email, password, token) => {
