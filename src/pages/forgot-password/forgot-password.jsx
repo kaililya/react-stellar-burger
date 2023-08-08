@@ -2,7 +2,7 @@ import styles from '../login/login.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate  } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
-import { batch, useDispatch } from 'react-redux'; 
+import { batch, useDispatch, useSelector } from 'react-redux'; 
 import { setForgottenPassword } from '../../services/actions/user-api-action-creators';
 import { forgotPasswordThunk } from '../../services/thunks/user-api-thunk';
 
@@ -13,10 +13,11 @@ function ForgotPasswordPage() {
 
   const navigate = useNavigate();
 
+
   const {hadleChangeUserData, userData} = useForm({
-    email: null,
+    email: '',
   });
-  const hadleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     batch(() => {
       dispatch(forgotPasswordThunk(userData.email));
@@ -29,7 +30,7 @@ function ForgotPasswordPage() {
     <div className={styles.wrapper}>
       <section className={`${styles.main_container}`}>
         <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
-        <form onSubmit={hadleSubmit} className={`${styles.form_container} mb-20`}>
+        <form onSubmit={handleSubmit} className={`${styles.form_container} mb-20`}>
           <EmailInput onChange={hadleChangeUserData} value={userData.email} name={'email'} isIcon={false} />
           <Button htmlType="submit" type="primary" size="medium">Восстановить</Button>
         </form>

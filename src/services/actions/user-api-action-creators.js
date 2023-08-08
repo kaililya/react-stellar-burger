@@ -37,7 +37,7 @@ export const loginoutingRuquestSuccess = () => ({ type: LOGOUT_REQUEST_SUCCESS }
 export const loginoutingRuquestFailed = (error) => ({ type: LOGOUT_REQUEST_FAILED, payload: error });
 
 export const registrationRequest = () => ({ type: REGISTER_REQUEST });
-export const registrationRequestSeccessed = (accessToken) => ({ type: REGISTER_REQUEST_SUCCESS, payload: accessToken });
+export const registrationRequestSeccessed = (accessToken, refreshToken) => ({ type: REGISTER_REQUEST_SUCCESS, payload: {accessToken: accessToken, refreshToken: refreshToken} });
 export const registrationRequestFailed = (error) => ({ type: REGISTER_REQUEST_FAILED, payload: error });
 
 export const forgotingPasswordRequest = () => ({ type: FORGOT_PASSWORD_REQUEST });

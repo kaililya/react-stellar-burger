@@ -11,8 +11,8 @@ function LoginPage() {
 
   const dispatch = useDispatch();
   const {hadleChangeUserData, userData} = useForm({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
   });
 
   const hadleSubmit = (e) => {

@@ -244,7 +244,8 @@ export const userApiReducer = (state = initialState, action) => {
         registrationRequest: false,
         registrationRequestSuccess: true,
         registrationRequestFailed: false,
-        accessToken: action.payload,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
       }
     };
 

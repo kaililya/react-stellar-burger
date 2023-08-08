@@ -219,7 +219,6 @@ export const logoutUser = (refreshToken) => {
   const body = {
     "token": refreshToken
   };
-  console.log(body)
   const options = makeFetchOptions('POST', defaultHeaders, body);
   return fetch(mainUrl + endPointLogouting, options)
   .then(checkResponse);

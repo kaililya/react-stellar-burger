@@ -28,11 +28,14 @@ export function registerUserThunk(name, email, password) {
   return function(dispatch) {
     dispatch(registrationRequest());
     registerUser(name, email, password)
-    .then(({ success, accessToken }) => {
+    .then(({ success, accessToken, refreshToken }) => {
       if (success) {
         batch(() => {
-          dispatch(registrationRequestSeccessed(accessToken));
+          dispatch(registrationRequestSeccessed(accessToken, refreshToken));
         });
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
       } else {
         throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
       }  

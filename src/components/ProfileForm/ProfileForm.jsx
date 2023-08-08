@@ -10,36 +10,31 @@ function ProfileForm() {
   const dispatch = useDispatch();
   const [inputChanged, setInputChanged] = useState(false);
 
+  const {userData: {name: oldName, email: oldEmail}, accessToken} = useSelector((store) => store.userData);
+
+  const {hadleChangeUserData, userData, setUserData} = useForm({
+    name: '',
+    email: '',
+    password: '',
+  });
+
   const onChange = e => {
     setInputChanged(true);
     hadleChangeUserData(e);
   };
-
-  const {userData: {name: oldName, email: oldEmail}, accessToken} = useSelector((store) => store.userData);
-
-
-  const {hadleChangeUserData, userData, setUserData} = useForm({
-    name: null,
-    email: null,
-    password: null,
-  });
 
   useEffect(() => {
     setUserData({
       name: oldName,
       email: oldEmail
     })
-  },[oldName, oldEmail, setUserData]);
+  }, [oldName, oldEmail, setUserData]);
 
   const hadleSubmit = (e) => {
     e.preventDefault();
     console.log(userData.name, userData.email, userData.password)
     dispatch(updateUserDataThunk2(userData.name, userData.email, userData.password));
   }
-  // const handleGetUserData = (e) => {
-  //   e.preventDefault();
-  //   dispatch(getUserDataThunk(accessToken))
-  // };
 
   const handleCancelChanges = (e) => {
     e.preventDefault();
@@ -52,15 +47,11 @@ function ProfileForm() {
     setInputChanged(false);
   };
 
-  // const hadleRefreshToken = (e) => {
-  //   e.preventDefault();
-  //   dispatch(RefreshTokenThunk(localStorage.getItem("refreshToken")))
-  // }
   return (
     <form onSubmit={hadleSubmit} className={`${styles.form_container}`}>
       <Input onChange={onChange} type={'text'} placeholder={'Имя'} name={'name'} icon={'EditIcon'} value={userData.name}/>
       <EmailInput onChange={onChange} name={'email'} icon={'EditIcon'} value={userData.email} />
-      <PasswordInput onChange={onChange} name={'password'} icon='EditIcon' value={userData.password}/>
+      <PasswordInput onChange={onChange} name={'password'} icon='EditIcon' value={''}/>
       {inputChanged && (
         <div className={`${styles.button_container}`}>
           <Button htmlType="button" type="secondary" size="large" onClick={handleCancelChanges}>
@@ -71,13 +62,6 @@ function ProfileForm() {
           </Button>
         </div>
       )}
-{/* ниже кнопки для проверки запросов
-      <Button htmlType="buttom" type="primary" size="default" onClick={handleGetUserData}>
-            получить данные пользователя
-      </Button>
-      <Button htmlType="buttom" type="primary" size="default" >
-            обновить токен
-      </Button> */}
     </form>
 
   )

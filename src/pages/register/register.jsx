@@ -11,12 +11,12 @@ function RegisterPage() {
 
   const dispatch = useDispatch();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {hadleChangeUserData, userData} = useForm({
-    name: null,
-    email: null,
-    password: null,
+    name: '',
+    email: '',
+    password: '',
   });
   const hadleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ function RegisterPage() {
     }
     
     dispatch(registerUserThunk(userData.name, userData.email, userData.password));
-    // navigate('/reset-password');
+    navigate('/');
   };
 
   return (

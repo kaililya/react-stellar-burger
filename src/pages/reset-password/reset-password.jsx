@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../login/login.module.css';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { batch, useDispatch } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import useForm from '../../hooks/useForm';
 import { setForgottenPassword } from '../../services/actions/user-api-action-creators';
 import { resetPasswordThunk } from '../../services/thunks/user-api-thunk';
@@ -15,8 +15,8 @@ function ResetPasswordPage() {
   const navigate = useNavigate();
 
   const {hadleChangeUserData, userData} = useForm({
-    password: null,
-    token: null,
+    password: '',
+    token: '',
   });
   const hadleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +31,13 @@ function ResetPasswordPage() {
     }
     
   }
+  const statePasswordForgotten = useSelector(store => store.userData.passwordForgotten);
+
+  useEffect(() => {
+    if (!statePasswordForgotten) {
+      navigate('/forgot-password');
+    };
+  }, [statePasswordForgotten]);
 
   return (
     <div className={styles.wrapper}>
