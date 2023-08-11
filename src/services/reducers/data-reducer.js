@@ -12,8 +12,6 @@ export const dataReducer = (state = initialState, action) => {
         ingredients: action.payload,
       }
     }
-      
-
   
     default:
       return state

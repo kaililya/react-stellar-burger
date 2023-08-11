@@ -8,13 +8,10 @@ import { makeOrderThunk } from '../../services/thunks/make-order-thunk';
 import PropTypes from 'prop-types';
 
 
-
 function TotalPrice({ totalPrice }) {
   const { orderRequestPending } = useSelector(apiStateSelector);
   const { bun, ingredients } = useSelector(burgerConstructorSelector);
-
   const dispatch = useDispatch();
-
 
   const makeOrder = (e) => {
     e.preventDefault();
@@ -29,7 +26,7 @@ function TotalPrice({ totalPrice }) {
         <p className="text text_type_digits-medium">{ totalPrice }</p>
         <CurrencyIcon type="primary" className={`mr-10 ${styles.currency_icon}`}/>
       </div>
-      <Button htmlType="button" type="primary" size="large" 
+      <Button htmlType="button" type="primary" size="large" disabled={!bun}
       onClick={makeOrder}
               > {orderRequestPending ? 'Оформление заказа...' : 'Оформить заказ'}
       </Button>

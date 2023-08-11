@@ -37,3 +37,13 @@
   display: flex;
   gap: 8px;
 }
+
+.link {
+  color: rgb(255, 255, 255);
+  text-decoration: none; 
+}
+
+.link_active {
+  color: rgb(99,54,221);
+  text-decoration: none; 
+}

@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 
 
 function IngredientDetails({ selectedIngredient }) {
-  
-  // const ingredientDetails = useSelector(ingredientDetailsSelector);
-  // console.dir(ingredientDetails.ingredient)
-  // const item = ingredientDetails.ingredient;
-
-  // if (item == undefined) return null;
-  
+  console.log('1');
+  console.log(selectedIngredient)
+  // const ingredientDetails = useSelector(ingredientDetailsSelector);  
   return (
   <div className='pt-15'>
     <h3 className="ml-10 text text_type_main-large">Детали ингредиента</h3>
