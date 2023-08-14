@@ -4,36 +4,41 @@ import { TIngredient } from '../../utils/types';
 
 
 
-type TSetBun<T> = {
+type TSetBun = {
   readonly type: typeof SET_BUN;
-  readonly payload: T;
+  readonly payload: TIngredient;
 };
 
-type TAddIngredient<T> = {
+type TAddIngredient = {
   readonly type: typeof ADD_INGREDIENT;
-  readonly payload: T & {readonly unique_id: string};
+  readonly payload: TIngredient & {readonly unique_id: string};
 };
 
-type TDeleteIngredient<T> = {
+type TDeleteIngredient = {
   readonly type: typeof DELETE_INGREDIENT;
-  readonly payload: T;
+  readonly payload: TIngredient;
 };
 
-type TMoveIngredient<T> = {
+type TMoveIngredient = {
   readonly type: typeof MOVE_INGREDIENT;
-  readonly payload: {ing:T, pos:number};
+  readonly payload: {ing:TIngredient, pos:number};
 };
 
 type TResetBurger = {
   readonly type: typeof RESET_BURGER;
 };
 
-export const setBun = (bun:TIngredient):TSetBun<TIngredient> => ({type: SET_BUN, payload: bun});
-export const addIngredient = (ing:TIngredient):TAddIngredient<TIngredient> => ({ type: ADD_INGREDIENT, payload: {...ing, unique_id: nanoid(12)} });
-export const deleteIngredient = (ing:TIngredient):TDeleteIngredient<TIngredient> => ({ type: DELETE_INGREDIENT, payload: ing });
-export const moveIngredient = ({ ing, pos }:{readonly ing:TIngredient, readonly pos:number}):TMoveIngredient<TIngredient> => ({ type: MOVE_INGREDIENT, payload: { ing, pos } });
+export const setBun = (bun:TIngredient):TSetBun => ({type: SET_BUN, payload: bun});
+export const addIngredient = (ing:TIngredient):TAddIngredient => ({ type: ADD_INGREDIENT, payload: {...ing, unique_id: nanoid(12)} });
+export const deleteIngredient = (ing:TIngredient):TDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: ing });
+export const moveIngredient = ({ ing, pos }:{readonly ing:TIngredient, readonly pos:number}):TMoveIngredient => ({ type: MOVE_INGREDIENT, payload: { ing, pos } });
 export const resetBurger = ():TResetBurger => ({ type: RESET_BURGER });
 
-
+export type TBurgetConstructorActions = |
+TSetBun|
+TAddIngredient|
+TDeleteIngredient|
+TMoveIngredient|
+TResetBurger;
 
 

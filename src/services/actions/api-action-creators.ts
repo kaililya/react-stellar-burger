@@ -42,4 +42,10 @@ export const newOrderRequested = ():TNewOrderRequested => ({type: CREATE_ORDER_R
 export const newOrderPlaced = ():TNewOrderPlaced => ({type: ORDER_REQUEST_SUCCESS});
 export const newOrderFailed = (error:string):TNewOrderFailed => ({type: ORDER_REQUEST_FAILED, payload: error});
 
-
+export type TApiActionCreators = |
+TIndgredientsRequested |
+TIngredientsReceived |
+TIngredientsFailed |
+TNewOrderRequested |
+TNewOrderPlaced |
+TNewOrderFailed ;

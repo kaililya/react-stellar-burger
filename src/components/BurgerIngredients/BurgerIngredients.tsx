@@ -7,9 +7,6 @@ import { deleteIngredient } from '../../services/actions/burger-constructor-acti
 import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-// TODO
-// 1) Понять зачем нужен "!" в коде :
-// saucesRef.current!.scrollIntoView({behavior: 'smooth'});
 
 const BurgerIngredients = ():JSX.Element => {
 

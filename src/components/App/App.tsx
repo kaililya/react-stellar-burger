@@ -26,10 +26,6 @@ import IngredientDetailPage from "../../pages/ingredient-detail/ingredient-detai
 import { checkUserAuth } from "../../utils/api/api";
 import { FunctionComponent } from 'react';
 
-// TODO
-// 1) Заменить FunctionComponent на что-то другое
-// https://www.typescriptlang.org/docs/handbook/jsx.html
-// 2) Сохдать или переместить в сущ файл все типы
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();

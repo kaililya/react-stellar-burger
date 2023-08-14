@@ -35,9 +35,9 @@ type TLoginingRuquested = {
   readonly type: typeof LOGIN_REQUEST;
 };
 
-type TLoginingSuccess<T> = {
+type TLoginingSuccess = {
   readonly type: typeof LOGIN_REQUEST_SUCCESS;
-  readonly payload: {user: T, accessToken:string, refreshToken:string};
+  readonly payload: {user: TUserData, accessToken:string, refreshToken:string};
 };
 
 type TLoginingFailed = {
@@ -46,7 +46,7 @@ type TLoginingFailed = {
 };
 
 export const loginingRuquested = ():TLoginingRuquested => ({ type: LOGIN_REQUEST });
-export const loginingSuccess = (userData:{user: TUserData, accessToken:string, refreshToken:string }):TLoginingSuccess<TUserData> => ({ type: LOGIN_REQUEST_SUCCESS, payload: userData });
+export const loginingSuccess = (userData:{user: TUserData, accessToken:string, refreshToken:string }):TLoginingSuccess => ({ type: LOGIN_REQUEST_SUCCESS, payload: userData });
 export const loginingFailed = (error:string):TLoginingFailed => ({ type: LOGIN_REQUEST_FAILED, payload: error });
 
 type TLoginoutingRuquest = {
@@ -140,9 +140,9 @@ type TGetUserDataRequest = {
   readonly type: typeof GET_USER_DATA_REQUEST;
 };
 
-type TGetUserDataRequestSuccess<T> = {
+type TGetUserDataRequestSuccess = {
   readonly type: typeof GET_USER_DATA_REQUEST_SUCCESS;
-  readonly payload: T;
+  readonly payload: TUserData;
 };
 
 type TGetUserDataRequestFailed = {
@@ -151,16 +151,16 @@ type TGetUserDataRequestFailed = {
 };
 
 export const getUserDataRequest = ():TGetUserDataRequest => ({ type: GET_USER_DATA_REQUEST });
-export const getUserDataRequestSuccess = (userData:TUserData):TGetUserDataRequestSuccess<TUserData> => ({ type: GET_USER_DATA_REQUEST_SUCCESS, payload: userData });
+export const getUserDataRequestSuccess = (userData:TUserData):TGetUserDataRequestSuccess => ({ type: GET_USER_DATA_REQUEST_SUCCESS, payload: userData });
 export const getUserDataRequestFailed = (error:string):TGetUserDataRequestFailed => ({ type: GET_USER_DATA_REQUEST_FAILED, payload: error });
 
 type TUpdateUserDataRequest= {
   readonly type: typeof UPDATE_USER_DATA_REQUEST;
 };
 
-type TUpdateUserDataRequestSuccess<T> = {
+type TUpdateUserDataRequestSuccess = {
   readonly type: typeof UPDATE_USER_DATA_REQUEST_SUCCESS;
-  readonly payload: T;
+  readonly payload: TUserData;
 };
 
 type TUpdateUserDataRequestFailed = {
@@ -169,7 +169,7 @@ type TUpdateUserDataRequestFailed = {
 };
 
 export const updateUserDataRequest = ():TUpdateUserDataRequest => ({ type: UPDATE_USER_DATA_REQUEST });
-export const updateUserDataRequestSuccess = (userData:TUserData):TUpdateUserDataRequestSuccess<TUserData> => ({ type: UPDATE_USER_DATA_REQUEST_SUCCESS, payload: userData });
+export const updateUserDataRequestSuccess = (userData:TUserData):TUpdateUserDataRequestSuccess => ({ type: UPDATE_USER_DATA_REQUEST_SUCCESS, payload: userData });
 export const updateUserDataRequestFailed = (error:string):TUpdateUserDataRequestFailed => ({ type: UPDATE_USER_DATA_REQUEST_FAILED, payload: error });
 
 type TSetForgottenPassword = {
@@ -186,13 +186,39 @@ type TSetAuthorizationState = {
 
 export const setAuthorizationState = (state:boolean):TSetAuthorizationState => ({ type: AUTHORIZATION_STATE, payload: state });
 
-type TSetUserData<T> = {
+type TSetUserData = {
   readonly type: typeof SET_USER_DATA;
-  readonly payload: null|T;
+  readonly payload: null|TUserData;
 };
 
-export const setUserData = (userData:null|TUserData):TSetUserData<TUserData> => ({ type: SET_USER_DATA, payload: userData });
+export const setUserData = (userData:null|TUserData):TSetUserData => ({ type: SET_USER_DATA, payload: userData });
 
 
-
-
+export type TUserApiActions = |
+TLoginingRuquested|
+TLoginingSuccess|
+TLoginingFailed|
+TLoginoutingRuquest|
+TLoginoutingRuquestSuccess|
+TLoginoutingRuquestFailed|
+TRegistrationRequest|
+TRregistrationRequestSeccessed|
+TRegistrationRequestFailed|
+TForgotingPasswordRequest|
+TForgotingPasswordRequestSuccess|
+TForgotingPasswordRequestFailed|
+TResetingPasswordRequest|
+TResetingPasswordRequestSuccess|
+TResetingPasswordRequestFailed|
+TRefreshTokerRequest|
+TRefreshTokerRequestSucces|
+TRefreshTokerRequestFailed|
+TGetUserDataRequest|
+TGetUserDataRequestSuccess|
+TGetUserDataRequestFailed|
+TUpdateUserDataRequest|
+TUpdateUserDataRequestSuccess|
+TUpdateUserDataRequestFailed|
+TSetForgottenPassword|
+TSetAuthorizationState|
+TSetUserData;
