@@ -20,21 +20,21 @@ export const socketMiddleware = (wsActions: TWS): Middleware => {
 
     if (socket) {
       socket.onopen = (event) => {
-          dispatch({ type: onOpen, payload: event });
+
+        dispatch({ type: onOpen, payload: event });
       }
 
       socket.onerror = (event) => {
-          dispatch({ type: onFail, payload: event });
+        dispatch({ type: onFail, payload: event });
       }
 
       socket.onmessage = (event) => {
-          const { data } = event;
-          const parsedData = JSON.parse(data);
-          dispatch({ type: onGetData, payload: parsedData });
+        const { data } = event;
+        const parsedData = JSON.parse(data);
+        dispatch({ type: onGetData, payload: parsedData });
       }
 
       socket.onclose = () => {
-          
           dispatch(setClosedWsConnection('закрыть'));
       }
     }

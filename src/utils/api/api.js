@@ -171,7 +171,7 @@ export const fetchIngredients = () => {
 
 export const postOrder = (ids) => {
   const body = {"ingredients": ids };
-  const options = makeFetchOptions('POST', defaultHeaders, body);
+  const options = makeFetchOptions('POST', authorizationHeader(localStorage.getItem("accessToken")), body);
   return fetch(mainUrl + endPointOrder, options)
   .then(checkResponse);
 }

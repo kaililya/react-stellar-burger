@@ -1,10 +1,12 @@
 import styles from './profile.module.css'
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import ProfileOrders from '../../components/ProfileOrders/ProfileOrders';
 import { useDispatch } from 'react-redux';
 import { logoutUserThunk } from '../../services/thunks/user-api-thunk';
+import OrdersDetailPage from '../OrdersDetailPage/OrdersDetailPage';
+import Modal from '../../components/Modal/Modal';
 
 // TODO 
 // 1) пофиксить выбор класса для NavLink
@@ -12,6 +14,8 @@ import { logoutUserThunk } from '../../services/thunks/user-api-thunk';
 
 const ProfilePage = ():JSX.Element => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
   const handleLogoutUser = () => {
     const refreshToken = localStorage.getItem('refreshToken');
@@ -52,10 +56,21 @@ const ProfilePage = ():JSX.Element => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-       <Routes>
+       <Routes location={background || location}>
         <Route path='/' element={<ProfileForm />} />
         <Route path='/orders' element={<ProfileOrders />} />
+        <Route path='/orders/:id' element={
+          <OrdersDetailPage/>}> 
+        </Route>
        </Routes>
+       {background && (
+        <Routes> 
+         <Route path="/orders/:id" element={
+         <Modal closeModalHandler={() => console.log('заглушка')}>
+            <OrdersDetailPage /> 
+         </Modal>}/>
+         </Routes>
+         )}
     </section>
   )
 }
