@@ -4,9 +4,9 @@ import { TIngredient } from "../../utils/types";
 
 type TSetIngredients = {
   readonly type: typeof SET_INGREDIENTS;
-  readonly payload: ReadonlyArray<TIngredient>
+  payload: Array<TIngredient>
 };
 
-export const setIngredients = (ings:ReadonlyArray<TIngredient>):TSetIngredients => ({type: SET_INGREDIENTS, payload: ings});
+export const setIngredients = (ings:Array<TIngredient>):TSetIngredients => ({type: SET_INGREDIENTS, payload: ings});
 
 export type TDataActions = TSetIngredients;

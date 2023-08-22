@@ -1,3 +1,4 @@
+import { TUserData } from "../../utils/types";
 import { LOGIN_REQUEST,
     LOGIN_REQUEST_FAILED,
     LOGIN_REQUEST_SUCCESS,
@@ -27,7 +28,42 @@ import { LOGIN_REQUEST,
     SET_USER_DATA
    } from "../actions/actions";
 
-const initialState = {
+import { TUserApiActions } from "../actions/user-api-action-creators";
+
+type TInitialStateUser = {
+  userData: null| TUserData;
+  loginingRequest: boolean;
+  loginingRequestSuccess: boolean;
+  loginingRequestFailed: boolean;
+  loginoutingRequest: boolean;
+  loginoutingRequestSuccess: boolean;
+  loginoutingRequestFailed: boolean;
+  registrationRequest: boolean;
+  registrationRequestSuccess: boolean;
+  registrationRequestFailed: boolean;
+  forgotPasswordRequest: boolean;
+  forgotPasswordRequestSuccess: boolean;
+  forgotPasswordRequestFailed: boolean;
+  resetPasswordRequest: boolean;
+  resetPasswordRequestSuccess: boolean;
+  resetPasswordRequestFailed: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenRequestSuccess: boolean;
+  refreshTokenRequestFailed: boolean;
+  updateUserDataRequest: boolean;
+  updateUserDataRequestSuccess: boolean;
+  updateUserDataRequestFailed: boolean;
+  getUserDataRequest: boolean;
+  getUserDataRequestSuccess: boolean;
+  getUserDataRequestFailed: boolean;
+  refreshToken: null | string;
+  accessToken: null | string;
+  error: null | string;
+  passwordForgotten: boolean;
+  isUserAuth: boolean;
+};
+
+const initialState:TInitialStateUser = {
   userData: null,
   loginingRequest: false,
   loginingRequestSuccess: false,
@@ -60,11 +96,12 @@ const initialState = {
   isUserAuth: false,
 };
 
-export const userApiReducer = (state = initialState, action) => {
+export const userApiReducer = (state = initialState, action:TUserApiActions):TInitialStateUser => {
   switch (action.type) {
 
     case UPDATE_USER_DATA_REQUEST: {
       return {
+        ...state,
         updateUserDataRequest: true,
         updateUserDataRequestSuccess: false,
         updateUserDataRequestFailed: false,
@@ -74,6 +111,7 @@ export const userApiReducer = (state = initialState, action) => {
 
     case UPDATE_USER_DATA_REQUEST_SUCCESS: {
       return {
+        ...state,
         updateUserDataRequest: false,
         updateUserDataRequestSuccess: true,
         updateUserDataRequestFailed: false,
@@ -83,6 +121,7 @@ export const userApiReducer = (state = initialState, action) => {
 
     case UPDATE_USER_DATA_REQUEST_FAILED: {
       return {
+        ...state,
         updateUserDataRequest: false,
         updateUserDataRequestSuccess: false,
         updateUserDataRequestFailed: true,

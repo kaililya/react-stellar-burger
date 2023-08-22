@@ -1,4 +1,14 @@
+import { TIngredient } from '../../utils/types';
 import { GET_INDGREDIETNS_REQUEST, GET_INDGREDIETNS_REQUEST_SUCCESS, GET_INDGREDIETNS_REQUEST_FAILED } from '../actions/actions'
+import { TApiActionCreators } from '../actions/api-action-creators'
+
+// type TInitialStateInitialIngredients = {
+//   ingredientsData: null| Array<TIngredient>;
+//   ingredientsRequestSent: boolean;
+//   ingredientsRequestSuccess: boolean;
+//   ingredientsRequestFailed: boolean;
+//   errorMessage: string;
+// };
 
 const initialStateInitialIngredients = {
   ingredientsData: null,
@@ -6,9 +16,9 @@ const initialStateInitialIngredients = {
   ingredientsRequestSuccess: false,
   ingredientsRequestFailed: false,
   errorMessage: ''
-} 
+}; 
 
-export const initialIngredientsReducer = (state = initialStateInitialIngredients, action) => {
+export const initialIngredientsReducer = (state = initialStateInitialIngredients, action:any):any => {
   switch (action.type) {
     case GET_INDGREDIETNS_REQUEST: {
       return {
@@ -22,7 +32,7 @@ export const initialIngredientsReducer = (state = initialStateInitialIngredients
         ...state,
         ingredientsRequestSent: false,
         ingredientsRequestSuccess: true,
-        ingredientsData: action.ingredientsData
+        ingredientsData: action.ingredientsData,
       }
     }
       

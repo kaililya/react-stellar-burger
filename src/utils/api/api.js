@@ -1,6 +1,7 @@
 import { getUserDataRequestSuccess, setAuthorizationState, setUserData, updateUserDataRequest, updateUserDataRequestFailed, updateUserDataRequestSuccess } from "../../services/actions/user-api-action-creators";
 
 const mainUrl = 'https://norma.nomoreparties.space/api/';
+export const mainWSUrl = 'wss://norma.nomoreparties.space/';
 const endPointOrder = 'orders';
 const endPointIngredients = 'ingredients';
 const endPointLogin = 'auth/login';
@@ -9,8 +10,8 @@ const endPointRegistration = 'auth/register';
 const endPointForgotPassword = 'password-reset';
 const endPointResetPassword = 'password-reset/reset';
 const endPointRefreshToken = 'auth/token';
-const endPointGetUserData = 'auth/user';
 const endPointUpdateUserData = 'auth/user';
+export const endPointAllOrders = 'orders/all';
 
 const refreshToken = () => {
   return fetch("https://norma.nomoreparties.space/api/auth/token", {

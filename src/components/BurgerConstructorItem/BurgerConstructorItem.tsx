@@ -4,7 +4,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor-action-creators';
 import { useDrag, useDrop } from 'react-dnd';
-import { TIngredient } from '../../utils/types';
+import { TIngredient, TIngredientAddUniqueId } from '../../utils/types';
 
 
 type BurgerConstructorItem<T> = {
@@ -12,7 +12,7 @@ type BurgerConstructorItem<T> = {
   index: number;
 };
 
-const BurgerConstructorItem = ({ item, index }:BurgerConstructorItem<TIngredient>):JSX.Element => {
+const BurgerConstructorItem = ({ item, index }:BurgerConstructorItem<TIngredientAddUniqueId>):JSX.Element => {
   const dispatch = useDispatch();
   
   const handleDeleteItem = React.useCallback(() => {
