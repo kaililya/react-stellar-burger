@@ -14,8 +14,6 @@ import Modal from '../../components/Modal/Modal';
 
 const ProfilePage = ():JSX.Element => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const background = location.state && location.state.background;
 
   const handleLogoutUser = () => {
     const refreshToken = localStorage.getItem('refreshToken');
@@ -56,21 +54,7 @@ const ProfilePage = ():JSX.Element => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-       <Routes location={background || location}>
-        <Route path='/' element={<ProfileForm />} />
-        <Route path='/orders' element={<ProfileOrders />} />
-        <Route path='/orders/:id' element={
-          <OrdersDetailPage/>}> 
-        </Route>
-       </Routes>
-       {background && (
-        <Routes> 
-         <Route path="/orders/:id" element={
-         <Modal closeModalHandler={() => console.log('заглушка')}>
-            <OrdersDetailPage /> 
-         </Modal>}/>
-         </Routes>
-         )}
+      <ProfileForm/>
     </section>
   )
 }

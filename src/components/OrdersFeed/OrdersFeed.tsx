@@ -16,7 +16,7 @@ const OrdersFeed = ():JSX.Element => {
     dispatch(setRequestedWsConnection(mainWSUrl + endPointAllOrders));
 
     return () => {
-      dispatch(setClosedWsConnection('закрытие'));
+      // dispatch(setClosedWsConnection('закрытие'));
     };
   }, [dispatch]);
 

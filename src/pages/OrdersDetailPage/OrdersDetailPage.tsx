@@ -15,6 +15,7 @@ const OrdersDetailPage = ():JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const allIngredients = useAppSelector(ingredientsSelector);
   const { orders } = useAppSelector(store => store.wsOrders);
+  console.log(orders)
 
   const currentOrder = useMemo(() => {
     return orders.filter((ing:TOrderFeed) => ing._id === id)[0];

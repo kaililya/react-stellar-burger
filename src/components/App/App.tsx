@@ -24,6 +24,8 @@ import { checkUserAuth } from "../../utils/api/api";
 import FeedPage from "../../pages/feed/feed";
 import OrdersDetailPage from "../../pages/OrdersDetailPage/OrdersDetailPage";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
+import ProfileOrders from "../ProfileOrders/ProfileOrders";
+import ProfileForm from "../ProfileForm/ProfileForm";
 // TODO
 // 1) Изменить везде
 // 1.1) Вызов useSelector на типизированный
@@ -78,12 +80,12 @@ const App = (): JSX.Element => {
 
   return (
     <div className={styles.app}>
-      {/* ForgotPasswordPage */}
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/register" element= {<OnlyUnAuth component={<RegisterPage />}/>}/>
         <Route path="/reset-password" element= {<OnlyUnAuth component={<ResetPasswordPage />}/>} />
-        <Route path="/profile/*" element= {<OnlyAuth component={<ProfilePage />}/>} />
+        <Route path="/profile" element= {<OnlyAuth component={<ProfilePage />}/>} />
+        <Route path="/profile/orders" element= {<OnlyAuth component={<ProfileOrders />}/>} />
         <Route path="/login" element= {<OnlyUnAuth component={<LoginPage />}/>} />
         <Route path="/forgot-password" element= {<OnlyUnAuth component={<ForgotPasswordPage />}/>} />
         <Route path="/feed" element=  {<FeedPage />} />
@@ -94,6 +96,9 @@ const App = (): JSX.Element => {
         <Route path="/feed/:id" element={
           <OrdersDetailPage/>}> 
         </Route>
+        <Route path='profile/orders/:id' element={
+          <OrdersDetailPage/>}> 
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
         {background && (
@@ -102,11 +107,17 @@ const App = (): JSX.Element => {
            <Modal closeModalHandler={closeIngredientDetailsPopup}>
               <IngredientDetailPage ingredients={allIngredients}/> 
            </Modal>}/>
+
            <Route path="/feed/:id" element={
            <Modal closeModalHandler={closeOrderFullDetailsPopup}>
               <OrdersDetailPage /> 
            </Modal>}/>
-         </Routes>
+
+           <Route path="profile/orders/:id" element={
+           <Modal closeModalHandler={() => console.log('заглушка которая ничего не сломает')}>
+              <OrdersDetailPage /> 
+           </Modal>}/>
+       </Routes>
          )}
       {!!acceptedOrder && (
         <Modal closeModalHandler={closeOrderDetailsPopup}>
