@@ -1,3 +1,4 @@
+import { getCurrentOrderRequest, getCurrentOrderRequestFailed, getCurrentOrderRequestSuccess } from "../../services/actions/current_order_action-creators";
 import { getUserDataRequestSuccess, setAuthorizationState, setUserData, updateUserDataRequest, updateUserDataRequestFailed, updateUserDataRequestSuccess } from "../../services/actions/user-api-action-creators";
 
 const mainUrl = 'https://norma.nomoreparties.space/api/';
@@ -43,6 +44,28 @@ export const getUser = () => {
     });
   };
 };
+
+export const getCurrenOrderApi = (orderNumber) => {
+  return function (dispatch) {
+    dispatch(getCurrentOrderRequest());
+
+    fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        }
+      })
+      .then(checkResponse)
+      .then(responseData => {
+        // console.log(responseData.orders[0])
+        dispatch(getCurrentOrderRequestSuccess(responseData.orders[0]));
+      })
+      .catch(error => {
+        dispatch(getCurrentOrderRequestFailed(error));
+      });
+  };
+};
+
 
 const fetchWithRefresh = async (url, options) => {
   try {

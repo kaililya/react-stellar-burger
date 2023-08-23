@@ -16,7 +16,7 @@ const OrdersFeed = ():JSX.Element => {
     dispatch(setRequestedWsConnection(mainWSUrl + endPointAllOrders));
 
     return () => {
-      // dispatch(setClosedWsConnection('закрытие'));
+      dispatch(setClosedWsConnection('закрытие'));
     };
   }, [dispatch]);
 
@@ -28,7 +28,7 @@ const OrdersFeed = ():JSX.Element => {
       <ul className={`custom-scroll ${styles.order_container}`}>
         {orders.map((order:TOrderFeed, index) => (
         <Link 
-            to={`/feed/${order._id}`}
+            to={`/feed/${order.number}`}
             state={{ background: location }}>
           <OrdersFeedItem order={order} key={order._id + String(index)} showStatus={false} />
         </Link>

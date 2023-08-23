@@ -26,6 +26,7 @@ import OrdersDetailPage from "../../pages/OrdersDetailPage/OrdersDetailPage";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
 import ProfileOrders from "../ProfileOrders/ProfileOrders";
 import ProfileForm from "../ProfileForm/ProfileForm";
+
 // TODO
 // 1) Изменить везде
 // 1.1) Вызов useSelector на типизированный
@@ -43,6 +44,8 @@ const App = (): JSX.Element => {
   const { indgredientsRequestPending, indgredientsRequestRejected, error } = useAppSelector(apiStateSelector);
   const acceptedOrder = useAppSelector(acceptedOrderSelector);
   const allIngredients = useAppSelector(ingredientsSelector);
+  const currentOrder = useAppSelector(store => store.currentOrder.orderData);
+
 
   const closeOrderDetailsPopup = React.useCallback(() => {
     batch(() => {
@@ -93,10 +96,10 @@ const App = (): JSX.Element => {
         <Route path="/ingredient-detail/:id" element={
           <IngredientDetailPage ingredients={allIngredients}/>}> 
         </Route>
-        <Route path="/feed/:id" element={
+        <Route path="/feed/:number" element={
           <OrdersDetailPage/>}> 
         </Route>
-        <Route path='profile/orders/:id' element={
+        <Route path='profile/orders/:number' element={
           <OrdersDetailPage/>}> 
         </Route>
         <Route path="*" element={<NotFoundPage />} />
@@ -108,12 +111,12 @@ const App = (): JSX.Element => {
               <IngredientDetailPage ingredients={allIngredients}/> 
            </Modal>}/>
 
-           <Route path="/feed/:id" element={
+           <Route path="/feed/:number" element={
            <Modal closeModalHandler={closeOrderFullDetailsPopup}>
               <OrdersDetailPage /> 
            </Modal>}/>
 
-           <Route path="profile/orders/:id" element={
+           <Route path="profile/orders/:number" element={
            <Modal closeModalHandler={() => console.log('заглушка которая ничего не сломает')}>
               <OrdersDetailPage /> 
            </Modal>}/>

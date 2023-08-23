@@ -8,6 +8,7 @@ import { dataReducer } from './data-reducer';
 import currentValuesReducer from './current-reducer';
 import { userApiReducer } from './user-api-reducer';
 import { wsReducer } from './ws-reducer';
+import currenOrderReducer from './current-order-reducer';
 
 
 export const rootReducer = combineReducers({
@@ -19,4 +20,5 @@ export const rootReducer = combineReducers({
   current: currentValuesReducer,
   userData: userApiReducer,
   wsOrders: wsReducer,
+  currentOrder: currenOrderReducer,
 });
