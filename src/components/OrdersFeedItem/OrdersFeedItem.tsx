@@ -1,9 +1,10 @@
 import styles from './OrdersFeedItem.module.css'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TIngredient, TOrderFeed, useAppSelector } from '../../utils/types';
+import { TIngredient, TOrderFeed, useAppDispatch, useAppSelector } from '../../utils/types';
 import { ingredientsSelector } from '../../services/selectors/data-selectors';
 import { useMemo } from 'react';
 import { tranlateStatus } from '../../utils/utils';
+import { useLocation, useNavigate } from 'react-router';
 
 // TODO
 // 1) Завершить вестку более 6 ингредиентов 
@@ -15,7 +16,9 @@ type TOrdersFeedItem<T> = {
 };
 
 const OrdersFeedItem = ({order, showStatus}:TOrdersFeedItem<TOrderFeed>):JSX.Element => {
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useAppDispatch();
   const allIngredients = useAppSelector(ingredientsSelector);
 
   const { name, number, createdAt, ingredients, status } = order;
@@ -46,6 +49,12 @@ const OrdersFeedItem = ({order, showStatus}:TOrdersFeedItem<TOrderFeed>):JSX.Ele
   } else {
     previewIngredients = orderIngredients.slice();
   }
+
+  // const handleOrderClick:React.MouseEventHandler<HTMLButtonElement> = () => {
+    // dispatch(order...);
+    // navigate('', {state: {background: location}})
+    // <button type='button' onClick={handleOrderClick}>
+  // };
 
   return (
       <li className={`${styles.order_item}`}>

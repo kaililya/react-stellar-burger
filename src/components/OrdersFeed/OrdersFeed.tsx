@@ -29,8 +29,11 @@ const OrdersFeed = ():JSX.Element => {
         {orders.map((order:TOrderFeed, index) => (
         <Link 
             to={`/feed/${order.number}`}
-            state={{ background: location }}>
-          <OrdersFeedItem order={order} key={order._id + String(index)} showStatus={false} />
+            state={{ background: location }}
+            key={order.number}
+            className={styles.link}
+            >
+          <OrdersFeedItem order={order} showStatus={false} />
         </Link>
         ))}
       </ul>

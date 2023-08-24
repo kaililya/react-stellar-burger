@@ -1,5 +1,5 @@
 import { store } from '../services/store';
-import { ThunkDispatch } from 'redux-thunk';
+import { ThunkDispatch, ThunkAction } from 'redux-thunk';
 import {
   TypedUseSelectorHook,
   useDispatch,
@@ -30,10 +30,12 @@ TWSActions;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = ThunkDispatch<RootState, never, TActions>;
 
-type TDispatchHook = () => AppDispatch;
+export type TDispatchHook = () => AppDispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch: TDispatchHook = useDispatch;
+
+export type TAppThunk<TReturn = void> = ThunkAction<TReturn, RootState, never, TActions>;
 
 
 export const wsActions = {
@@ -96,4 +98,9 @@ export type TWSMessage = {
   orders: Array<TOrderFeed>;
   total: number;
   totalToday: number;
+};
+
+export type TFetchOptions = {
+  'Content-Type': string;
+  authorization?: string;
 };

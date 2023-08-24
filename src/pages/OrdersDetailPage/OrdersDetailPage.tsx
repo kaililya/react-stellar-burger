@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, FC } from 'react'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './OrdersDetailPage.module.css'
 import { tranlateStatus } from '../../utils/utils';
@@ -12,25 +12,21 @@ import { setClearCurrentOrder } from '../../services/actions/current_order_actio
 // 1) Покрасить текст статуса заказа
 // 2) Сделать попап красивым
 
-const OrdersDetailPage = ():JSX.Element => {
+const OrdersDetailPage:FC = () => {
   const dispatch = useAppDispatch()
   const { number } = useParams();
   const allIngredients = useAppSelector(ingredientsSelector);
 
-  console.log('компонент монтирован')
-
   useEffect(() => {
-    console.log('useEffect сработал')
-
+    
     dispatch(getCurrenOrderApi(String(number)));
+
     return () => {
-      dispatch(setClearCurrentOrder())
+      dispatch(setClearCurrentOrder());
     }
-  },[number,dispatch])
+  }, [number, dispatch]);
 
   const currentOrder = useAppSelector(store => store.currentOrder.orderData);
-
-  console.log(currentOrder)
 
   const currentOrderStatus = currentOrder?.status;
 
@@ -39,22 +35,28 @@ const OrdersDetailPage = ():JSX.Element => {
       return [];
     }
     return currentOrder?.ingredients.map(
-      (item:any) => allIngredients.filter((ingredient:any) => ingredient._id === item)[0]
+      (item:any) => allIngredients.find((ingredient:any) => ingredient._id === item)
     );
-  }, [allIngredients]);
+  }, [allIngredients, currentOrder]);
 
   const totalPrice = React.useMemo(
-    () =>
-      orderIngredients.reduce(
+    () => {
+      if (!orderIngredients) {
+        return 0;
+      };
+      return orderIngredients.reduce(
         (sum:any, ingredient:any) => sum + ingredient.price * (ingredient.type === "bun" ? 2 : 1),
         0
-      ),
+      )},
     [orderIngredients]
   );
 
-  if (!currentOrder) return null as any;
-  
+  if (!orderIngredients || orderIngredients.length === 0 || !allIngredients) {
+    return null
+  };
+
   return (
+
     <section>
       <div className={styles.order_container}>
         <h3 className={`text text_type_digits-default mb-10 ${styles.order_number}`}>#{currentOrder?.number}</h3>

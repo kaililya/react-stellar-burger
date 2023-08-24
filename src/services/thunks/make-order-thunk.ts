@@ -3,9 +3,10 @@ import { newOrderFailed, newOrderPlaced, newOrderRequested } from '../actions/ap
 import { setIngredients } from '../actions/data-action-creators';
 import { postOrder } from '../../utils/api/api';
 import { setAcceptedOrder } from '../actions/current-action-creators';
+import { TAppThunk } from '../../utils/types';
 
 
-export function makeOrderThunk(ids) {
+export function makeOrderThunk(ids:Array<string>):TAppThunk {
   return function(dispatch) {
     dispatch(newOrderRequested());
     postOrder(ids)
@@ -14,9 +15,8 @@ export function makeOrderThunk(ids) {
         batch(() => {
           dispatch(newOrderPlaced());
           dispatch(setAcceptedOrder({ name, number }));
-
       })} else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }  
     })
     .catch(({ httpCode, message }) => {

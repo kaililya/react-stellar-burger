@@ -115,7 +115,6 @@ const App = (): JSX.Element => {
            <Modal closeModalHandler={closeOrderFullDetailsPopup}>
               <OrdersDetailPage /> 
            </Modal>}/>
-
            <Route path="profile/orders/:number" element={
            <Modal closeModalHandler={() => console.log('заглушка которая ничего не сломает')}>
               <OrdersDetailPage /> 

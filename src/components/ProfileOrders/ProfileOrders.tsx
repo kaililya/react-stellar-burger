@@ -6,7 +6,8 @@ import styles from '../OrdersFeed/OrdersFeed.module.css';
 import stylesProfile from '../../pages/profile/profile.module.css' 
 import { Link, useLocation } from "react-router-dom";
 import { logoutUserThunk } from "../../services/thunks/user-api-thunk";
-import { NavLink,RouteMatch } from "react-router-dom";
+import { NavLink, RouteMatch } from "react-router-dom";
+import styles2 from '../OrdersFeed/OrdersFeed.module.css'
 
 const ProfileOrders = ():JSX.Element => {
 
@@ -16,7 +17,6 @@ const ProfileOrders = ():JSX.Element => {
   };
   const dispatch = useAppDispatch();
   const location = useLocation();
-  console.log(location)
 
   useEffect(() => {
     dispatch(setRequestedWsConnection(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken')?.replace('Bearer','').substring(1)}`));
@@ -65,10 +65,12 @@ const ProfileOrders = ():JSX.Element => {
       <ul className={`custom-scroll ${styles.order_container}`}>
         {orders.map((order:TOrderFeed) => (
         <Link
-          to={`${location.pathname}/${order._id}`}
+          to={`${location.pathname}/${order.number}`}
           state={{ background: location }}
+          key={order._id}
+          className={styles2.link}
         >
-           <OrdersFeedItem order={order} key={order._id} showStatus={true} />
+           <OrdersFeedItem order={order}  showStatus={true} />
         </Link>
         ))}
     </ul>

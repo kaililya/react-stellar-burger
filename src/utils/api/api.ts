@@ -1,5 +1,13 @@
-import { getCurrentOrderRequest, getCurrentOrderRequestFailed, getCurrentOrderRequestSuccess } from "../../services/actions/current_order_action-creators";
-import { getUserDataRequestSuccess, setAuthorizationState, setUserData, updateUserDataRequest, updateUserDataRequestFailed, updateUserDataRequestSuccess } from "../../services/actions/user-api-action-creators";
+import { getCurrentOrderRequest,
+getCurrentOrderRequestFailed,
+getCurrentOrderRequestSuccess } from "../../services/actions/current_order_action-creators";
+import { getUserDataRequestSuccess,
+setAuthorizationState,
+setUserData, 
+updateUserDataRequest, 
+updateUserDataRequestFailed,
+updateUserDataRequestSuccess } from "../../services/actions/user-api-action-creators";
+import { TAppThunk } from "../types";
 
 const mainUrl = 'https://norma.nomoreparties.space/api/';
 export const mainWSUrl = 'wss://norma.nomoreparties.space/';
@@ -14,6 +22,18 @@ const endPointRefreshToken = 'auth/token';
 const endPointUpdateUserData = 'auth/user';
 export const endPointAllOrders = 'orders/all';
 
+export const checkResponse = (res:Response):Promise<any> => {
+  if (res.ok) {
+    return res.json();
+  }
+  return res.json()
+  .then((err) => {
+    console.log(err)
+    err.httpCode = res.status;
+    return Promise.reject(err);
+  })
+}
+
 const refreshToken = () => {
   return fetch("https://norma.nomoreparties.space/api/auth/token", {
     method: "POST",
@@ -27,13 +47,13 @@ const refreshToken = () => {
   }).then(checkResponse);
 };
 
-export const getUser = () => {
+export const getUser = ():TAppThunk => {
   return (dispatch) => {
     return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
       method: "GET",
-      headers: {
+      headers:<HeadersInit> {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("accessToken")
+        "authorization": localStorage.getItem("accessToken")
       }
     }).then((res) => {
       if (res.success) {
@@ -45,7 +65,7 @@ export const getUser = () => {
   };
 };
 
-export const getCurrenOrderApi = (orderNumber) => {
+export const getCurrenOrderApi = (orderNumber:string):TAppThunk => {
   return function (dispatch) {
     dispatch(getCurrentOrderRequest());
 
@@ -57,7 +77,7 @@ export const getCurrenOrderApi = (orderNumber) => {
       })
       .then(checkResponse)
       .then(responseData => {
-        // console.log(responseData.orders[0])
+        console.log(responseData)
         dispatch(getCurrentOrderRequestSuccess(responseData.orders[0]));
       })
       .catch(error => {
@@ -67,12 +87,13 @@ export const getCurrenOrderApi = (orderNumber) => {
 };
 
 
-const fetchWithRefresh = async (url, options) => {
+const fetchWithRefresh = async (url:string, options:any) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
-  } catch (err) {
-    if (err.message === "jwt expired") {
+  } catch (err)  {
+    const error = err as Error;
+    if (error.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -83,16 +104,16 @@ const fetchWithRefresh = async (url, options) => {
       const res = await fetch(url, options);
       return await checkResponse(res);
     } else {
-      return Promise.reject(err);
+      return Promise.reject(err )
     }
   }
 };
 
-export const checkUserAuth = () => {
+export const checkUserAuth = ():TAppThunk => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
-      .catch((err) => {
+      .catch(() => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         dispatch(setUserData(null));
@@ -126,14 +147,14 @@ export const checkUserAuth = () => {
   //   }
   // };
 
-export const updateUserDataThunk2 = (name, email, password) => {
+export const updateUserDataThunk2 = (name:string, email:string, password:string):TAppThunk => {
 
   return function (dispatch) {
     dispatch(updateUserDataRequest());
 
     fetchWithRefresh(mainUrl + endPointUpdateUserData, {
       method: 'PATCH',
-      headers: {
+      headers: <HeadersInit>{
         "Content-Type": "application/json;charset=utf-8",
         "Authorization": localStorage.getItem("accessToken")
       },
@@ -157,15 +178,15 @@ const defaultHeaders = {
   'Content-Type': 'application/json'
 };
 
-const authorizationHeader = (token) => {
+const authorizationHeader = (token:string|null) => {
   return {
   'Content-Type': 'application/json',
-  "authorization": token
+  authorization: token
   };
 };
 
-const makeFetchOptions = (method, headers, body) => {
-  const options = {
+const makeFetchOptions = (method:"POST"|"GET", headers: any, body?:any):any => {
+  const options: {method: string; headers:null|HeadersInit;body?:any } = {
     method: !!method ? method : 'GET',
     headers
   };
@@ -175,31 +196,19 @@ const makeFetchOptions = (method, headers, body) => {
   return options;
 }
 
-export const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return res.json()
-  .then(err => {
-    console.log(err)
-    err.httpCode = res.status;
-    return Promise.reject(err);
-  })
-}
-
 export const fetchIngredients = () => {
   return fetch(mainUrl + endPointIngredients)
   .then(checkResponse);
 }
 
-export const postOrder = (ids) => {
+export const postOrder = (ids:Array<string>) => {
   const body = {"ingredients": ids };
   const options = makeFetchOptions('POST', authorizationHeader(localStorage.getItem("accessToken")), body);
   return fetch(mainUrl + endPointOrder, options)
   .then(checkResponse);
 }
 
-export const loginUser = (email, password) => {
+export const loginUser = (email:string, password:string) => {
   const body = {
     "email": email, 
     "password": password 
@@ -209,7 +218,7 @@ export const loginUser = (email, password) => {
   .then(checkResponse);
 };
 
-export const registerUser = (name, email, password) => {
+export const registerUser = (name:string, email:string, password:string) => {
   const body = {
     "email": email, 
     "password": password ,
@@ -220,7 +229,7 @@ export const registerUser = (name, email, password) => {
   .then(checkResponse);
 };
 
-export const forgotPasswordPost = (email) => {
+export const forgotPasswordPost = (email:string) => {
   const body = {
     "email": email
   };
@@ -229,7 +238,7 @@ export const forgotPasswordPost = (email) => {
   .then(checkResponse);
 };
 
-export const resetPasswordPost = (password, token) => {
+export const resetPasswordPost = (password:string, token:string) => {
   const body = {
     "password": password,
     "token": token
@@ -239,7 +248,7 @@ export const resetPasswordPost = (password, token) => {
   .then(checkResponse);
 };
 
-export const logoutUser = (refreshToken) => {
+export const logoutUser = (refreshToken:string|null) => {
   const body = {
     "token": refreshToken
   };
@@ -248,7 +257,7 @@ export const logoutUser = (refreshToken) => {
   .then(checkResponse);
 };
 
-export const refreshTokenPost = (refreshToken) => {
+export const refreshTokenPost = (refreshToken:string) => {
   const body = {
     "token": refreshToken
   };

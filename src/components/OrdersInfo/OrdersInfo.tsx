@@ -22,7 +22,7 @@ const OrdersInfo = ():JSX.Element => {
           <h4 className='text text_type_main-medium'>Готовы:</h4>
           <ul className={`custom-scroll ${styles.orders_state_numbers_column}`}>
             {ordersReady.map((order) => (
-              <li className={`text text_type_digits-default ${styles.orders_state_number} ${styles.orders_state_number__success}`}>{order.number}</li>
+              <li key={order.number} className={`text text_type_digits-default ${styles.orders_state_number} ${styles.orders_state_number__success}`}>{order.number}</li>
             ))}
           </ul>
         </div>
@@ -30,7 +30,7 @@ const OrdersInfo = ():JSX.Element => {
           <h4 className='text text_type_main-medium'>В работе:</h4>
           <ul className={`custom-scroll ${styles.orders_state_numbers_column}`}>
             {ordersInProgress.map((order) => (
-            <li className={`text text_type_digits-default ${styles.orders_state_number}`}>{order.number}</li>
+            <li key={order.number} className={`text text_type_digits-default ${styles.orders_state_number}`}>{order.number}</li>
             ))}
           </ul>
         </div>
