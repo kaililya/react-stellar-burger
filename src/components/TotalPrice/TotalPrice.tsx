@@ -1,20 +1,20 @@
 import React from 'react'
 import styles from './TotalPrice.module.css'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
+
 import { apiStateSelector } from '../../services/selectors/api-state-selector';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import { makeOrderThunk } from '../../services/thunks/make-order-thunk';
-import { TIngredient } from '../../utils/types';
+import { TIngredient, useAppDispatch, useAppSelector } from '../../utils/types';
 
 type TTotalPrice = {
   readonly totalPrice: number;
 };
 
 const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
-  const {orderRequestPending} = useSelector(apiStateSelector) as {orderRequestPending:boolean};
-  const { bun, ingredients } = useSelector(burgerConstructorSelector);
-  const dispatch = useDispatch();
+  const {orderRequestPending} = useAppSelector(apiStateSelector);
+  const { bun, ingredients } = useAppSelector(burgerConstructorSelector);
+  const dispatch = useAppDispatch();
 
   const makeOrder = (e: React.SyntheticEvent): void | undefined => {
     e.preventDefault();

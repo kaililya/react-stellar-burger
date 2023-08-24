@@ -51,7 +51,7 @@ export const getUser = ():TAppThunk => {
   return (dispatch) => {
     return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
       method: "GET",
-      headers:<HeadersInit> {
+      headers: {
         "Content-Type": "application/json",
         "authorization": localStorage.getItem("accessToken")
       }
@@ -87,7 +87,7 @@ export const getCurrenOrderApi = (orderNumber:string):TAppThunk => {
 };
 
 
-const fetchWithRefresh = async (url:string, options:any) => {
+const fetchWithRefresh = async (url:string, options:any):Promise<any> => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
@@ -104,7 +104,7 @@ const fetchWithRefresh = async (url:string, options:any) => {
       const res = await fetch(url, options);
       return await checkResponse(res);
     } else {
-      return Promise.reject(err )
+      return Promise.reject(err)
     }
   }
 };
@@ -113,6 +113,7 @@ export const checkUserAuth = ():TAppThunk => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
+      // @ts-ignore
       .catch(() => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");

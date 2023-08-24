@@ -3,7 +3,7 @@ import AppHeader from '../AppHeader/AppHeader'
 import React from "react";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { batch } from 'react-redux';
 import { getIngredientsThunk } from '../../services/thunks/get-ingredients-thunk'
 import { apiStateSelector } from "../../services/selectors/api-state-selector";
 import { acceptedOrderSelector } from "../../services/selectors/current-selector";
@@ -27,15 +27,6 @@ import { useAppDispatch, useAppSelector } from "../../utils/types";
 import ProfileOrders from "../ProfileOrders/ProfileOrders";
 import ProfileForm from "../ProfileForm/ProfileForm";
 
-// TODO
-// 1) Изменить везде
-// 1.1) Вызов useSelector на типизированный
-// 1.2) Удалить типизацию у 1.1.
-// 1.3) Вызов useDispatch на типизированный
-// 2) Добавить "i-GMT+3" для заказов
-// 
-// добавить страницам main тег
-// 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -44,8 +35,6 @@ const App = (): JSX.Element => {
   const { indgredientsRequestPending, indgredientsRequestRejected, error } = useAppSelector(apiStateSelector);
   const acceptedOrder = useAppSelector(acceptedOrderSelector);
   const allIngredients = useAppSelector(ingredientsSelector);
-  const currentOrder = useAppSelector(store => store.currentOrder.orderData);
-
 
   const closeOrderDetailsPopup = React.useCallback(() => {
     batch(() => {

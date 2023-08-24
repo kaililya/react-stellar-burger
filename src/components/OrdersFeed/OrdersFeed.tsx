@@ -1,4 +1,3 @@
-// TODO сводка по заказам
 import styles from './OrdersFeed.module.css'
 import OrdersFeedItem from "../OrdersFeedItem/OrdersFeedItem"
 import { useAppDispatch, useAppSelector } from '../../utils/types'

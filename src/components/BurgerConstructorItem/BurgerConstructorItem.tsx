@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor-action-creators';
 import { useDrag, useDrop } from 'react-dnd';
-import { TIngredient, TIngredientAddUniqueId } from '../../utils/types';
+import {  TIngredientAddUniqueId, useAppDispatch } from '../../utils/types';
 
 
 type BurgerConstructorItem<T> = {
@@ -13,7 +12,7 @@ type BurgerConstructorItem<T> = {
 };
 
 const BurgerConstructorItem = ({ item, index }:BurgerConstructorItem<TIngredientAddUniqueId>):JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
   const handleDeleteItem = React.useCallback(() => {
     dispatch(deleteIngredient(item));

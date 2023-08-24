@@ -2,14 +2,14 @@ import React from 'react';
 import styles from '../login/login.module.css';
 import { EmailInput, Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import useForm from '../../hooks/useForm';
 import { registerUserThunk } from '../../services/thunks/user-api-thunk';
+import { useAppDispatch } from '../../utils/types';
 
 
 const RegisterPage = ():JSX.Element => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 

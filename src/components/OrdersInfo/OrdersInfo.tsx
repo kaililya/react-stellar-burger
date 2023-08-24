@@ -1,6 +1,5 @@
-// TODO ЛЕНТА ЗАКАЗОВ
+// TODO 
 // 1) Сделать так, чтобы в верстке каждый 6 заказ переносился на след. столбец и при этом был скроо бар
-// 2) Использовать useMemo для списков заказов с разным статусом
 import { useMemo } from 'react';
 import { TOrderFeed, useAppSelector } from '../../utils/types';
 import styles from './OrdersInfo.module.css'

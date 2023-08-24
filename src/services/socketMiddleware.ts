@@ -2,8 +2,6 @@ import type { Middleware, MiddlewareAPI } from 'redux';
 import { TWSActions, setClosedWsConnection } from './actions/ws-actions-creators';
 import { AppDispatch, RootState, TWS } from '../utils/types';
 
-// TODO
-// 1) Использовать Action креэйторы, а не объект диспатча
 
 export const socketMiddleware = (wsActions: TWS): Middleware => {
 

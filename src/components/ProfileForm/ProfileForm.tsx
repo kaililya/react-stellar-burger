@@ -1,9 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react'
 import styles from './ProfileForm.module.css'
 import useForm from '../../hooks/useForm'
-import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
+import { RootStateOrAny } from 'react-redux';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateUserDataThunk2, } from '../../utils/api/api';
+import { useAppDispatch, useAppSelector } from '../../utils/types';
 
 type TFormStateType = {
   name: string;
@@ -12,10 +13,10 @@ type TFormStateType = {
 };
 
 const  ProfileForm = ():JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [inputChanged, setInputChanged] = useState<boolean>(false);
 
-  const {userData: {name: oldName, email: oldEmail}, accessToken} = useSelector((store:RootStateOrAny) => store.userData);
+  const {userData: {name: oldName, email: oldEmail}, accessToken} = useAppSelector((store:RootStateOrAny) => store.userData);
 
   const {hadleChangeUserData, userData, setUserData} = useForm<TFormStateType>({
     name: '',

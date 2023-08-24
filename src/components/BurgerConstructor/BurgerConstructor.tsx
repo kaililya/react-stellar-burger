@@ -2,17 +2,16 @@ import { useMemo } from 'react'
 import styles from './BurgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPrice from '../TotalPrice/TotalPrice';
-import { useDispatch, useSelector } from 'react-redux';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
 import { useDrop } from 'react-dnd';
 import { addIngredient, setBun } from '../../services/actions/burger-constructor-action-creators';
-import { TIngredient,TIngredientAddUniqueId } from '../../utils/types';
+import { TIngredientAddUniqueId, useAppDispatch, useAppSelector } from '../../utils/types';
 
 
 const BurgerConstructor = ():JSX.Element => {
-  const dispatch = useDispatch();
-  const { bun, ingredients } = useSelector(burgerConstructorSelector);
+  const dispatch = useAppDispatch();
+  const { bun, ingredients } = useAppSelector(burgerConstructorSelector);
 
   const handleDropItem = (item: TIngredientAddUniqueId) => {
     switch (item.type) {
