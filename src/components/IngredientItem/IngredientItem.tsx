@@ -1,12 +1,11 @@
 import styles from './IngredientItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import { setSelectedIngredient } from '../../services/actions/current-action-creators';
 import { Link, useLocation } from 'react-router-dom';
-import { TIngredient, TIngredientAddUniqueId } from '../../utils/types';
+import { TIngredient, TIngredientAddUniqueId, useAppDispatch, useAppSelector } from '../../utils/types';
 
 type TIngredientItem<T> = {
   igredient: T;
@@ -14,7 +13,7 @@ type TIngredientItem<T> = {
 
 
 const IngredientItem  = ({ igredient }:TIngredientItem<TIngredient>):JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   const[{ isDrag }, dragRef] = useDrag({
@@ -25,7 +24,7 @@ const IngredientItem  = ({ igredient }:TIngredientItem<TIngredient>):JSX.Element
     })
   });
 
-  const {bun, ingredients} = useSelector(burgerConstructorSelector) as {bun:TIngredient; ingredients:Array<TIngredientAddUniqueId>};
+  const {bun, ingredients} = useAppSelector(burgerConstructorSelector);
 
   const count = React.useMemo<number>(() => {
     

@@ -1,6 +1,5 @@
 import styles from "./OrderDetails.module.css";
 import illustration from '../../image/done.svg';
-import { FunctionComponent } from "react";
 
 type TOrderDetails = {
   readonly acceptedOrder: {

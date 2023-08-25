@@ -6,7 +6,8 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router';
 
-
+// TODO
+// 1) Сделать так, чтобы при закрытие попапа я переходил на /feed, а не /main
 
 type TModal = {
   closeModalHandler: () => void | undefined;
@@ -45,10 +46,5 @@ const Modal = ({ children, closeModalHandler }:TModal):JSX.Element => {
     ), document.getElementById("root-modal") as HTMLElement
   )
 }
-
-// Modal.propTypes = {
-//   children: PropTypes.node.isRequired,
-//   closeModalHandler: PropTypes.func.isRequired
-// }
 
 export default React.memo(Modal)

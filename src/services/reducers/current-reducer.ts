@@ -1,22 +1,26 @@
+import { TIngredient, TOrderData } from "../../utils/types";
 import {
    SET_ACCEPTED_ORDER,
    CLEAR_ACCEPTED_ORDER, 
    SET_SELECTED_INGREDIENT,
    CLEAR_SELECTED_INGREDIENT,
   } from "../actions/actions"
+import { TCurrentActions } from "../actions/current-action-creators";
 
-const initialState = {
+type TInitialState = {
+  selectedIngredient:TIngredient|null;
+  acceptedOrder:TOrderData|null;
+};
+
+const initialState:TInitialState = {
   selectedIngredient: null,
-  // doesExistSelectedIngredient: false,
   acceptedOrder: null,
 } 
-// Дописать 
-const currentValuesReducer = (state = initialState, action) => {
+const currentValuesReducer = (state = initialState, action:TCurrentActions):TInitialState => {
   switch (action.type) {
     case SET_SELECTED_INGREDIENT: {
       return {
         ...state,
-        // doesExistSelectedIngredient: true,
         selectedIngredient: action.payload,
       }
     }
@@ -24,7 +28,6 @@ const currentValuesReducer = (state = initialState, action) => {
     case CLEAR_SELECTED_INGREDIENT: {
       return {
         ...state,
-        doesExistSelectedIngredient: false,
         selectedIngredient: null,
       }
     }

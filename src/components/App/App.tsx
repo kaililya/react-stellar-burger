@@ -1,15 +1,12 @@
 import styles from "./App.module.css";
 import AppHeader from '../AppHeader/AppHeader'
 import React from "react";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { batch } from 'react-redux';
 import { getIngredientsThunk } from '../../services/thunks/get-ingredients-thunk'
 import { apiStateSelector } from "../../services/selectors/api-state-selector";
-import { acceptedOrderSelector, selectedIngredientSelector } from "../../services/selectors/current-selector";
+import { acceptedOrderSelector } from "../../services/selectors/current-selector";
 import { clearAcceptedOrder, clearSelectedIngredient } from "../../services/actions/current-action-creators";
 import { resetBurger } from "../../services/actions/burger-constructor-action-creators";
 import LoginPage from "../../pages/login/login";
@@ -17,25 +14,27 @@ import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import RegisterPage from "../../pages/register/register";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import MainPage from "../../pages/main/main";
 import NotFoundPage from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 import { ingredientsSelector } from "../../services/selectors/data-selectors";
 import IngredientDetailPage from "../../pages/ingredient-detail/ingredient-detail";
 import { checkUserAuth } from "../../utils/api/api";
-import { FunctionComponent } from 'react';
-
+import FeedPage from "../../pages/feed/feed";
+import OrdersDetailPage from "../../pages/OrdersDetailPage/OrdersDetailPage";
+import { useAppDispatch, useAppSelector } from "../../utils/types";
+import ProfileOrders from "../ProfileOrders/ProfileOrders";
+import ProfileForm from "../ProfileForm/ProfileForm";
 
 const App = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
 
-  const { indgredientsRequestPending, indgredientsRequestRejected, error } = useSelector(apiStateSelector);
-  // const selectedIngredient = useSelector(selectedIngredientSelector);  
-  const acceptedOrder = useSelector(acceptedOrderSelector);
-  const allIngredients = useSelector(ingredientsSelector);
+  const { indgredientsRequestPending, indgredientsRequestRejected, error } = useAppSelector(apiStateSelector);
+  const acceptedOrder = useAppSelector(acceptedOrderSelector);
+  const allIngredients = useAppSelector(ingredientsSelector);
 
   const closeOrderDetailsPopup = React.useCallback(() => {
     batch(() => {
@@ -47,6 +46,10 @@ const App = (): JSX.Element => {
   const closeIngredientDetailsPopup = React.useCallback(() => {
     dispatch(clearSelectedIngredient());
   },[dispatch]);
+
+  const closeOrderFullDetailsPopup = React.useCallback(() => {
+
+  },[]);
 
   React.useEffect(() => {
     dispatch(getIngredientsThunk());
@@ -69,28 +72,43 @@ const App = (): JSX.Element => {
 
   return (
     <div className={styles.app}>
-      {/* ForgotPasswordPage */}
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/register" element= {<OnlyUnAuth component={<RegisterPage />}/>}/>
         <Route path="/reset-password" element= {<OnlyUnAuth component={<ResetPasswordPage />}/>} />
-        <Route path="/profile/*" element= {<OnlyAuth component={<ProfilePage />}/>} />
-        {/* <Route path="/profile/*" element= {<ProfilePage />} /> */}
+        <Route path="/profile" element= {<OnlyAuth component={<ProfilePage />}/>} />
+        <Route path="/profile/orders" element= {<OnlyAuth component={<ProfileOrders />}/>} />
         <Route path="/login" element= {<OnlyUnAuth component={<LoginPage />}/>} />
         <Route path="/forgot-password" element= {<OnlyUnAuth component={<ForgotPasswordPage />}/>} />
+        <Route path="/feed" element=  {<FeedPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/ingredient-detail/:id" element={
           <IngredientDetailPage ingredients={allIngredients}/>}> 
+        </Route>
+        <Route path="/feed/:number" element={
+          <OrdersDetailPage/>}> 
+        </Route>
+        <Route path='profile/orders/:number' element={
+          <OrdersDetailPage/>}> 
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
         {background && (
         <Routes> 
-        <Route path="/ingredient-detail/:id" element={
-         <Modal closeModalHandler={closeIngredientDetailsPopup}>
-            <IngredientDetailPage ingredients={allIngredients}/> 
-         </Modal>}/>
-         </Routes>
+          <Route path="/ingredient-detail/:id" element={
+           <Modal closeModalHandler={closeIngredientDetailsPopup}>
+              <IngredientDetailPage ingredients={allIngredients}/> 
+           </Modal>}/>
+
+           <Route path="/feed/:number" element={
+           <Modal closeModalHandler={closeOrderFullDetailsPopup}>
+              <OrdersDetailPage /> 
+           </Modal>}/>
+           <Route path="profile/orders/:number" element={
+           <Modal closeModalHandler={() => console.log('заглушка которая ничего не сломает')}>
+              <OrdersDetailPage /> 
+           </Modal>}/>
+       </Routes>
          )}
       {!!acceptedOrder && (
         <Modal closeModalHandler={closeOrderDetailsPopup}>

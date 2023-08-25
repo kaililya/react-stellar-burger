@@ -1,10 +1,13 @@
 import { SET_SELECTED_INGREDIENT, CLEAR_SELECTED_INGREDIENT } from '../actions/actions'
-const initialState = {
+type TInitialState = {};
+
+
+const initialState:TInitialState = {
   ingredient: null,
   popupOpened: false,
 }
 
-export const ingredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (state = initialState, action:any):TInitialState => {
   switch (action.type) {
     // case CLEAR_SELECTED_INGREDIENT: {
     //   return {

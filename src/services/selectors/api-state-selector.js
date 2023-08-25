@@ -1,1 +1,0 @@
-export const apiStateSelector = (state) => state.apiState;

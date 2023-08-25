@@ -1,0 +1,20 @@
+.orders {
+
+}
+
+.link { 
+  text-decoration:none;
+
+}
+
+.order_container {
+  display: flex;
+  flex-direction: column;
+  max-width: 768px;
+  gap: 16px;
+  height: 600px;
+  padding: 0 8px 0;
+  overflow-y: scroll;
+  text-decoration:none;
+
+}

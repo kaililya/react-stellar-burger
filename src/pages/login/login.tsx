@@ -1,13 +1,13 @@
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import useForm from '../../hooks/useForm';
 import { loginUserThunk } from '../../services/thunks/user-api-thunk';
+import { useAppDispatch } from '../../utils/types';
 
 const LoginPage = ():JSX.Element => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {hadleChangeUserData, userData} = useForm({
     email: '',
     password: '',

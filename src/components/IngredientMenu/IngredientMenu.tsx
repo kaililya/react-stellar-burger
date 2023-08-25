@@ -1,9 +1,8 @@
 import React from 'react'
 import styles from './IngredientMenu.module.css';
-import { useSelector } from 'react-redux';
 import { ingredientsSelector } from '../../services/selectors/data-selectors';
 import IngredientItem from '../IngredientItem/IngredientItem';
-import { TIngredient } from '../../utils/types';
+import { TIngredient, useAppSelector } from '../../utils/types';
 
 type TPropsType = {
   readonly title: string;
@@ -12,7 +11,7 @@ type TPropsType = {
 
 const IngredientMenu = React.forwardRef<HTMLHeadingElement,TPropsType>( ({ title,  typeOfIng }, ref) => {
 
-  const indredientData = useSelector(ingredientsSelector) as ReadonlyArray<TIngredient>;
+  const indredientData = useAppSelector(ingredientsSelector);
   return (
     <>
       <h2 className={`text text_type_main-medium mb-6`} ref={ref} >{title}</h2>

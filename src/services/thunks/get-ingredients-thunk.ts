@@ -3,8 +3,9 @@ import { fetchIngredients } from '../../utils/api/api'
 import { indgredientsRequested, ingredientsFailed, ingredientsReceived } from '../actions/api-action-creators';
 
 import { setIngredients } from '../actions/data-action-creators';
+import { TAppThunk } from '../../utils/types';
 
-export function getIngredientsThunk() {
+export function getIngredientsThunk():TAppThunk {
   return function(dispatch) {
     dispatch(indgredientsRequested());
     fetchIngredients()
@@ -14,7 +15,7 @@ export function getIngredientsThunk() {
           dispatch(ingredientsReceived());
           dispatch(setIngredients(data));
       })} else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }
       
     })

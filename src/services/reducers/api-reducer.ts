@@ -7,7 +7,19 @@ import {
   ORDER_REQUEST_SUCCESS,
   } from '../actions/actions';
 
-const initialState = {
+import { TApiActionCreators } from '../actions/api-action-creators';
+
+type TinitialState = {
+  indgredientsRequestPending: boolean,
+  indgredientsRequestFulfilled: boolean,
+  indgredientsRequestRejected: boolean,
+  orderRequestPending: boolean,
+  orderRequestSuccess: boolean,
+  orderRequestRejected: boolean,
+  error: null| string,
+};
+
+const initialState:TinitialState = {
   indgredientsRequestPending: false,
   indgredientsRequestFulfilled: false,
   indgredientsRequestRejected: false,
@@ -15,9 +27,9 @@ const initialState = {
   orderRequestSuccess: false,
   orderRequestRejected: false,
   error: null,
-}
+};
 
-export const apiStateReducer = (state = initialState, action) => {
+export const apiStateReducer = (state = initialState, action:TApiActionCreators):TinitialState => {
   switch (action.type) {
 
     case CREATE_ORDER_REQUEST: {

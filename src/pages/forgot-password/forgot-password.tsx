@@ -2,18 +2,16 @@ import styles from '../login/login.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate  } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
-import { batch, useDispatch } from 'react-redux'; 
+import { batch} from 'react-redux'; 
 import { setForgottenPassword } from '../../services/actions/user-api-action-creators';
 import { forgotPasswordThunk } from '../../services/thunks/user-api-thunk';
-import { FunctionComponent } from 'react';
+import { useAppDispatch } from '../../utils/types';
 
 
 const ForgotPasswordPage = ():JSX.Element => {
-  
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-
 
   const {hadleChangeUserData, userData} = useForm({
     email: '',

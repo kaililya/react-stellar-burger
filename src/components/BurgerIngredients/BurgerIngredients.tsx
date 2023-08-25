@@ -1,16 +1,16 @@
 import React, {FunctionComponent} from 'react'
 import styles from './BurgerIngredients.module.css';
 import IngredientMenu from '../IngredientMenu/IngredientMenu';
-import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { deleteIngredient } from '../../services/actions/burger-constructor-action-creators';
 import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useAppDispatch } from '../../utils/types';
 
 
 const BurgerIngredients = ():JSX.Element => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
    
   const [{ droppedItem, isHover }, dropRef] = useDrop({
     accept: 'constructor',

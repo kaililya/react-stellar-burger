@@ -1,17 +1,18 @@
 import styles from './profile.module.css'
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import ProfileOrders from '../../components/ProfileOrders/ProfileOrders';
-import { useDispatch } from 'react-redux';
 import { logoutUserThunk } from '../../services/thunks/user-api-thunk';
+import OrdersDetailPage from '../OrdersDetailPage/OrdersDetailPage';
+import Modal from '../../components/Modal/Modal';
+import { useAppDispatch } from '../../utils/types';
 
 // TODO 
 // 1) пофиксить выбор класса для NavLink
-// 2) сделать еще 1 Route для показа попа заказа (/profile/orders/:id)
 
 const ProfilePage = ():JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogoutUser = () => {
     const refreshToken = localStorage.getItem('refreshToken');
@@ -52,10 +53,7 @@ const ProfilePage = ():JSX.Element => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-       <Routes>
-        <Route path='/' element={<ProfileForm />} />
-        <Route path='/orders' element={<ProfileOrders />} />
-       </Routes>
+      <ProfileForm/>
     </section>
   )
 }

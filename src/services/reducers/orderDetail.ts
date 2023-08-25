@@ -8,7 +8,7 @@ const InitialStateOrderDetail = {
   errorMessage: ''
 }
 
-export const OrderRuducer = (state = InitialStateOrderDetail, action) => {
+export const OrderRuducer = (state = InitialStateOrderDetail, action:any):any => {
   switch (action.type) {
     case ORDER_REQUEST_FAILED: {
       return {

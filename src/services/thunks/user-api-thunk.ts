@@ -1,9 +1,11 @@
 import { batch } from 'react-redux';
 import { loginingRuquested, loginingSuccess, loginingFailed, registrationRequest, registrationRequestSeccessed, registrationRequestFailed, forgotingPasswordRequest, forgotingPasswordRequestSuccess, forgotingPasswordRequestFailed, resetingPasswordRequest, resetingPasswordRequestSuccess, resetingPasswordRequestFailed, loginoutingRuquest, loginoutingRuquestSuccess, loginoutingRuquestFailed, refreshTokerRequest, refreshTokerRequestSucces, refreshTokerRequestFailed, getUserDataRequest, getUserDataRequestSuccess, getUserDataRequestFailed, updateUserDataRequest, updateUserDataRequestFailed, updateUserDataRequestSuccess, setAuthorizationState, setUserData } from '../actions/user-api-action-creators';
-import { checkResponse, forgotPasswordPost, getUserData, loginUser, logoutUser, patchUserData, refreshTokenPost, registerUser, resetPasswordPost } from '../../utils/api/api';
+import { checkResponse, forgotPasswordPost, loginUser, logoutUser, refreshTokenPost, registerUser, resetPasswordPost } from '../../utils/api/api';
+import { TAppThunk } from '../../utils/types';
+import { string } from 'prop-types';
 
 
-export function loginUserThunk(email, password) {
+export function loginUserThunk(email:string, password:string):TAppThunk {
   return function(dispatch) {
     dispatch(loginingRuquested());
     loginUser(email, password)
@@ -14,7 +16,7 @@ export function loginUserThunk(email, password) {
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('accessToken', accessToken);
       })} else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }  
     })
     .catch(({ httpCode, message }) => {
@@ -24,7 +26,7 @@ export function loginUserThunk(email, password) {
   }
 };
 
-export function registerUserThunk(name, email, password) {
+export function registerUserThunk(name:string, email:string, password:string):TAppThunk {
   return function(dispatch) {
     dispatch(registrationRequest());
     registerUser(name, email, password)
@@ -37,7 +39,7 @@ export function registerUserThunk(name, email, password) {
         localStorage.setItem("refreshToken", refreshToken);
 
       } else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }  
     })
     .catch(({ httpCode, message }) => {
@@ -47,7 +49,7 @@ export function registerUserThunk(name, email, password) {
   }
 };
 
-export function forgotPasswordThunk(email) {
+export function forgotPasswordThunk(email:string):TAppThunk {
   return function(dispatch) {
     dispatch(forgotingPasswordRequest());
     forgotPasswordPost(email)
@@ -57,7 +59,7 @@ export function forgotPasswordThunk(email) {
           dispatch(forgotingPasswordRequestSuccess());
         });
       } else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }  
     })
     .catch(({ httpCode, message }) => {
@@ -67,7 +69,7 @@ export function forgotPasswordThunk(email) {
   }
 };
 
-export function resetPasswordThunk(password, token) {
+export function resetPasswordThunk(password:string, token:string):TAppThunk {
   return function(dispatch) {
     dispatch(resetingPasswordRequest());
     resetPasswordPost(password, token)
@@ -77,7 +79,7 @@ export function resetPasswordThunk(password, token) {
           dispatch(resetingPasswordRequestSuccess());
         });
       } else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }  
     })
     .catch(({ httpCode, message }) => {
@@ -87,7 +89,7 @@ export function resetPasswordThunk(password, token) {
   }
 };
 
-export function logoutUserThunk(refresToken) {
+export function logoutUserThunk(refresToken:string|null):TAppThunk {
   return function(dispatch) {
     dispatch(loginoutingRuquest());
     logoutUser(refresToken)
@@ -99,7 +101,7 @@ export function logoutUserThunk(refresToken) {
           dispatch(loginoutingRuquestSuccess());
         });
       } else {
-        throw new Error({ httpCode: 500, message: 'Неизвестная ошибка сервера' });
+        throw new Error('Неизвестная ошибка сервера');
       }  
     })
     .catch(({ httpCode, message }) => {

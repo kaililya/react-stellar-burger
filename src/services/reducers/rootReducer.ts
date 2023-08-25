@@ -7,8 +7,9 @@ import { apiStateReducer } from './api-reducer'
 import { dataReducer } from './data-reducer';
 import currentValuesReducer from './current-reducer';
 import { userApiReducer } from './user-api-reducer';
+import { wsReducer } from './ws-reducer';
+import currenOrderReducer from './current-order-reducer';
 
-// убрать суффикс редъюсер для точек входа
 
 export const rootReducer = combineReducers({
   orderReducer: OrderRuducer,
@@ -18,4 +19,6 @@ export const rootReducer = combineReducers({
   data: dataReducer,
   current: currentValuesReducer,
   userData: userApiReducer,
-})
+  wsOrders: wsReducer,
+  currentOrder: currenOrderReducer,
+});
