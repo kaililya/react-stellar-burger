@@ -147,7 +147,7 @@ export const checkUserAuth = ():TAppThunk => {
   //   }
   // };
 
-export const updateUserDataThunk2 = (name:string, email:string, password:string):TAppThunk => {
+export const updateUserDataThunk2 = (name:string | undefined, email:string | undefined, password:string | undefined):TAppThunk => {
 
   return function (dispatch) {
     dispatch(updateUserDataRequest());

@@ -1,16 +1,16 @@
 import { moveIngredientUtil } from '../../utils/move-ingredient';
-import { TIngredientAddUniqueId } from '../../utils/types';
+import { TIngredient, TIngredientAddUniqueId } from '../../utils/types';
 import { SET_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT, RESET_BURGER } from '../actions/actions';
 import { TBurgetConstructorActions } from '../actions/burger-constructor-action-creators';
 
 type TInitialState = {
-  bun: TIngredientAddUniqueId | null;
+  bun: TIngredientAddUniqueId| null;
   ingredients: Array<TIngredientAddUniqueId>;
 };
 
 export const initialState:TInitialState = {
   bun: null,
-  ingredients: [],
+  ingredients: [] ,
 }
 
 export const burgerConstructorReducer = (state = initialState, action:TBurgetConstructorActions):TInitialState => {

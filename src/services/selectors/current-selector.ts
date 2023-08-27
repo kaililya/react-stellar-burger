@@ -1,2 +1,4 @@
-export const acceptedOrderSelector = (state:any) => state.current.acceptedOrder;
-export const selectedIngredientSelector = (state:any) => state.current.selectedIngredient;
+import { RootState } from "../../utils/types";
+
+export const acceptedOrderSelector = (state:RootState) => state.current.acceptedOrder;
+export const selectedIngredientSelector = (state:RootState) => state.current.selectedIngredient;

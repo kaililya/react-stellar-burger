@@ -5,7 +5,7 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import { apiStateSelector } from '../../services/selectors/api-state-selector';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import { makeOrderThunk } from '../../services/thunks/make-order-thunk';
-import { TIngredient, useAppDispatch, useAppSelector } from '../../utils/types';
+import { TIngredient, TIngredientAddUniqueId, useAppDispatch, useAppSelector } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 
 type TTotalPrice = {
@@ -15,7 +15,7 @@ type TTotalPrice = {
 const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
   const isUserAuth = useAppSelector(store => store.userData.isUserAuth);
   const { orderRequestPending } = useAppSelector(apiStateSelector);
-  const { bun, ingredients } = useAppSelector(burgerConstructorSelector);
+  const { bun, ingredients } = useAppSelector(burgerConstructorSelector)                        as {bun: TIngredientAddUniqueId;ingredients:Array<TIngredientAddUniqueId>};
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
 
@@ -24,7 +24,7 @@ const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
     if (!isUserAuth) {
       navigate('/login');
     } else {
-      const bunPlusAllIngredients = ingredients.concat([bun])
+      const bunPlusAllIngredients = ingredients.concat([bun]) 
       const dataIds = bunPlusAllIngredients.map((item: TIngredient) => item._id);
       dispatch(makeOrderThunk(dataIds));
     }
@@ -38,7 +38,8 @@ const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
       </div>
       <Button htmlType="button" type="primary" size="large" disabled={!bun}
       onClick={makeOrder}
-              > {orderRequestPending ? 'Оформление заказа...' : 'Оформить заказ'}
+      >
+      {orderRequestPending ? 'Оформление заказа...' : 'Оформить заказ'}
       </Button>
     </footer>
   );

@@ -1,1 +1,3 @@
-export const ingredientsSelector = (state:any) => state.data.ingredients;
+import { RootState } from "../../utils/types";
+
+export const ingredientsSelector = (state:RootState) => state.data.ingredients;

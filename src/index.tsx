@@ -4,14 +4,19 @@ import { Provider } from 'react-redux';
 import "./index.css";
 import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
-
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import {store} from './services/store'
 
+if (!window.location.pathname.includes('/react-stellar-burger')) {
+  window.history.replaceState(
+    '',
+    '',
+    '/react-stellar-burger' + window.location.pathname
+  );
+};
 
 ReactDOM.render(
-  <Router>
+  <Router basename="/react-stellar-burger">
     <React.StrictMode>
         <Provider store={store}>
          <App />

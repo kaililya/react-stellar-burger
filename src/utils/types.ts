@@ -79,8 +79,8 @@ export type TOrderData = {
 };
 
 export type TUserData = {
-  readonly email: string;
-  readonly name: string;
+  email: string;
+  name: string;
 };
 
 export type TOrderFeed = {
