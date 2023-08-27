@@ -1,23 +1,21 @@
 import styles from './profile.module.css'
-import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
-import useForm from '../../hooks/useForm';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
-import ProfileOrders from '../../components/ProfileOrders/ProfileOrders';
 import { logoutUserThunk } from '../../services/thunks/user-api-thunk';
-import OrdersDetailPage from '../OrdersDetailPage/OrdersDetailPage';
-import Modal from '../../components/Modal/Modal';
 import { useAppDispatch } from '../../utils/types';
+import { NavLink } from 'react-router-dom';
 
-// TODO 
 // 1) пофиксить выбор класса для NavLink
+// p.s. тут только откатывать после обучения на 5 версию, ибо end не работает из-за бага
+// но если кто-то провереят мою работу и знает как это решить, то я был бы очень благодарен
 
 const ProfilePage = ():JSX.Element => {
   const dispatch = useAppDispatch();
-
   const handleLogoutUser = () => {
     const refreshToken = localStorage.getItem('refreshToken');
     dispatch(logoutUserThunk(refreshToken));
   };
+
+  const switchClassName = ({isActive}:{isActive:boolean}): string => (isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`);
 
   return (
     <section className={`${styles.profile_container}`}>
@@ -25,23 +23,25 @@ const ProfilePage = ():JSX.Element => {
         <ul className={`${styles.link_container}`}>
           <li className={``}>
             <NavLink
-              className={({ isActive }) => isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`}
-              to='/profile'
+              to="/profile"
+              className={switchClassName}
+              
             >
               Профиль              
             </NavLink>
           </li>
           <li>
             <NavLink
-              className={({ isActive }) => isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`}
-              to='/profile/orders'
+              className={switchClassName}
+              to="/profile/orders"
+              
             >
               История заказов
             </NavLink>
           </li>
           <li>
             <NavLink
-              className={({ isActive }) => isActive ? `${styles.link_active} text text_type_main-medium` : `${styles.link} text text_type_main-medium`}
+              className={switchClassName}
               to="/login"
               onClick={handleLogoutUser}
             >

@@ -1,4 +1,3 @@
-import { string } from "prop-types";
 import { LOGIN_REQUEST,
    LOGIN_REQUEST_SUCCESS,
    LOGIN_REQUEST_FAILED,
@@ -46,7 +45,7 @@ type TLoginingFailed = {
 };
 
 export const loginingRuquested = ():TLoginingRuquested => ({ type: LOGIN_REQUEST });
-export const loginingSuccess = (userData:{user: TUserData, accessToken:string, refreshToken:string }):TLoginingSuccess => ({ type: LOGIN_REQUEST_SUCCESS, payload: userData });
+export const loginingSuccess = (userData: {user: TUserData, accessToken:string, refreshToken:string } ):TLoginingSuccess => ({ type: LOGIN_REQUEST_SUCCESS, payload: userData });
 export const loginingFailed = (error:string):TLoginingFailed => ({ type: LOGIN_REQUEST_FAILED, payload: error });
 
 type TLoginoutingRuquest = {

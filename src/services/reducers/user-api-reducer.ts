@@ -63,7 +63,7 @@ type TInitialStateUser = {
   isUserAuth: boolean;
 };
 
-const initialState:TInitialStateUser = {
+export const initialState:TInitialStateUser = {
   userData: null,
   loginingRequest: false,
   loginingRequestSuccess: false,
@@ -314,7 +314,7 @@ export const userApiReducer = (state = initialState, action:TUserApiActions):TIn
         forgotPasswordRequest: false,
         forgotPasswordRequestSuccess: false,
         forgotPasswordRequestFailed: true,
-        error: null,
+        error: action.payload,
       }
     };
 

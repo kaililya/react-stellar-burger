@@ -104,3 +104,6 @@ export type TFetchOptions = {
   'Content-Type': string;
   authorization?: string;
 };
+
+export type TIconTypes = 'secondary' | 'primary' | 'error' | 'success';
+

@@ -6,21 +6,28 @@ import { apiStateSelector } from '../../services/selectors/api-state-selector';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import { makeOrderThunk } from '../../services/thunks/make-order-thunk';
 import { TIngredient, useAppDispatch, useAppSelector } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
 
 type TTotalPrice = {
   readonly totalPrice: number;
 };
 
 const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
-  const {orderRequestPending} = useAppSelector(apiStateSelector);
+  const isUserAuth = useAppSelector(store => store.userData.isUserAuth);
+  const { orderRequestPending } = useAppSelector(apiStateSelector);
   const { bun, ingredients } = useAppSelector(burgerConstructorSelector);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const makeOrder = (e: React.SyntheticEvent): void | undefined => {
     e.preventDefault();
-    const bunPlusAllIngredients = ingredients.concat([bun])
-    const dataIds = bunPlusAllIngredients.map((item: TIngredient) => item._id);
-    dispatch(makeOrderThunk(dataIds));
+    if (!isUserAuth) {
+      navigate('/login');
+    } else {
+      const bunPlusAllIngredients = ingredients.concat([bun])
+      const dataIds = bunPlusAllIngredients.map((item: TIngredient) => item._id);
+      dispatch(makeOrderThunk(dataIds));
+    }
   };
 
   return (
@@ -34,10 +41,7 @@ const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
               > {orderRequestPending ? 'Оформление заказа...' : 'Оформить заказ'}
       </Button>
     </footer>
-  )
+  );
 }
 
-// TotalPrice.propTypes = {
-//   totalPrice: PropTypes.number.isRequired
-// }; 
-export default React.memo(TotalPrice);
+export default TotalPrice;

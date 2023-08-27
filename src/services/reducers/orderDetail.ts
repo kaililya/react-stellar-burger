@@ -1,13 +1,14 @@
 import {CREATE_ORDER_REQUEST, ORDER_REQUEST_FAILED, ORDER_REQUEST_SUCCESS} from '../actions/actions'
-// лучше разбить редьюсеры для наборов наддных и для текущего (current ордер, инишиал дата) и ветка api
-const InitialStateOrderDetail = {
+export const InitialStateOrderDetail = {
   orderData: null,
   orderRequestSent: false,
   orderRequestSuccess: false,
   orderRequestFailed: false,
   errorMessage: ''
 }
-
+// тут я типизиру как any так как сам reducer не нужен
+// но если я его коменчу, то все ломается (убираю из кода)
+// я уберу его после обучения, уж сильно устал и нет сил
 export const OrderRuducer = (state = InitialStateOrderDetail, action:any):any => {
   switch (action.type) {
     case ORDER_REQUEST_FAILED: {
@@ -15,7 +16,7 @@ export const OrderRuducer = (state = InitialStateOrderDetail, action:any):any =>
         ...state,
         orderRequestFailed: true,
         orderRequestSent: false,
-        errorMessage: action
+        errorMessage: action.payload
       }
     }
 

@@ -12,7 +12,7 @@ type TInitialState = {
   acceptedOrder:TOrderData|null;
 };
 
-const initialState:TInitialState = {
+export const initialState:TInitialState = {
   selectedIngredient: null,
   acceptedOrder: null,
 } 

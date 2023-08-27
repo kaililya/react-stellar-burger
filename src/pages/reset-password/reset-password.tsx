@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../login/login.module.css';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { RootStateOrAny, batch } from 'react-redux';
+import { batch } from 'react-redux';
 import useForm from '../../hooks/useForm';
 import { setForgottenPassword } from '../../services/actions/user-api-action-creators';
 import { resetPasswordThunk } from '../../services/thunks/user-api-thunk';
@@ -33,7 +33,7 @@ const ResetPasswordPage = ():JSX.Element => {
     }
     
   }
-  const statePasswordForgotten = useAppSelector((store:RootStateOrAny) => store.userData.passwordForgotten);
+  const statePasswordForgotten = useAppSelector((store) => store.userData.passwordForgotten);
 
   useEffect(() => {
     if (!statePasswordForgotten) {

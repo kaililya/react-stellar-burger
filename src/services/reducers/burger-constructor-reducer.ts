@@ -1,6 +1,6 @@
-import { moveIngredient } from '../../utils/move-ingredient';
-import { TIngredient, TIngredientAddUniqueId } from '../../utils/types';
-import {SET_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT, RESET_BURGER} from '../actions/actions';
+import { moveIngredientUtil } from '../../utils/move-ingredient';
+import { TIngredientAddUniqueId } from '../../utils/types';
+import { SET_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT, RESET_BURGER } from '../actions/actions';
 import { TBurgetConstructorActions } from '../actions/burger-constructor-action-creators';
 
 type TInitialState = {
@@ -8,7 +8,7 @@ type TInitialState = {
   ingredients: Array<TIngredientAddUniqueId>;
 };
 
-const initialState:TInitialState = {
+export const initialState:TInitialState = {
   bun: null,
   ingredients: [],
 }
@@ -32,7 +32,7 @@ export const burgerConstructorReducer = (state = initialState, action:TBurgetCon
       const from = state.ingredients.indexOf(ing);
       return {
         ...state,
-        ingredients: moveIngredient(state.ingredients, from, pos),
+        ingredients: moveIngredientUtil(state.ingredients, from, pos),
       }
     }
     case DELETE_INGREDIENT: {
@@ -44,7 +44,11 @@ export const burgerConstructorReducer = (state = initialState, action:TBurgetCon
     }
 
     case RESET_BURGER: {
-      return initialState;
+      return {
+        ...state,
+        bun: null,
+        ingredients: [],
+      }
     }
 
     default:

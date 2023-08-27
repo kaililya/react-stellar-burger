@@ -1,6 +1,3 @@
-// TODO 
-// 1) Сделать так, чтобы в верстке каждый 6 заказ переносился на след. столбец и при этом был скроо бар
-import { useMemo } from 'react';
 import { TOrderFeed, useAppSelector } from '../../utils/types';
 import styles from './OrdersInfo.module.css'
 

@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd';
 import { burgerConstructorSelector } from '../../services/selectors/burger-constructor-selector';
 import { setSelectedIngredient } from '../../services/actions/current-action-creators';
 import { Link, useLocation } from 'react-router-dom';
-import { TIngredient, TIngredientAddUniqueId, useAppDispatch, useAppSelector } from '../../utils/types';
+import { TIngredient, useAppDispatch, useAppSelector } from '../../utils/types';
 
 type TIngredientItem<T> = {
   igredient: T;
