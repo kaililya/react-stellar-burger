@@ -61,6 +61,6 @@ npm run cypress //для E2E тестирования:
 
 ---
 
-[Cайт доступен по адресу] (https://kaililya.github.io/react-stellar-burger/)
+[Обязательно посмторите что получилось на сайте](https://kaililya.github.io/react-stellar-burger/)
 
 ---
