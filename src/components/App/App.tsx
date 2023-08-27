@@ -87,9 +87,7 @@ const App = (): JSX.Element => {
         <Route path="/feed/:number" element={
           <OrdersDetailPage/>}> 
         </Route>
-        <Route path='profile/orders/:number' element={
-          <OrdersDetailPage/>}> 
-        </Route>
+        <Route path='profile/orders/:number' element={<OnlyAuth component={<OrdersDetailPage />}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
         {background && (
@@ -103,10 +101,10 @@ const App = (): JSX.Element => {
            <Modal closeModalHandler={closeOrderFullDetailsPopup}>
               <OrdersDetailPage /> 
            </Modal>}/>
-           <Route path="profile/orders/:number" element={
+           <Route path="profile/orders/:number" element={<OnlyAuth component={
            <Modal closeModalHandler={() => console.log('заглушка которая ничего не сломает')}>
               <OrdersDetailPage /> 
-           </Modal>}/>
+           </Modal>}/>}/>
        </Routes>
          )}
       {!!acceptedOrder && (

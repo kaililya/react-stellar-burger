@@ -15,7 +15,6 @@ describe('popup of ingredient should be avaliable for opening. Also closing by d
     cy.get(selectors.rootModalApp).contains('Детали ингредиента');
     cy.get(selectors.rootModalApp).find('svg').click();
     cy.get(selectors.rootApp).should('not.include.text', 'Детали ингредиента');
-
   }); 
 
   it('popup of ingredient should be openend and closed by click overlay', () => {
