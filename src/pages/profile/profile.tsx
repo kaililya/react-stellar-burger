@@ -25,7 +25,6 @@ const ProfilePage = ():JSX.Element => {
             <NavLink
               to="/profile"
               className={switchClassName}
-              
             >
               Профиль              
             </NavLink>

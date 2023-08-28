@@ -6,7 +6,7 @@ import styles from '../OrdersFeed/OrdersFeed.module.css';
 import stylesProfile from '../../pages/profile/profile.module.css' 
 import { Link, useLocation } from "react-router-dom";
 import { logoutUserThunk } from "../../services/thunks/user-api-thunk";
-import { NavLink, RouteMatch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles2 from '../OrdersFeed/OrdersFeed.module.css'
 
 const ProfileOrders = ():JSX.Element => {
@@ -36,6 +36,7 @@ const ProfileOrders = ():JSX.Element => {
             <NavLink
               className={({ isActive }) => isActive ? `${stylesProfile.link_active} text text_type_main-medium` : `${stylesProfile.link} text text_type_main-medium`}
               to='/profile'
+              end
             >
               Профиль              
             </NavLink>
