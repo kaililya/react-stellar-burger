@@ -4,11 +4,9 @@ import { TIngredient, TOrderFeed, useAppDispatch, useAppSelector } from '../../u
 import { ingredientsSelector } from '../../services/selectors/data-selectors';
 import { useMemo } from 'react';
 import { tranlateStatus } from '../../utils/utils';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-// TODO
-// 1) Завершить вестку более 6 ингредиентов 
-// 2) Добавить цвет в зависимости от статуса заказа
+// Завершить вестку более 6 ингредиентов (после обучения)
 
 type TOrdersFeedItem<T> = {
   readonly order: T;
@@ -65,8 +63,9 @@ const OrdersFeedItem = ({order, showStatus}:TOrdersFeedItem<TOrderFeed>):JSX.Ele
           </p>
         </div>
         <h3 className={`text text_type_main-medium`}>{name}</h3>
-        {status && showStatus && (<p className='text text_type_main-default'>{tranlateStatus(status)}</p>)}
-        
+        {status && showStatus && (
+        <p className={tranlateStatus(status) === 'Готов' ? `text text_type_main-default ${styles.order_status__done}` : `text text_type_main-default`}>{tranlateStatus(status)}</p>
+        )}
         <div className={`${styles.order_lower_container}`}>
           <div className={`${styles.order_image_container}`}>
             {previewIngredients.map((ing, index) => (

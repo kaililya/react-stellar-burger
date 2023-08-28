@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
+import React  from 'react';
 import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 // TODO
 // 1) Сделать так, чтобы при закрытие попапа я переходил на /feed, а не /main
+// т.е. нужно сделать так, чтобы я возвращался на пред. руть по истории переходов
 
 type TModal = {
   closeModalHandler: () => void | undefined;
@@ -20,7 +20,7 @@ const Modal = ({ children, closeModalHandler }:TModal):JSX.Element => {
   React.useEffect(()=> {
     function handleKeyPressEsc(e:KeyboardEvent) {
       if (e.key === "Escape") {
-        navigate('/');
+        navigate(-1);
         closeModalHandler();
       }
     }
@@ -38,7 +38,7 @@ const Modal = ({ children, closeModalHandler }:TModal):JSX.Element => {
         <section className={styles.modal}>
           <CloseIcon type="primary"
              onClick={() => {closeModalHandler();
-               navigate('/')}}
+               navigate(-1)}}
            />
           {children}
         </section>

@@ -1,4 +1,3 @@
-import { FunctionComponent } from "react";
 import styles from "./IngredientDetails.module.css";
 import { TIngredient } from "../../utils/types";
 
@@ -7,6 +6,7 @@ type TIngredientDetails<T> = {
 };
 
 const IngredientDetails = ({ selectedIngredient }:TIngredientDetails<TIngredient>):JSX.Element => {
+  
   return (
   <div className='pt-15'>
     <h3 className="ml-10 text text_type_main-large">Детали ингредиента</h3>

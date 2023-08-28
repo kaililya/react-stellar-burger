@@ -1,6 +1,6 @@
 import {SET_BUN, ADD_INGREDIENT, MOVE_INGREDIENT, DELETE_INGREDIENT, RESET_BURGER} from './actions';
 import { nanoid } from 'nanoid';
-import { TIngredient, TIngredientAddUniqueId } from '../../utils/types';
+import { TIngredientAddUniqueId } from '../../utils/types';
 
 
 type TSetBun = {

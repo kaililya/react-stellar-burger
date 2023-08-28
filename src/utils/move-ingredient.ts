@@ -2,7 +2,7 @@ import { TIngredient, TIngredientAddUniqueId } from "./types";
 
 
 
-export const moveIngredient = (arr: Array<TIngredientAddUniqueId>, from:number, to:number):Array<TIngredientAddUniqueId> => {
+export const moveIngredientUtil = (arr: Array<TIngredientAddUniqueId>, from:number, to:number):Array<TIngredientAddUniqueId> => {
   const answerArr = arr;
   if (from === to) {
     return arr;

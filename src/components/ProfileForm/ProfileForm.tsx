@@ -1,22 +1,22 @@
 import { FormEvent, useEffect, useState } from 'react'
 import styles from './ProfileForm.module.css'
 import useForm from '../../hooks/useForm'
-import { RootStateOrAny } from 'react-redux';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateUserDataThunk2, } from '../../utils/api/api';
 import { useAppDispatch, useAppSelector } from '../../utils/types';
 
 type TFormStateType = {
-  name: string;
-  email: string;
-  password: string;
+  name: string | undefined;
+  email: string | undefined;
+  password: string | undefined;
 };
 
-const  ProfileForm = ():JSX.Element => {
+const ProfileForm = ():JSX.Element => {
   const dispatch = useAppDispatch();
   const [inputChanged, setInputChanged] = useState<boolean>(false);
-
-  const {userData: {name: oldName, email: oldEmail}, accessToken} = useAppSelector((store:RootStateOrAny) => store.userData);
+  const userDataStore = useAppSelector(store => store.userData.userData);
+  const oldEmail = userDataStore?.email;
+  const oldName = userDataStore?.name;
 
   const {hadleChangeUserData, userData, setUserData} = useForm<TFormStateType>({
     name: '',
@@ -56,7 +56,9 @@ const  ProfileForm = ():JSX.Element => {
 
   return (
     <form onSubmit={hadleSubmit} className={`${styles.form_container}`}>
+      {/* @ts-ignore */}
       <Input onChange={onChange} type={'text'} placeholder={'Имя'} name={'name'} icon={'EditIcon'} value={userData.name}/>
+      {/* @ts-ignore */}
       <Input onChange={onChange} name={'email'} icon={'EditIcon'} value={userData.email} />
       <PasswordInput onChange={onChange} name={'password'} icon='EditIcon' value={''}/>
       {inputChanged && (

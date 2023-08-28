@@ -3,8 +3,6 @@ import { CLEAR_CURRENT_ORDER, GET_CURRENT_ORDER_REQUEST,
   GET_CURRENT_ORDER_REQUEST_FAILED,
   GET_CURRENT_ORDER_REQUEST_SUCCESS } from "./actions";
 
- 
-  
 type TGetCurrentOrderRequest  = {
   readonly type: typeof GET_CURRENT_ORDER_REQUEST;
   };
@@ -30,7 +28,6 @@ type TSetClearCurrentOrder = {
   };
   
 export const setClearCurrentOrder = ():TSetClearCurrentOrder => ({ type: CLEAR_CURRENT_ORDER});
-
 
 export type TCurrentOrderActions= TGetCurrentOrderRequest |
  TGetCurrentOrderRequestFailed |

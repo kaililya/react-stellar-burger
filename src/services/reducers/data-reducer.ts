@@ -2,11 +2,11 @@ import { TIngredient } from "../../utils/types";
 import { SET_INGREDIENTS } from "../actions/actions"
 import { TDataActions } from "../actions/data-action-creators"
 
-type TInitialState = {
+export type TInitialState = {
   ingredients: Array<TIngredient>
 };
 
-const initialState:TInitialState = {
+export const initialState:TInitialState = {
   ingredients: [],
 };
 

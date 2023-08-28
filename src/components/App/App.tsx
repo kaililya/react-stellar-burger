@@ -22,10 +22,9 @@ import { ingredientsSelector } from "../../services/selectors/data-selectors";
 import IngredientDetailPage from "../../pages/ingredient-detail/ingredient-detail";
 import { checkUserAuth } from "../../utils/api/api";
 import FeedPage from "../../pages/feed/feed";
-import OrdersDetailPage from "../../pages/OrdersDetailPage/OrdersDetailPage";
+import OrdersDetailPage from "../../pages/orders-detail-page/orders-detail-page";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
 import ProfileOrders from "../ProfileOrders/ProfileOrders";
-import ProfileForm from "../ProfileForm/ProfileForm";
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -88,9 +87,7 @@ const App = (): JSX.Element => {
         <Route path="/feed/:number" element={
           <OrdersDetailPage/>}> 
         </Route>
-        <Route path='profile/orders/:number' element={
-          <OrdersDetailPage/>}> 
-        </Route>
+        <Route path='profile/orders/:number' element={<OnlyAuth component={<OrdersDetailPage />}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
         {background && (
@@ -104,10 +101,10 @@ const App = (): JSX.Element => {
            <Modal closeModalHandler={closeOrderFullDetailsPopup}>
               <OrdersDetailPage /> 
            </Modal>}/>
-           <Route path="profile/orders/:number" element={
+           <Route path="profile/orders/:number" element={<OnlyAuth component={
            <Modal closeModalHandler={() => console.log('заглушка которая ничего не сломает')}>
               <OrdersDetailPage /> 
-           </Modal>}/>
+           </Modal>}/>}/>
        </Routes>
          )}
       {!!acceptedOrder && (

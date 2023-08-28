@@ -19,7 +19,7 @@ type TinitialState = {
   error: null| string,
 };
 
-const initialState:TinitialState = {
+export const initialState:TinitialState = {
   indgredientsRequestPending: false,
   indgredientsRequestFulfilled: false,
   indgredientsRequestRejected: false,

@@ -1,6 +1,11 @@
+.order_wrapper {
+  margin: 0 auto;
+}
 .order_container {
   display: flex;
   flex-flow: column;
+  margin: 70px 25px;
+  max-width: 670px;
 }
 
 .order_number {
@@ -61,9 +66,14 @@
 .total_price_container {
   display: flex;
   justify-content: space-between;
+  align-items: space-between;
 }
 
 .price_and_currency_container {
   display: flex;
   gap: 8px;
+}
+
+.order_status__done {
+  color: #0CC;
 }

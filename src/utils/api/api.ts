@@ -35,7 +35,7 @@ export const checkResponse = (res:Response):Promise<any> => {
 }
 
 const refreshToken = () => {
-  return fetch("https://norma.nomoreparties.space/api/auth/token", {
+  return fetch(`${mainUrl}auth/token`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -49,7 +49,7 @@ const refreshToken = () => {
 
 export const getUser = ():TAppThunk => {
   return (dispatch) => {
-    return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
+    return fetchWithRefresh(`${mainUrl}auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export const getCurrenOrderApi = (orderNumber:string):TAppThunk => {
   return function (dispatch) {
     dispatch(getCurrentOrderRequest());
 
-    fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`,{
+    fetch(`${mainUrl}orders/${orderNumber}`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,6 @@ export const getCurrenOrderApi = (orderNumber:string):TAppThunk => {
       })
       .then(checkResponse)
       .then(responseData => {
-        console.log(responseData)
         dispatch(getCurrentOrderRequestSuccess(responseData.orders[0]));
       })
       .catch(error => {
@@ -148,7 +147,7 @@ export const checkUserAuth = ():TAppThunk => {
   //   }
   // };
 
-export const updateUserDataThunk2 = (name:string, email:string, password:string):TAppThunk => {
+export const updateUserDataThunk2 = (name:string | undefined, email:string | undefined, password:string | undefined):TAppThunk => {
 
   return function (dispatch) {
     dispatch(updateUserDataRequest());

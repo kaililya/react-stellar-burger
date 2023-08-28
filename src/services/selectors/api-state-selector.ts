@@ -1,1 +1,3 @@
-export const apiStateSelector = (state:any) => state.apiState;
+import { RootState } from "../../utils/types";
+
+export const apiStateSelector = (state:RootState) => state.apiState;

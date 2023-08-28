@@ -1,1 +1,0 @@
-export const ingredientDetailsSelector = (state:any) => state.ingredientDetails;

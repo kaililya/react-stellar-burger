@@ -79,8 +79,8 @@ export type TOrderData = {
 };
 
 export type TUserData = {
-  readonly email: string;
-  readonly name: string;
+  email: string;
+  name: string;
 };
 
 export type TOrderFeed = {
@@ -104,3 +104,6 @@ export type TFetchOptions = {
   'Content-Type': string;
   authorization?: string;
 };
+
+export type TIconTypes = 'secondary' | 'primary' | 'error' | 'success';
+

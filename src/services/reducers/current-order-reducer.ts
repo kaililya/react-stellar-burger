@@ -10,7 +10,7 @@ type TInitialState = {
   error: string | null;
 };
 
-const initialState:TInitialState = {
+export const initialState:TInitialState = {
   orderData: null,
   getCurrentOrderRequest: false,
   getCurrentOrderRequestFailed: false,
@@ -18,7 +18,7 @@ const initialState:TInitialState = {
   error: null,
 };
 
-const currenOrderReducer = (state = initialState, action:TCurrentOrderActions):TInitialState => {
+export const currenOrderReducer = (state = initialState, action:TCurrentOrderActions):TInitialState => {
   switch (action.type) {
     case GET_CURRENT_ORDER_REQUEST: {
       return {
@@ -53,7 +53,7 @@ const currenOrderReducer = (state = initialState, action:TCurrentOrderActions):T
     case CLEAR_CURRENT_ORDER: {
       return {
         ...state,
-        orderData:null,
+        orderData: null,
       }
     }
     default:
