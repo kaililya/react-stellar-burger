@@ -1,5 +1,6 @@
+![Type Script](https://img.shields.io/badge/-TypeScript-000?logo=typescript&logoColor=3178C6&style=flat)![React](https://img.shields.io/badge/-React-000?&logo=React)![Redux](https://img.shields.io/badge/-ReduxToolkit-000?logo=Redux&logoColor=764ABC&style=flat)![React Router](https://img.shields.io/badge/-ReactRouter-000?logo=reactrouter&logoColor=CA4245&style=flat)![ReactDnD](https://img.shields.io/badge/-ReactDnD-000?logo=React&logoColor=3178C6&style=flat)![HTML5](https://img.shields.io/badge/-HTML5-000?&logo=HTML5)![CSS3](https://img.shields.io/badge/-CSS3-000?&logo=CSS3)![GIT](https://img.shields.io/badge/-GIT-000?&logo=GIT)![NPM](https://img.shields.io/badge/-NPM-000?logo=npm&logoColor=CC3534&style=flat)
 # Проект: Stellar Burgers (Космическая бургерная)
-
+## [Ссылка на сайт](https://kaililya.github.io/react-stellar-burger/)
 #### О проекте
 
 ---
@@ -61,6 +62,5 @@ npm run cypress //для E2E тестирования:
 
 ---
 
-[Обязательно посмторите что получилось на сайте](https://kaililya.github.io/react-stellar-burger/)
 
 ---
