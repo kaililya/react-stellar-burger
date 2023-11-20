@@ -27,7 +27,7 @@
  + Хранилище данных в браузере разработано при помощи ![Redux Toolkit](https://img.shields.io/badge/-ReduxToolkit-000?logo=Redux&logoColor=764ABC&style=flat)
  + Клиентский роутинг и навигация на сайте разработаны и описаны при помощи ![React Router](https://img.shields.io/badge/-ReactRouter-000?logo=reactrouter&logoColor=CA4245&style=flat)
  + Использована библиотека UI-компонентов Яндекс.Практикум.Реакт
- + Лента заказов отражается при помощи Web Sockets
+ + Лента заказов отражается при помощи WebSocket
  + Для тестирования приложения использовани ![Jest](https://img.shields.io/badge/-Jest-000?logo=jest&logoColor=764ABC&style=flat) и ![Cypress](https://img.shields.io/badge/-Cypress-000?logo=cypress&logoColor=764ABC&style=flat)
 
 ---
@@ -35,7 +35,6 @@
 #### Особенности
  + Функционал Drag-and-drop реализован с применением библиотеки React DnD.
  + Автоматическая JWT-авторизация (если пользователь авторизовался, то при повторном посещения сайта ему не нужно заново вводить идентификационные данные).
- + WebSocket.
  + Адаптивная верстка.
  + Отсуствие хардкор данных, все приходит с backend.
  + Клиентский роунтинг, который ограничивает функционал для не авторизованных пользователей.
