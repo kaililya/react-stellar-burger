@@ -2,7 +2,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 180px 0 0;
+
+  margin-top: calc((100vw - 320px)/(1440 - 320) * (180 - 40) + 40px);
 }
 
 .main_container {
@@ -17,6 +18,15 @@
   flex-flow: column nowrap;
   align-items: center;
   gap: 24px;
+  margin-bottom: calc((100vw - 320px)/(1440 - 320) * (44 - 28) + 28px);
+}
+
+.input_extra div {
+  width: calc((100vw - 320px)/(1440 - 320) * (480 - 280) + 280px);
+}
+
+.input_extra svg {
+  margin-left: 200px;
 }
 
 .links_container {
@@ -32,6 +42,14 @@
 }
 
 .link_description {
-display: flex;
-gap: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 500px) {
+  .link_description {
+    flex-flow: column;
+    align-items: center;
+    padding-bottom: 12px;
+  }
 }

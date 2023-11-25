@@ -8,3 +8,16 @@
   display: flex;
   justify-content: flex-end;
 }
+
+@media (max-width: 520px) {
+  .input_extra div {
+    max-width: 320px;
+  }
+}
+
+
+@media (max-width: 390px) {
+  .input_extra div {
+    max-width: 260px;
+  }
+}

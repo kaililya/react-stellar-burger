@@ -45,9 +45,9 @@ const ResetPasswordPage = ():JSX.Element => {
     <div className={styles.wrapper}>
       <section className={`${styles.main_container}`}>
         <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
-        <form onSubmit={hadleSubmit} className={`${styles.form_container} mb-20`}>
-          <PasswordInput onChange={hadleChangeUserData} placeholder={'Введите новый пароль'} name={'password'} value={userData.password}/>
-          <Input onChange={hadleChangeUserData} type={'text'} placeholder={'Введите код из письма'}  name={'token'} value={userData.token}/>
+        <form onSubmit={hadleSubmit} className={`${styles.form_container}`}>
+          <PasswordInput extraClass={styles.input_extra} onChange={hadleChangeUserData} placeholder={'Введите новый пароль'} name={'password'} value={userData.password}/>
+          <Input extraClass={styles.input_extra} onChange={hadleChangeUserData} type={'text'} placeholder={'Введите код из письма'}  name={'token'} value={userData.token}/>
           <Button htmlType="submit" type="primary" size="medium">Сохранить</Button>
         </form>
         <div className={`${styles.links_container}`}>

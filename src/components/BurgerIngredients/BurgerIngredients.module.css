@@ -1,10 +1,26 @@
-.ingredients_main_container {
-  /* outline: 1px solid red; */
+.ingredient_menu_container {
+}
+
+.title {
+  font-size: calc((100vw - 320px)/(1440 - 320) * (36 - 24) + 24px);
+  margin-bottom: calc((100vw - 320px)/(1440 - 320) * (20 - 8) + 8px);
+}
+
+.tab_container {
+  display: flex;
+
+}
+
+.tab_container div {
+  width: 20px;
+  width: 33%;
+  min-width: 33%;
 }
 
 .ingredients_type {
   /* outline: 1px solid blue; */
-  height: 716px;
+  height: calc((100vw - 320px)/(1440 - 320) * (450 - 200) + 180px);
+
   overflow-y: scroll;
 }
 
@@ -22,4 +38,29 @@
 
 .ingredients_type__hovered {
   outline: 1px solid plum;
+}
+
+@media (max-width: 1024px) {
+  /* .ingredient_menu_container {
+    height: 300px;
+  } */
+}
+
+@media (max-width: 700px) {
+  .ingredients_main_container {
+    padding-left: 16px;
+  }
+}
+
+@media (max-width: 470px) {
+  .tab_container div {
+    padding: 12px 20px;
+  }
+
+  .tab_container div:last-child {
+    padding-left: 10px;
+  }
+  .title {
+    margin-left: 12px;
+  }
 }

@@ -28,6 +28,9 @@ const ProfileOrders = ():JSX.Element => {
 
   const { orders } = useAppSelector(store => store.wsOrders);
 
+  const ordersReversed = [...orders].reverse()
+
+
   return (
     <section className={`${stylesProfile.profile_container}`}>
       <nav className={`${stylesProfile.navigation_section}`}>
@@ -60,11 +63,11 @@ const ProfileOrders = ():JSX.Element => {
           </li>
         </ul>
         <p className={`${stylesProfile.navigation_description} text text_type_main-default text_color_inactive`}>
-          В этом разделе вы можете изменить свои персональные данные
+          В этом разделе отображены все ваши заказы
         </p>
       </nav>
       <ul className={`custom-scroll ${styles.order_container}`}>
-        {orders.map((order:TOrderFeed) => (
+        {ordersReversed.map((order:TOrderFeed) => (
         <Link
           to={`${location.pathname}/${order.number}`}
           state={{ background: location }}

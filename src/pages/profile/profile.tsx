@@ -4,10 +4,6 @@ import { logoutUserThunk } from '../../services/thunks/user-api-thunk';
 import { useAppDispatch } from '../../utils/types';
 import { NavLink } from 'react-router-dom';
 
-// 1) пофиксить выбор класса для NavLink
-// p.s. тут только откатывать после обучения на 5 версию, ибо end не работает из-за бага
-// но если кто-то провереят мою работу и знает как это решить, то я был бы очень благодарен
-
 const ProfilePage = ():JSX.Element => {
   const dispatch = useAppDispatch();
   const handleLogoutUser = () => {

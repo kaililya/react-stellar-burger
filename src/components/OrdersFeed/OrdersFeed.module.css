@@ -12,9 +12,11 @@
   flex-direction: column;
   max-width: 768px;
   gap: 16px;
-  height: 600px;
+  height: calc((100vw - 320px)/(1440 - 320) * (500 - 300) + 400px);
   padding: 0 8px 0;
   overflow-y: scroll;
+  overflow-x: hidden;
   text-decoration:none;
+  box-sizing: border-box;
 
 }

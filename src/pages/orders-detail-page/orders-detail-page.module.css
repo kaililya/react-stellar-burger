@@ -5,7 +5,7 @@
   display: flex;
   flex-flow: column;
   margin: 70px 25px;
-  max-width: 670px;
+  max-width: 700px;
 }
 
 .order_number {
@@ -19,12 +19,20 @@
   padding-left: 0;
   display: flex;
   flex-flow: column;
+  align-items: center;
   gap:16px;
+  
 }
 
 .ingredient {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(120.18deg, #801ab3 1%, #4c4cff 100%);
+  padding: 12px 0;
+  border-radius: 20px;
+  /* width: calc((100vw - 320px)/(1440 - 320) * (600 - 180) + 180px); */
+  width: 80%;
 }
 
 .image_wrap {
@@ -55,12 +63,20 @@
 }
 
 .ingredient_name {
-  max-width: 400px;
+  width: 150px;
+  text-align: center;
 }
 
 .price_container {
   display: flex;
-  margin-left: auto;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  margin-right: 12px;
+}
+
+.price_container svg {
+  min-width: 24px !important;
 }
 
 .total_price_container {
@@ -76,4 +92,26 @@
 
 .order_status__done {
   color: #0CC;
+}
+
+@media (max-width: 620px) {
+  .ingredient {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .order_status__done {
+    margin-bottom: 30px;
+  }
+
+  .ingredient_container_title {
+    margin-bottom: 12px;
+  }
+
+  .ingredient_container {
+    max-height: 260px;
+  }
+  .order_number {
+    margin-bottom: 20px;
+  }
 }

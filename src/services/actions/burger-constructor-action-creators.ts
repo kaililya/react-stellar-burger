@@ -27,8 +27,8 @@ type TResetBurger = {
   readonly type: typeof RESET_BURGER;
 };
 
-export const setBun = (bun:TIngredientAddUniqueId):TSetBun => ({type: SET_BUN, payload: bun});
-export const addIngredient = (ing:TIngredientAddUniqueId):TAddIngredient => ({ type: ADD_INGREDIENT, payload: {...ing, unique_id: nanoid(12)} });
+export const setBun = (bun:any):TSetBun => ({type: SET_BUN, payload: bun});
+export const addIngredient = (ing:any):TAddIngredient => ({ type: ADD_INGREDIENT, payload: {...ing, unique_id: nanoid(12)} });
 export const deleteIngredient = (ing:TIngredientAddUniqueId):TDeleteIngredient => ({ type: DELETE_INGREDIENT, payload: ing });
 export const moveIngredient = ({ ing, pos }:{readonly ing:TIngredientAddUniqueId, readonly pos:number}):TMoveIngredient => ({ type: MOVE_INGREDIENT, payload: { ing, pos } });
 export const resetBurger = ():TResetBurger => ({ type: RESET_BURGER });

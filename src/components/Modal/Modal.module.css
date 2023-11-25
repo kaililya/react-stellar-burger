@@ -2,7 +2,7 @@
   position: fixed;
   top: 50%;
   right: 50%;
-  width: 720px;
+  width: calc((100vw - 320px)/(1440 - 320) * (720 - 280) + 280px);
   background-color: #1c1c21;
   transform: translateX(50%) translateY(-50%);
   border-radius: 40px;

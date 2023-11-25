@@ -11,12 +11,12 @@ type TIngredientItem<T> = {
   igredient: T;
 };
 
-
 const IngredientItem  = ({ igredient }:TIngredientItem<TIngredient>):JSX.Element => {
+ 
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const[{ isDrag }, dragRef] = useDrag({
+  const [{ isDrag }, dragRef] = useDrag({
     type: 'ingredient',
     item: igredient,
     collect: monitor => ({
@@ -24,7 +24,7 @@ const IngredientItem  = ({ igredient }:TIngredientItem<TIngredient>):JSX.Element
     })
   });
 
-  const {bun, ingredients} = useAppSelector(burgerConstructorSelector);
+  const { bun, ingredients } = useAppSelector(burgerConstructorSelector);
 
   const count = React.useMemo<number>(() => {
     
@@ -38,10 +38,13 @@ const IngredientItem  = ({ igredient }:TIngredientItem<TIngredient>):JSX.Element
   const handleSetIngredient = () => {
     dispatch(setSelectedIngredient(igredient));
   };
- 
+
+  
+ const Jjjj = isDrag ? ` ${styles.ingredient} ${styles.ingredient_dragged}` : ` ${styles.ingredient} `
   return (
-    <div className={`mb-8 ${styles.ingredient}`} key={igredient["_id"]} ref={dragRef}>
-      {!!count && <Counter count={count} size="default" extraClass="m-1" />}
+    <div className={Jjjj} key={igredient["_id"]} ref={dragRef}>
+      {isDrag &&<p style={{color: '#0CC', textAlign:'center'}} className={`text text_type_main-small mt-2`}>Удерживая перенесите в область</p> }
+      {!!count && <Counter count={count} size="default" extraClass={styles.count} />}
       <Link
         to={`/ingredient-detail/${igredient._id}`}
         state={{ background: location }}
@@ -50,12 +53,12 @@ const IngredientItem  = ({ igredient }:TIngredientItem<TIngredient>):JSX.Element
         onClick={handleSetIngredient}/>
       </Link>
       <div className={`${styles.price_container}`}>
-        <p className={`text text_type_digits-default mr-1`}>{igredient.price}</p>
+        <p className={`text text_type_digits-default mr-1 ${styles.ingredient_price}`}>{igredient.price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <button className={styles.button_wrapper} 
       >
-        <h3 className={`mt-2 text text_type_main-default ${styles.ingredient_name}`}>{igredient.name}</h3>
+        <h3 className={` text text_type_main-default ${styles.ingredient_name}`}>{igredient.name}</h3>
       </button>
   </div>
   )

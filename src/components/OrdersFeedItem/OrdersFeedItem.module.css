@@ -9,7 +9,11 @@
   max-width: 584px;
   color: aliceblue;
   text-decoration:none;
+  transition: box-shadow .2s ease-in;
+}
 
+.order_item:hover {
+  box-shadow:  2px 1px 1px 1px rgb(246, 83, 227);
 }
 
 .order_stat_container {
@@ -23,13 +27,14 @@
 }
 
 .order_image_wrapper {
-  height: 64px;
-  width: 64px;
+  height: calc((100vw - 320px)/(1440 - 320) * (64 - 42) + 46px);
+  width: calc((100vw - 320px)/(1440 - 320) * (64 - 42) + 46px);
   background-color: #131316;
   border-radius: 100px;
   position: relative;
   border: 2px solid #801AB2;
   display: flex;
+  transition: background-color .2s ease-in;
 }
 
 
@@ -39,9 +44,10 @@
 
 
 .order_ingredient_image {
-  max-width: 112px;
+  width: calc((100vw - 320px)/(1440 - 320) * (122 - 86) + 86px);
+
   position: relative;
-  left: -24px;
+  left: -22px;
 }
 
 .order_status__done {
@@ -61,5 +67,16 @@
 
 .order_price_container {
   display: flex;
+  align-items: center;
   gap: 8px;
+}
+
+@media (max-width: 490px) {
+  .order_item {
+    width: 240px;
+  }
+  .order_stat_container {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

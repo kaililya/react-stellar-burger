@@ -1,5 +1,4 @@
 import React from 'react'
-import { RootStateOrAny  } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom';
 import { setAuthorizationState,  } from '../../services/actions/user-api-action-creators';
 import { checkUserAuth } from '../../utils/api/api';
@@ -12,8 +11,6 @@ type TProtectedRoute = {
 
 const ProtectedRoute = ({ onlyUnAuth = false, component}:TProtectedRoute):JSX.Element => {
   const dispatch = useAppDispatch();
-
-  const isAuthChecked = useAppSelector((store) => store.userData.isUserAuth);
   const user = useAppSelector((store) => store.userData.userData);
   const location = useLocation();
   

@@ -2,6 +2,9 @@
   display: flex;
   max-width: 1920px;
   justify-content: center;
-  flex-flow: row nowrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 16px;
 }
+
+

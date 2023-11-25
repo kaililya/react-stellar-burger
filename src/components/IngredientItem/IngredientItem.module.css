@@ -3,9 +3,22 @@
   flex-flow: column;
   align-items: center;
   position: relative;
-  max-width: 272px;
-  height: 208px;
+  width: calc((100vw - 320px)/(1440 - 320) * (240 - 120) + 120px);
+  height: calc((100vw - 320px)/(1440 - 320) * (240 - 120) + 120px);
   flex-grow: 1;
+  margin-bottom: 22px;
+  transition: box-shadow .2s ease-in, border-radius .4s ease-in;
+  background-color: #2f2f37;
+  border-radius: 10px;
+}
+
+.ingredient_dragged {
+  box-shadow:  2px 2px 10px 1px #4C4CFF;;
+}
+
+.ingredient:hover {
+  box-shadow:  2px 2px 10px 1px #4C4CFF;
+  border-radius: 20px;
 }
 
 
@@ -14,11 +27,25 @@
 }
 
 .ingredient__image {
-  width: 240px;
+  width: calc((100vw - 320px)/(1440 - 320) * (240 - 110) + 110px);
+
+}
+
+.ingredient_price {
+  font-size: calc((100vw - 320px)/(1440 - 320) * (28 - 24) + 24px);
+
 }
 
 .ingredient_name {
+  margin-top: 8px;
+  font-size: calc((100vw - 320px)/(1440 - 320) * (16 - 12) + 12px);
   text-align: center;
+}
+
+.count {
+  width: calc((100vw - 320px)/(1440 - 320) * (32 - 24) + 24px);
+  height: calc((100vw - 320px)/(1440 - 320) * (32 - 24) + 24px);
+  font-size: calc((100vw - 320px)/(1440 - 320) * (28 - 20) + 20px);
 }
 
 .price_container {
@@ -33,5 +60,19 @@
   cursor: none;
   background-color: transparent;
   color: white;
-  
+}
+
+@media (max-width: 1024px) {
+  .ingredient {
+    /* margin-top: 26px; */
+  }
+
+}
+
+@media (max-width: 768px) {
+  .ingredient_name {
+    margin-top: 4px;
+    line-height: 1.1;
+  }
+
 }

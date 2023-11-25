@@ -31,12 +31,12 @@ const TotalPrice = ({ totalPrice }:TTotalPrice):JSX.Element=> {
   };
 
   return (
-    <footer className={`mt-4 mr-4 pb-3 ${styles.price_container}`}>
+    <footer className={` mr-4 pb-3 ${styles.price_container}`}>
       <div className={`mr-10 ${styles.price_currency_container}`}>
         <p className="text text_type_digits-medium">{ totalPrice }</p>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" disabled={!bun}
+      <Button extraClass={styles.order_button} htmlType="button" type="primary" size="large" disabled={!bun}
       onClick={makeOrder}
       >
       {orderRequestPending ? 'Оформление заказа...' : 'Оформить заказ'}

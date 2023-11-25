@@ -43,12 +43,19 @@ const BurgerConstructor = ():JSX.Element => {
       acc = bun.price * 2;
     }
     return ingredients.reduce( (sum:number, ing:TIngredientAddUniqueId) => sum + ing.price, acc);
-
-
   }, [ingredients, bun]);
 
+  
+  const handleSwitchText = () => {
+    if (isHover && isEmpty) {
+      return  "Добавьте меня сюда :)"
+    } else if (isEmpty) {
+      return  "Чтобы сделать заказ необходимо перенесите хотя бы 1 булочку в зону сборки (сюда)"
+    }
+   
+  }
   return (
-      <section className={`${styles.main_section} mt-25 pb-10`}> 
+      <section className={`${styles.main_section} pb-10`}> 
         <div ref={refDrop} className={containerHoverClass}>
           <div className={`${styles.ingredient} ${styles.bun_top}`}>
           {bun && (<ConstructorElement
@@ -59,7 +66,7 @@ const BurgerConstructor = ():JSX.Element => {
               thumbnail={bun.image}
             />)}
           </div>
-         {isEmpty ? (<p>Добавьте любой ингредиент...</p>) : 
+         {isEmpty ? (<p className={`text text_type_main-medium ${styles.title}`}>{handleSwitchText()}</p>) : 
          (<ul className={`custom-scroll ${styles.scroll_zone}`}>
             {ingredients.map( (item:TIngredientAddUniqueId, index:number) => (<BurgerConstructorItem item={item} index={index} key={item.unique_id}/>))}
           </ul>)}
