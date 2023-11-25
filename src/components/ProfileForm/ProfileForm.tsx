@@ -57,10 +57,10 @@ const ProfileForm = ():JSX.Element => {
   return (
     <form onSubmit={hadleSubmit} className={`${styles.form_container}`}>
       {/* @ts-ignore */}
-      <Input onChange={onChange} type={'text'} placeholder={'Имя'} name={'name'} icon={'EditIcon'} value={userData.name}/>
+      <Input extraClass={styles.input_extra} onChange={onChange} type={'text'} placeholder={'Имя'} name={'name'} icon={'EditIcon'} value={userData.name}/>
       {/* @ts-ignore */}
-      <Input onChange={onChange} name={'email'} icon={'EditIcon'} value={userData.email} />
-      <PasswordInput onChange={onChange} name={'password'} icon='EditIcon' value={''}/>
+      <Input extraClass={styles.input_extra} onChange={onChange} name={'email'} icon={'EditIcon'} value={userData.email} />
+      <PasswordInput extraClass={styles.input_extra} onChange={onChange} name={'password'} icon='EditIcon' value={''}/>
       {inputChanged && (
         <div className={`${styles.button_container}`}>
           <Button htmlType="button" type="secondary" size="large" onClick={handleCancelChanges}>

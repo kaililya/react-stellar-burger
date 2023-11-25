@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react'
+import React from 'react'
 import styles from './BurgerIngredients.module.css';
 import IngredientMenu from '../IngredientMenu/IngredientMenu';
 import { useDrop } from 'react-dnd';
@@ -6,19 +6,22 @@ import { deleteIngredient } from '../../services/actions/burger-constructor-acti
 import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const BurgerIngredients = ():JSX.Element => {
 
   const dispatch = useAppDispatch();
-   
+  const navigate = useNavigate();
+
   const [{ droppedItem, isHover }, dropRef] = useDrop({
     accept: 'constructor',
     collect: monitor => ({
       droppedItem: monitor.getItem(),
       isHover: monitor.isOver(),
     }),
-    drop: () => { dispatch(deleteIngredient(droppedItem)) },
+    drop: () => {dispatch(deleteIngredient(droppedItem)) },
   });
 
   const baseRef = React.useRef<HTMLHeadingElement>(null);
@@ -29,7 +32,7 @@ const BurgerIngredients = ():JSX.Element => {
 
   const [watchBunsRef, isBunsVisible] = useInView({
     root: baseRef.current,
-    threshold: 0.15,
+    threshold: 0.1,
 
   });
 
@@ -57,12 +60,20 @@ const BurgerIngredients = ():JSX.Element => {
     mainsRef.current!.scrollIntoView({behavior: 'smooth'});
   }, []);
 
+  const handleTutorialPopup = () => {
+    navigate('/warning');
+  }
+
   const containerHoverClass: string = isHover ? `${styles.ingredients_type} ${styles.ingredients_type__hovered}` : `${styles.ingredients_type}`
   return (
     <section className={`mt-10 mr-10 ${styles.ingredients_main_container}`} ref={dropRef} >
-      <div className={`mb-10`}>
-        <h1 className={`text text_type_main-large mb-5`}>Соберите бургер</h1>
-        <div style={{ display: 'flex', flexWrap: 'wrap'}}>
+      <div className={`mb-4`}>
+      <Button style={{color: 'rgb(0, 204, 204)'}} extraClass='mb-6' htmlType="button" type="secondary"  onClick={handleTutorialPopup}>
+        О сайте (инструкция как собрать бургер)
+      </Button>
+        <h1 className={`text text_type_main-large ${styles.title}`}>Соберите бургер</h1>
+
+        <div className={styles.tab_container}>
           <Tab value="Булки" active={isBunsVisible} onClick={handleBunsClick}>
             Булки
           </Tab>
@@ -74,7 +85,7 @@ const BurgerIngredients = ():JSX.Element => {
           </Tab>
        </div>
       </div>
-      <div className={`custom-scroll ${containerHoverClass}`} ref={baseRef} >
+      <div className={`custom-scroll ${styles.ingredient_menu_container} ${containerHoverClass}`} ref={baseRef} >
         <div ref={watchBunsRef}>
           <IngredientMenu ref={bunsRef} typeOfIng={'bun'} title={'Булки'} />
         </div>  

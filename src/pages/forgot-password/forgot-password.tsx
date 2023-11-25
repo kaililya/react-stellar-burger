@@ -29,8 +29,8 @@ const ForgotPasswordPage = ():JSX.Element => {
     <div className={styles.wrapper}>
       <section className={`${styles.main_container}`}>
         <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
-        <form onSubmit={handleSubmit} className={`${styles.form_container} mb-20`}>
-          <EmailInput onChange={hadleChangeUserData} value={userData.email} name={'email'} isIcon={false} />
+        <form onSubmit={handleSubmit} className={`${styles.form_container}`}>
+          <EmailInput extraClass={styles.input_extra} onChange={hadleChangeUserData} value={userData.email} name={'email'} isIcon={false} />
           <Button htmlType="submit" type="primary" size="medium">Восстановить</Button>
         </form>
         <div className={`${styles.links_container}`}>

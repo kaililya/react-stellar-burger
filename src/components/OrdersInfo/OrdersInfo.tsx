@@ -31,9 +31,9 @@ const OrdersInfo = ():JSX.Element => {
           </ul>
         </div>
       </div>
-      <span className='text text_type_main-medium'>Выполнено за все время:</span>
+      <span className={`text text_type_main-medium ${styles.number_title}`}>Выполнено за все время:</span>
       <p className={`text text_type_digits-large mb-10 ${styles.number_order}`}>{totalOrders}</p>
-      <span className='text text_type_main-medium'>Выполнено за сегодня</span>
+      <span className={`text text_type_main-medium ${styles.number_title}`}>Выполнено за сегодня</span>
       <p className={`text text_type_digits-large ${styles.number_order}`}>{totalOrdersToday}</p>
     </section>
   )

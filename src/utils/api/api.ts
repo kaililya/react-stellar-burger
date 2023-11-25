@@ -112,7 +112,7 @@ export const checkUserAuth = ():TAppThunk => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
-      // @ts-ignore
+                                                                         // @ts-ignore
       .catch(() => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");

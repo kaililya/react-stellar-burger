@@ -1,12 +1,13 @@
 import styles from './main.module.css'
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 
 const MainPage = ():JSX.Element => {
   return (
-   <DndProvider backend={HTML5Backend}>
+   <DndProvider backend={TouchBackend}
+   options={{ enableMouseEvents: true }}>
       <main className={`${styles.main}`}>
         <BurgerIngredients />
         <BurgerConstructor />

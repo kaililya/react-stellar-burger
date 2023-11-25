@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor-action-creators';
@@ -38,14 +38,16 @@ const BurgerConstructorItem = ({ item, index }:BurgerConstructorItem<TIngredient
   });
 
   return (
-    <li className={`pr-4 ${styles.ingredient}`} ref={movedRef} >
+    <li className={`pr-4 ${styles.ingredient_drop}` } ref={movedRef} >
       <div className={styles.ingredient_drop} ref={dragRef}  >
-       <DragIcon type="primary" />
-        <ConstructorElement
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-          handleClose={handleDeleteItem}
+        <span className={styles.drag_icon_wrapper}>
+          <DragIcon type="primary" />
+        </span>
+       <ConstructorElement
+        text={item.name}
+        price={item.price}
+        thumbnail={item.image}
+        handleClose={handleDeleteItem}
         />
       </div>
     </li>

@@ -33,10 +33,10 @@ const RegisterPage = ():JSX.Element => {
     <div className={styles.wrapper}>
       <section className={`${styles.main_container}`}>
         <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
-        <form className={`${styles.form_container} mb-20`} onSubmit={hadleSubmit}>
-          <Input onChange={hadleChangeUserData} type={'text'} placeholder={'Имя'} value={userData.name} name={'name'}/>
-          <EmailInput onChange={hadleChangeUserData} value={userData.email} name={'email'} isIcon={false} />
-          <PasswordInput onChange={hadleChangeUserData} value={userData.password} name={'password'}/>
+        <form className={`${styles.form_container}`} onSubmit={hadleSubmit}>
+          <Input extraClass={styles.input_extra} onChange={hadleChangeUserData} type={'text'} placeholder={'Имя'} value={userData.name} name={'name'}/>
+          <EmailInput extraClass={styles.input_extra} onChange={hadleChangeUserData} value={userData.email} name={'email'} isIcon={false} />
+          <PasswordInput extraClass={styles.input_extra} onChange={hadleChangeUserData} value={userData.password} name={'password'}/>
           <Button htmlType="submit" type="primary" size="medium">Зарегистрироваться</Button>
         </form>
         <div className={`${styles.links_container}`}>

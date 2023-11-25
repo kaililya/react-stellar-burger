@@ -1,37 +1,59 @@
-.ingredient_main_container {
-  padding-right:8px;
+.main_section {
+  padding-left: calc((100vw - 320px)/(1440 - 320) * (100 - 30) + 30px);
   display: flex;
-  width: 600px; 
-  margin-top:100px;
+  flex-flow: column nowrap;
+  width: 600px;
+  height: calc(100vh - 188px); 
+}
+
+.ingredient_main_container {
+  display: flex;
+  width: 80%;
+  margin-top: calc((100vw - 320px)/(1440 - 320) * (100 - 30));
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
   height: 100%;
   gap: 16px;
+  -webkit-box-shadow: -1px 0px 25px 15px rgba(76, 76, 255, 0.2);
+  -moz-box-shadow: -1px 0px 25px 15px rgba(76, 76, 255, 0.2);
+  box-shadow: -1px 0px 25px 15px rgba(76, 76, 255, 0.2);
+  border-radius: 88px 88px 88px 88px;
+  padding-left: 18px;
  }
 
  .ingredient_main_container__hovered {
-  outline: 1px solid rgb(255, 48, 231);
+    transition: box-shadow .3s ease-in;
+    -webkit-box-shadow: -1px 0px 25px 15px rgb(255, 48, 231);
+    -moz-box-shadow: -1px 0px 25px 15px rgb(255, 48, 231);
+    box-shadow: -1px 0px 25px 15px rgb(255, 48, 231);
  }
 
- .main_section {
-  display: flex;
-  flex-flow: column nowrap;
-  width: 600px;
-  height: calc(100vh - 188px);
+ .title {
+    margin: 12px 0;
+    width: calc((100vw - 320px)/(1440 - 320) * (400 - 200) + 200px);
+    color: rgb(190, 190, 190);  
+    font-size: calc((100vw - 320px)/(1440 - 320) * (24 - 16) + 16px);
+    text-align: center;
+    text-shadow: 0px 4px 32px rgba(51, 51, 255, 0.5);
+    text-shadow: 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+    text-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25);
  }
+
+
  
  .scroll_zone {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  list-style: none outside;
-  display: flex;
-  gap: 16px;
-  flex-flow: column nowrap;
-  height: calc(100vh - 188px - 156px - 192px);
-  width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    flex-flow: column nowrap;
+    padding-right: calc((100vw - 320px)/(1440 - 320) * (60 - 24) + 24px);
+    width: 100%;
+    height: calc(100vh - 488px);
  }
 
  .bun_top {
@@ -43,3 +65,92 @@
  }
 
  
+ @media (max-width:1024px) {
+
+  .main_section {
+    padding-left: calc((100vw - 320px)/(1440 - 320) * (120 - 36) + 36px);
+    width: 96%;
+  }
+
+  .scroll_zone {
+    padding-left: calc((100vw - 320px)/(1440 - 320) * (100 - 0) + 0px);
+    padding-right: calc((100vw - 320px)/(1440 - 320) * (12 - 12) + 12px);
+    /* height: 40%; */
+  }
+
+  .bun_top div {
+    padding-bottom: calc((100vw - 320px)/(900 - 320) * (16 - 8) + 8px);
+    padding-top: calc((100vw - 320px)/(900 - 320) * (16 - 8) + 8px);
+    padding-right: 50px;
+    padding-left: calc((100vw - 320px)/(900 - 320) * (24 - 12) + 12px);
+    padding-left: 0;
+    width: 93%;
+    /* background-color: aliceblue; */
+  }
+  
+ .bun_bottom div {
+    padding-bottom: calc((100vw - 320px)/(900 - 320) * (16 - 8) + 8px);
+    padding-top: calc((100vw - 320px)/(900 - 320) * (16 - 8) + 8px);
+    padding-right: 50px;
+    padding-left: calc((100vw - 320px)/(900 - 320) * (24 - 12) + 12px);
+    padding-left: 0;
+    /* background-color: aliceblue; */
+ }
+ .bun_top span {
+  /* background-color: chocolate; */
+ }
+ .bun_bottom span {
+  /* background-color: chocolate; */
+ }
+
+ .bun_bottom img {
+    margin-right: 0;
+    width: 60px;
+    height: 30px;
+ }
+ .bun_top img {
+   margin-right: 0;
+   width: 60px;
+   height: 30px;
+ }
+ .bun_top span span {
+    margin-right: calc((100vw - 320px)/(1440 - 320) * (20 - 8) + 8px);
+ }
+ .bun_bottom span span {
+  margin-right: calc((100vw - 320px)/(1440 - 320) * (20 - 8) + 8px);
+ }
+
+.bun_top span span:last-child {
+  /* background-color: hsl(123, 100%, 65%); */
+  width: 16px;
+  margin: 0;
+}
+
+.bun_bottom span span:last-child {
+  /* background-color: hsl(123, 100%, 65%); */
+  width: 16px;
+  margin: 0;
+  margin-left: 8px;
+}
+.bun_top span span:nth-child(3) {
+  /* background-color: #761b79; */
+  font-size:  calc((100vw - 320px)/(900 - 320) * (28 - 20) + 20px);
+}
+
+.bun_top span span:nth-child(2) {
+  /* background-color: #1b4179; */
+  font-size:  calc((100vw - 320px)/(900 - 320) * (16 - 12) + 12px);
+}
+.bun_bottom span span:nth-child(3) {
+  /* background-color: #761b79; */
+  margin: 0;
+  font-size:  calc((100vw - 320px)/(900 - 320) * (28 - 20) + 20px);
+}
+
+.bun_bottom span span:nth-child(2) {
+  margin: 0;
+  /* background-color: #1b2f79; */
+  font-size:  calc((100vw - 320px)/(900 - 320) * (16 - 12) + 12px);
+}
+
+}

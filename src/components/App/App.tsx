@@ -25,6 +25,7 @@ import FeedPage from "../../pages/feed/feed";
 import OrdersDetailPage from "../../pages/orders-detail-page/orders-detail-page";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
 import ProfileOrders from "../ProfileOrders/ProfileOrders";
+import WarningPage from "../../pages/warning/warning";
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -56,6 +57,7 @@ const App = (): JSX.Element => {
       dispatch(checkUserAuth())
     };
   }, [dispatch]);
+     
 
   if (indgredientsRequestPending) {
     return (
@@ -68,6 +70,7 @@ const App = (): JSX.Element => {
       <p>Произошла ошибка: {error}</p>
     )
   };
+
 
   return (
     <div className={styles.app}>
@@ -89,6 +92,10 @@ const App = (): JSX.Element => {
         </Route>
         <Route path='profile/orders/:number' element={<OnlyAuth component={<OrdersDetailPage />}/>} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/warning" element={
+           <Modal closeModalHandler={closeIngredientDetailsPopup}>
+              <WarningPage /> 
+           </Modal>}/>
       </Routes>
         {background && (
         <Routes> 
@@ -96,7 +103,6 @@ const App = (): JSX.Element => {
            <Modal closeModalHandler={closeIngredientDetailsPopup}>
               <IngredientDetailPage ingredients={allIngredients}/> 
            </Modal>}/>
-
            <Route path="/feed/:number" element={
            <Modal closeModalHandler={closeOrderFullDetailsPopup}>
               <OrdersDetailPage /> 

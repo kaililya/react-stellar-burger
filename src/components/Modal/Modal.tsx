@@ -5,10 +5,6 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { useNavigate } from 'react-router-dom';
 
-// TODO
-// 1) Сделать так, чтобы при закрытие попапа я переходил на /feed, а не /main
-// т.е. нужно сделать так, чтобы я возвращался на пред. руть по истории переходов
-
 type TModal = {
   closeModalHandler: () => void | undefined;
   children: JSX.Element;

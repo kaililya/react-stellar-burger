@@ -2,6 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 18px;
+}
+
+.title {
+  font-size: calc((100vw - 320px)/(1440 - 320) * (36 - 26) + 26px);
+  width: calc((100vw - 320px)/(1440 - 320) * (36 - 26) + 26px);
+
+  margin: 0 12px 0 18px;
+  text-align: center;
 }
 
 .popup_details_container {
@@ -13,14 +22,29 @@
   justify-content: center;
 }
 
+.popup {
+  width: calc((100vw - 320px)/(1440 - 320) * (480 - 260) + 260px);
+}
+
 .popup_list_item {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 1;
 }
+.popup_list_selectedIngredient {
+  width: 126px;
+}
+
 
 
 .text_grey {
   color: rgba(133, 133, 173, 1);
+}
+
+@media (max-width: 900px) {
+  .popup_details_container {
+    flex-direction: column;
+    align-items: center;
+  }
 }

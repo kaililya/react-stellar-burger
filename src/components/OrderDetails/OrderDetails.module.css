@@ -13,8 +13,15 @@
   text-shadow: 0px 4px 32px rgba(51, 51, 255, 0.5);
   text-shadow: 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
   text-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25);
+  font-size: calc((100vw - 320px)/(1440 - 320) * (144 - 80) + 80px);
+}
+
+.name_order {
+  font-size: calc((100vw - 320px)/(1440 - 320) * (24 - 18) + 18px);
+
 }
 
 .text_waiting {
   color: rgba(133, 133, 173, 1);
+  text-align: center;
 }

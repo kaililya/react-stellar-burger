@@ -2,9 +2,8 @@ import React, { useEffect, useMemo, FC } from 'react'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './orders-detail-page.module.css'
 import { tranlateStatus } from '../../utils/utils';
-import { TIngredient, TIngredientAddUniqueId, useAppDispatch, useAppSelector } from '../../utils/types';
+import { TIngredient, useAppDispatch, useAppSelector } from '../../utils/types';
 import { useParams } from 'react-router-dom';
-import { ingredientsSelector } from '../../services/selectors/data-selectors';
 import { getCurrenOrderApi } from '../../utils/api/api';
 import { setClearCurrentOrder } from '../../services/actions/current_order_action-creators';
 
@@ -66,14 +65,14 @@ const OrdersDetailPage:FC = () => {
         <h2 className="text text_type_main-medium mb-3">{currentOrder?.name}</h2>
         <p className={tranlateStatus(currentOrderStatus) === 'Готов' ? `text text_type_main-default mb-15 ${styles.order_status__done}` : `text text_type_main-default mb-15`}>
           {tranlateStatus(currentOrderStatus)}</p>
-        <p className="text text_type_main-medium mb-6">Состав</p>
+        <p className={`text text_type_main-medium mb-6 ${styles.ingredient_container_title}`}>Состав</p>
         <ul className={`custom-scroll pr-6 ${styles.ingredient_container}`}>
           {orderIngredientsUniqueIngredients.map((item:any, i:number) => (
           <li className={styles.ingredient} key={i}>
             <div className={styles.image_wrap}>
               <img className={styles.image} src={item.image} alt={item.name} />
             </div>
-            <p className={`${styles.ingredient_name} text text_type_main-default ml-4`}>{item.name}</p>
+            <p className={`${styles.ingredient_name} text text_type_main-default ml-4 mr-8`}>{item.name}</p>
             <div className={styles.price_container}>
               <p className="text text_type_digits-default mr-2">
                 {item.type === "bun" ? `2 x ${item.price}` : item.price}
